@@ -3,12 +3,32 @@ lexer grammar JinjaHtmlLexer;
 
 DOCTYPE: '<!DOCTYPE ' .*? '>';
 
+
+JINJA_EXPR_START : '{{' ;
+JINJA_EXPR_END   : '}}' ;
+
+JINJA_STMT_START : '{%' ;
+JINJA_STMT_END   : '%}' ;
+
+JINJA_COMMENT_START : '{#' ;
+JINJA_COMMENT_END   : '#}' ;
+
+
+JINJAS: 'block content';
+JINJAE: 'endblock';
+
+
+
 OST: '<';
 CT: '>';
 OET: '</';
 EM: '!';
 EQUALS: '=';
 COLON : ':';
+LKB: '{';
+RKB: '}';
+
+//html elements
 HTML: 'html';
 BODY: 'body';
 HEAD: 'head';
