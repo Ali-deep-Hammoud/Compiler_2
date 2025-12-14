@@ -24,7 +24,35 @@ public class JinjaHtmlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> i
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDocument(JinjaHtmlParser.DocumentContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBaseDocument(JinjaHtmlParser.BaseDocumentContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTopLevelComment(JinjaHtmlParser.TopLevelCommentContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTopLevelText(JinjaHtmlParser.TopLevelTextContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHtml(JinjaHtmlParser.HtmlContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinja(JinjaHtmlParser.JinjaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -66,6 +94,34 @@ public class JinjaHtmlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> i
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitJinjaConditionStatement(JinjaHtmlParser.JinjaConditionStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaBlockPlace(JinjaHtmlParser.JinjaBlockPlaceContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaLoop(JinjaHtmlParser.JinjaLoopContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitHtmlComment(JinjaHtmlParser.HtmlCommentContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitIdentifier(JinjaHtmlParser.IdentifierContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -73,49 +129,7 @@ public class JinjaHtmlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> i
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitString(JinjaHtmlParser.StringContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJinjaDoc(JinjaHtmlParser.JinjaDocContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJinjastart(JinjaHtmlParser.JinjastartContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJinjaend(JinjaHtmlParser.JinjaendContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx) { return visitChildren(ctx); }
+	@Override public T visitText(JinjaHtmlParser.TextContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -143,138 +157,166 @@ public class JinjaHtmlParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> i
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLink(JinjaHtmlParser.LinkContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAttribute(JinjaHtmlParser.AttributeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitImage(JinjaHtmlParser.ImageContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaInheritance(JinjaHtmlParser.JinjaInheritanceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInput(JinjaHtmlParser.InputContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInheritanceStart(JinjaHtmlParser.InheritanceStartContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHtml(JinjaHtmlParser.HtmlContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaBlock(JinjaHtmlParser.JinjaBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBody(JinjaHtmlParser.BodyContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaBlockStart(JinjaHtmlParser.JinjaBlockStartContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHead(JinjaHtmlParser.HeadContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaBlockeEnd(JinjaHtmlParser.JinjaBlockeEndContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitH1(JinjaHtmlParser.H1Context ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaSuperBlock(JinjaHtmlParser.JinjaSuperBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitH2(JinjaHtmlParser.H2Context ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaConditionStmt(JinjaHtmlParser.JinjaConditionStmtContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitH3(JinjaHtmlParser.H3Context ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaIf(JinjaHtmlParser.JinjaIfContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitH4(JinjaHtmlParser.H4Context ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaElseIf(JinjaHtmlParser.JinjaElseIfContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitH5(JinjaHtmlParser.H5Context ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaElse(JinjaHtmlParser.JinjaElseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNav(JinjaHtmlParser.NavContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaEndIf(JinjaHtmlParser.JinjaEndIfContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDiv(JinjaHtmlParser.DivContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaParentecesCondition(JinjaHtmlParser.JinjaParentecesConditionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSpan(JinjaHtmlParser.SpanContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaConditionsRoot(JinjaHtmlParser.JinjaConditionsRootContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitA(JinjaHtmlParser.AContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaCondition(JinjaHtmlParser.JinjaConditionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTitle(JinjaHtmlParser.TitleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaVaraiableConditon(JinjaHtmlParser.JinjaVaraiableConditonContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitP(JinjaHtmlParser.PContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaCompareCondition(JinjaHtmlParser.JinjaCompareConditionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitForm(JinjaHtmlParser.FormContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaForLoop(JinjaHtmlParser.JinjaForLoopContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLabel(JinjaHtmlParser.LabelContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaFor(JinjaHtmlParser.JinjaForContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAttripute(JinjaHtmlParser.AttriputeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinjaEndFor(JinjaHtmlParser.JinjaEndForContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaVariable(JinjaHtmlParser.JinjaVariableContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx) { return visitChildren(ctx); }
 }

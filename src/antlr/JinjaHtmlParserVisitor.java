@@ -16,11 +16,40 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(JinjaHtmlParser.ProgContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#document}.
+	 * Visit a parse tree produced by the {@code BaseDocument}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDocument(JinjaHtmlParser.DocumentContext ctx);
+	T visitBaseDocument(JinjaHtmlParser.BaseDocumentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TopLevelComment}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTopLevelComment(JinjaHtmlParser.TopLevelCommentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TopLevelText}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTopLevelText(JinjaHtmlParser.TopLevelTextContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Html}
+	 * labeled alternative in {@link JinjaHtmlParser#document}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHtml(JinjaHtmlParser.HtmlContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja}
+	 * labeled alternative in {@link JinjaHtmlParser#document}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja(JinjaHtmlParser.JinjaContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code HtmlElement}
 	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
@@ -57,6 +86,34 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJinjaComment(JinjaHtmlParser.JinjaCommentContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code JinjaConditionStatement}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaConditionStatement(JinjaHtmlParser.JinjaConditionStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code JinjaBlockPlace}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaBlockPlace(JinjaHtmlParser.JinjaBlockPlaceContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code JinjaLoop}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaLoop(JinjaHtmlParser.JinjaLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code HtmlComment}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHtmlComment(JinjaHtmlParser.HtmlCommentContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Identifier}
 	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
 	 * @param ctx the parse tree
@@ -64,48 +121,12 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentifier(JinjaHtmlParser.IdentifierContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code String}
+	 * Visit a parse tree produced by the {@code Text}
 	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitString(JinjaHtmlParser.StringContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaDoc}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinjaDoc(JinjaHtmlParser.JinjaDocContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjastart}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinjastart(JinjaHtmlParser.JinjastartContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaend}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinjaend(JinjaHtmlParser.JinjaendContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaExpr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaStmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaComnt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx);
+	T visitText(JinjaHtmlParser.TextContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaHtmlParser#startElement}.
 	 * @param ctx the parse tree
@@ -125,142 +146,152 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSingleElement(JinjaHtmlParser.SingleElementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Link}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#attribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLink(JinjaHtmlParser.LinkContext ctx);
+	T visitAttribute(JinjaHtmlParser.AttributeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Image}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaInheritance}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitImage(JinjaHtmlParser.ImageContext ctx);
+	T visitJinjaInheritance(JinjaHtmlParser.JinjaInheritanceContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Input}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#inheritanceStart}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInput(JinjaHtmlParser.InputContext ctx);
+	T visitInheritanceStart(JinjaHtmlParser.InheritanceStartContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Html}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaBlock}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHtml(JinjaHtmlParser.HtmlContext ctx);
+	T visitJinjaBlock(JinjaHtmlParser.JinjaBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Body}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaBlockStart}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBody(JinjaHtmlParser.BodyContext ctx);
+	T visitJinjaBlockStart(JinjaHtmlParser.JinjaBlockStartContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Head}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaBlockeEnd}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHead(JinjaHtmlParser.HeadContext ctx);
+	T visitJinjaBlockeEnd(JinjaHtmlParser.JinjaBlockeEndContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code H1}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaSuperBlock}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitH1(JinjaHtmlParser.H1Context ctx);
+	T visitJinjaSuperBlock(JinjaHtmlParser.JinjaSuperBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code H2}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaConditionStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitH2(JinjaHtmlParser.H2Context ctx);
+	T visitJinjaConditionStmt(JinjaHtmlParser.JinjaConditionStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code H3}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaIf}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitH3(JinjaHtmlParser.H3Context ctx);
+	T visitJinjaIf(JinjaHtmlParser.JinjaIfContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code H4}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaElseIf}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitH4(JinjaHtmlParser.H4Context ctx);
+	T visitJinjaElseIf(JinjaHtmlParser.JinjaElseIfContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code H5}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaElse}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitH5(JinjaHtmlParser.H5Context ctx);
+	T visitJinjaElse(JinjaHtmlParser.JinjaElseContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Nav}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaEndIf}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNav(JinjaHtmlParser.NavContext ctx);
+	T visitJinjaEndIf(JinjaHtmlParser.JinjaEndIfContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Div}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by the {@code JinjaParentecesCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDiv(JinjaHtmlParser.DivContext ctx);
+	T visitJinjaParentecesCondition(JinjaHtmlParser.JinjaParentecesConditionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Span}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by the {@code JinjaConditionsRoot}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSpan(JinjaHtmlParser.SpanContext ctx);
+	T visitJinjaConditionsRoot(JinjaHtmlParser.JinjaConditionsRootContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code A}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by the {@code JinjaCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitA(JinjaHtmlParser.AContext ctx);
+	T visitJinjaCondition(JinjaHtmlParser.JinjaConditionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Title}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by the {@code JinjaVaraiableConditon}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTitle(JinjaHtmlParser.TitleContext ctx);
+	T visitJinjaVaraiableConditon(JinjaHtmlParser.JinjaVaraiableConditonContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code P}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by the {@code JinjaCompareCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitP(JinjaHtmlParser.PContext ctx);
+	T visitJinjaCompareCondition(JinjaHtmlParser.JinjaCompareConditionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Form}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaForLoop}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForm(JinjaHtmlParser.FormContext ctx);
+	T visitJinjaForLoop(JinjaHtmlParser.JinjaForLoopContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Label}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaFor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLabel(JinjaHtmlParser.LabelContext ctx);
+	T visitJinjaFor(JinjaHtmlParser.JinjaForContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#attripute}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaEndFor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAttripute(JinjaHtmlParser.AttriputeContext ctx);
+	T visitJinjaEndFor(JinjaHtmlParser.JinjaEndForContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaVariable(JinjaHtmlParser.JinjaVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaComnt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx);
 }

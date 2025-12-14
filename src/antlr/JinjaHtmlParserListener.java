@@ -17,15 +17,65 @@ public interface JinjaHtmlParserListener extends ParseTreeListener {
 	 */
 	void exitProg(JinjaHtmlParser.ProgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#document}.
+	 * Enter a parse tree produced by the {@code BaseDocument}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
 	 * @param ctx the parse tree
 	 */
-	void enterDocument(JinjaHtmlParser.DocumentContext ctx);
+	void enterBaseDocument(JinjaHtmlParser.BaseDocumentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#document}.
+	 * Exit a parse tree produced by the {@code BaseDocument}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
 	 * @param ctx the parse tree
 	 */
-	void exitDocument(JinjaHtmlParser.DocumentContext ctx);
+	void exitBaseDocument(JinjaHtmlParser.BaseDocumentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TopLevelComment}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
+	 * @param ctx the parse tree
+	 */
+	void enterTopLevelComment(JinjaHtmlParser.TopLevelCommentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TopLevelComment}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
+	 * @param ctx the parse tree
+	 */
+	void exitTopLevelComment(JinjaHtmlParser.TopLevelCommentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TopLevelText}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
+	 * @param ctx the parse tree
+	 */
+	void enterTopLevelText(JinjaHtmlParser.TopLevelTextContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TopLevelText}
+	 * labeled alternative in {@link JinjaHtmlParser#topLevel}.
+	 * @param ctx the parse tree
+	 */
+	void exitTopLevelText(JinjaHtmlParser.TopLevelTextContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Html}
+	 * labeled alternative in {@link JinjaHtmlParser#document}.
+	 * @param ctx the parse tree
+	 */
+	void enterHtml(JinjaHtmlParser.HtmlContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Html}
+	 * labeled alternative in {@link JinjaHtmlParser#document}.
+	 * @param ctx the parse tree
+	 */
+	void exitHtml(JinjaHtmlParser.HtmlContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja}
+	 * labeled alternative in {@link JinjaHtmlParser#document}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja(JinjaHtmlParser.JinjaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja}
+	 * labeled alternative in {@link JinjaHtmlParser#document}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja(JinjaHtmlParser.JinjaContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code HtmlElement}
 	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
@@ -87,6 +137,54 @@ public interface JinjaHtmlParserListener extends ParseTreeListener {
 	 */
 	void exitJinjaComment(JinjaHtmlParser.JinjaCommentContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code JinjaConditionStatement}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaConditionStatement(JinjaHtmlParser.JinjaConditionStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code JinjaConditionStatement}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaConditionStatement(JinjaHtmlParser.JinjaConditionStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code JinjaBlockPlace}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaBlockPlace(JinjaHtmlParser.JinjaBlockPlaceContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code JinjaBlockPlace}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaBlockPlace(JinjaHtmlParser.JinjaBlockPlaceContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code JinjaLoop}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaLoop(JinjaHtmlParser.JinjaLoopContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code JinjaLoop}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaLoop(JinjaHtmlParser.JinjaLoopContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code HtmlComment}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void enterHtmlComment(JinjaHtmlParser.HtmlCommentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code HtmlComment}
+	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
+	 * @param ctx the parse tree
+	 */
+	void exitHtmlComment(JinjaHtmlParser.HtmlCommentContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Identifier}
 	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
 	 * @param ctx the parse tree
@@ -99,77 +197,17 @@ public interface JinjaHtmlParserListener extends ParseTreeListener {
 	 */
 	void exitIdentifier(JinjaHtmlParser.IdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code String}
+	 * Enter a parse tree produced by the {@code Text}
 	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
 	 * @param ctx the parse tree
 	 */
-	void enterString(JinjaHtmlParser.StringContext ctx);
+	void enterText(JinjaHtmlParser.TextContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code String}
+	 * Exit a parse tree produced by the {@code Text}
 	 * labeled alternative in {@link JinjaHtmlParser#html_Body}.
 	 * @param ctx the parse tree
 	 */
-	void exitString(JinjaHtmlParser.StringContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaDoc}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinjaDoc(JinjaHtmlParser.JinjaDocContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaDoc}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinjaDoc(JinjaHtmlParser.JinjaDocContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjastart}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinjastart(JinjaHtmlParser.JinjastartContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjastart}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinjastart(JinjaHtmlParser.JinjastartContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaend}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinjaend(JinjaHtmlParser.JinjaendContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaend}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinjaend(JinjaHtmlParser.JinjaendContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaExpr}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaExpr}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaStmt}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaStmt}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaComnt}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaComnt}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx);
+	void exitText(JinjaHtmlParser.TextContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JinjaHtmlParser#startElement}.
 	 * @param ctx the parse tree
@@ -201,241 +239,253 @@ public interface JinjaHtmlParserListener extends ParseTreeListener {
 	 */
 	void exitSingleElement(JinjaHtmlParser.SingleElementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Link}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void enterLink(JinjaHtmlParser.LinkContext ctx);
+	void enterAttribute(JinjaHtmlParser.AttributeContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Link}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#attribute}.
 	 * @param ctx the parse tree
 	 */
-	void exitLink(JinjaHtmlParser.LinkContext ctx);
+	void exitAttribute(JinjaHtmlParser.AttributeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Image}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaInheritance}.
 	 * @param ctx the parse tree
 	 */
-	void enterImage(JinjaHtmlParser.ImageContext ctx);
+	void enterJinjaInheritance(JinjaHtmlParser.JinjaInheritanceContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Image}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaInheritance}.
 	 * @param ctx the parse tree
 	 */
-	void exitImage(JinjaHtmlParser.ImageContext ctx);
+	void exitJinjaInheritance(JinjaHtmlParser.JinjaInheritanceContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Input}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#inheritanceStart}.
 	 * @param ctx the parse tree
 	 */
-	void enterInput(JinjaHtmlParser.InputContext ctx);
+	void enterInheritanceStart(JinjaHtmlParser.InheritanceStartContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Input}
-	 * labeled alternative in {@link JinjaHtmlParser#oneElement}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#inheritanceStart}.
 	 * @param ctx the parse tree
 	 */
-	void exitInput(JinjaHtmlParser.InputContext ctx);
+	void exitInheritanceStart(JinjaHtmlParser.InheritanceStartContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Html}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaBlock}.
 	 * @param ctx the parse tree
 	 */
-	void enterHtml(JinjaHtmlParser.HtmlContext ctx);
+	void enterJinjaBlock(JinjaHtmlParser.JinjaBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Html}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaBlock}.
 	 * @param ctx the parse tree
 	 */
-	void exitHtml(JinjaHtmlParser.HtmlContext ctx);
+	void exitJinjaBlock(JinjaHtmlParser.JinjaBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Body}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaBlockStart}.
 	 * @param ctx the parse tree
 	 */
-	void enterBody(JinjaHtmlParser.BodyContext ctx);
+	void enterJinjaBlockStart(JinjaHtmlParser.JinjaBlockStartContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Body}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaBlockStart}.
 	 * @param ctx the parse tree
 	 */
-	void exitBody(JinjaHtmlParser.BodyContext ctx);
+	void exitJinjaBlockStart(JinjaHtmlParser.JinjaBlockStartContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Head}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaBlockeEnd}.
 	 * @param ctx the parse tree
 	 */
-	void enterHead(JinjaHtmlParser.HeadContext ctx);
+	void enterJinjaBlockeEnd(JinjaHtmlParser.JinjaBlockeEndContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Head}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaBlockeEnd}.
 	 * @param ctx the parse tree
 	 */
-	void exitHead(JinjaHtmlParser.HeadContext ctx);
+	void exitJinjaBlockeEnd(JinjaHtmlParser.JinjaBlockeEndContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code H1}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaSuperBlock}.
 	 * @param ctx the parse tree
 	 */
-	void enterH1(JinjaHtmlParser.H1Context ctx);
+	void enterJinjaSuperBlock(JinjaHtmlParser.JinjaSuperBlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code H1}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaSuperBlock}.
 	 * @param ctx the parse tree
 	 */
-	void exitH1(JinjaHtmlParser.H1Context ctx);
+	void exitJinjaSuperBlock(JinjaHtmlParser.JinjaSuperBlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code H2}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaConditionStmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterH2(JinjaHtmlParser.H2Context ctx);
+	void enterJinjaConditionStmt(JinjaHtmlParser.JinjaConditionStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code H2}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaConditionStmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitH2(JinjaHtmlParser.H2Context ctx);
+	void exitJinjaConditionStmt(JinjaHtmlParser.JinjaConditionStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code H3}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaIf}.
 	 * @param ctx the parse tree
 	 */
-	void enterH3(JinjaHtmlParser.H3Context ctx);
+	void enterJinjaIf(JinjaHtmlParser.JinjaIfContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code H3}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaIf}.
 	 * @param ctx the parse tree
 	 */
-	void exitH3(JinjaHtmlParser.H3Context ctx);
+	void exitJinjaIf(JinjaHtmlParser.JinjaIfContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code H4}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaElseIf}.
 	 * @param ctx the parse tree
 	 */
-	void enterH4(JinjaHtmlParser.H4Context ctx);
+	void enterJinjaElseIf(JinjaHtmlParser.JinjaElseIfContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code H4}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaElseIf}.
 	 * @param ctx the parse tree
 	 */
-	void exitH4(JinjaHtmlParser.H4Context ctx);
+	void exitJinjaElseIf(JinjaHtmlParser.JinjaElseIfContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code H5}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaElse}.
 	 * @param ctx the parse tree
 	 */
-	void enterH5(JinjaHtmlParser.H5Context ctx);
+	void enterJinjaElse(JinjaHtmlParser.JinjaElseContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code H5}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaElse}.
 	 * @param ctx the parse tree
 	 */
-	void exitH5(JinjaHtmlParser.H5Context ctx);
+	void exitJinjaElse(JinjaHtmlParser.JinjaElseContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Nav}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaEndIf}.
 	 * @param ctx the parse tree
 	 */
-	void enterNav(JinjaHtmlParser.NavContext ctx);
+	void enterJinjaEndIf(JinjaHtmlParser.JinjaEndIfContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Nav}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaEndIf}.
 	 * @param ctx the parse tree
 	 */
-	void exitNav(JinjaHtmlParser.NavContext ctx);
+	void exitJinjaEndIf(JinjaHtmlParser.JinjaEndIfContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Div}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by the {@code JinjaParentecesCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void enterDiv(JinjaHtmlParser.DivContext ctx);
+	void enterJinjaParentecesCondition(JinjaHtmlParser.JinjaParentecesConditionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Div}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by the {@code JinjaParentecesCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void exitDiv(JinjaHtmlParser.DivContext ctx);
+	void exitJinjaParentecesCondition(JinjaHtmlParser.JinjaParentecesConditionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Span}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by the {@code JinjaConditionsRoot}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void enterSpan(JinjaHtmlParser.SpanContext ctx);
+	void enterJinjaConditionsRoot(JinjaHtmlParser.JinjaConditionsRootContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Span}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by the {@code JinjaConditionsRoot}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void exitSpan(JinjaHtmlParser.SpanContext ctx);
+	void exitJinjaConditionsRoot(JinjaHtmlParser.JinjaConditionsRootContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code A}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by the {@code JinjaCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void enterA(JinjaHtmlParser.AContext ctx);
+	void enterJinjaCondition(JinjaHtmlParser.JinjaConditionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code A}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by the {@code JinjaCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void exitA(JinjaHtmlParser.AContext ctx);
+	void exitJinjaCondition(JinjaHtmlParser.JinjaConditionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Title}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by the {@code JinjaVaraiableConditon}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void enterTitle(JinjaHtmlParser.TitleContext ctx);
+	void enterJinjaVaraiableConditon(JinjaHtmlParser.JinjaVaraiableConditonContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Title}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by the {@code JinjaVaraiableConditon}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void exitTitle(JinjaHtmlParser.TitleContext ctx);
+	void exitJinjaVaraiableConditon(JinjaHtmlParser.JinjaVaraiableConditonContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code P}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by the {@code JinjaCompareCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void enterP(JinjaHtmlParser.PContext ctx);
+	void enterJinjaCompareCondition(JinjaHtmlParser.JinjaCompareConditionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code P}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by the {@code JinjaCompareCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 */
-	void exitP(JinjaHtmlParser.PContext ctx);
+	void exitJinjaCompareCondition(JinjaHtmlParser.JinjaCompareConditionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Form}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaForLoop}.
 	 * @param ctx the parse tree
 	 */
-	void enterForm(JinjaHtmlParser.FormContext ctx);
+	void enterJinjaForLoop(JinjaHtmlParser.JinjaForLoopContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Form}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaForLoop}.
 	 * @param ctx the parse tree
 	 */
-	void exitForm(JinjaHtmlParser.FormContext ctx);
+	void exitJinjaForLoop(JinjaHtmlParser.JinjaForLoopContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Label}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaFor}.
 	 * @param ctx the parse tree
 	 */
-	void enterLabel(JinjaHtmlParser.LabelContext ctx);
+	void enterJinjaFor(JinjaHtmlParser.JinjaForContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Label}
-	 * labeled alternative in {@link JinjaHtmlParser#element}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaFor}.
 	 * @param ctx the parse tree
 	 */
-	void exitLabel(JinjaHtmlParser.LabelContext ctx);
+	void exitJinjaFor(JinjaHtmlParser.JinjaForContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JinjaHtmlParser#attripute}.
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaEndFor}.
 	 * @param ctx the parse tree
 	 */
-	void enterAttripute(JinjaHtmlParser.AttriputeContext ctx);
+	void enterJinjaEndFor(JinjaHtmlParser.JinjaEndForContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JinjaHtmlParser#attripute}.
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaEndFor}.
 	 * @param ctx the parse tree
 	 */
-	void exitAttripute(JinjaHtmlParser.AttriputeContext ctx);
+	void exitJinjaEndFor(JinjaHtmlParser.JinjaEndForContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaVariable}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaVariable(JinjaHtmlParser.JinjaVariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaVariable}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaVariable(JinjaHtmlParser.JinjaVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaExpr(JinjaHtmlParser.JinjaExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#jinjaComnt}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#jinjaComnt}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaComnt(JinjaHtmlParser.JinjaComntContext ctx);
 }
