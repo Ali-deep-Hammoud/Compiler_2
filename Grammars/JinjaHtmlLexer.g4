@@ -89,7 +89,9 @@ mode TAG;
 
 CT: '>' -> popMode ;
 JINJA_EXPR_START_TAG : '{{' -> pushMode(JINJA_EXPR);
-
+STYLE_TAG
+    : 'style>' -> pushMode(CSS)
+    ;
 JINJA_DQ:'"';
 
 EM: '!';
@@ -108,7 +110,7 @@ PAIRED_TAG: 'html' | 'body' | 'head' | 'title'
 
 VOID_TAG: 'link' | 'img' | 'input' | 'br' | 'hr' | 'meta';
 ATTRIBUTE_NAME: 'class' | 'id' | 'name' | 'href' | 'src' | 'alt'| 'enctype' | 'step'
-              | 'title' | 'style' | 'value' | 'method' | 'type' |'accept'|'name'
+              | 'title' | 'value' | 'method' | 'type' |'accept'|'name'
               | 'placeholder' | 'action' | 'width' | 'height'
               | 'charset' | 'rel' | 'target' | 'disabled' | 'checked'
               | 'required' | 'readonly' | 'maxlength' | 'minlength'
@@ -122,4 +124,58 @@ ID: [a-zA-Z0-9]+;
 
 TAG_WS: [ \t\r\n]+ -> skip ;
 
+mode CSS;
 
+CSS_END_STYLE
+    : '</style' -> popMode
+    ;
+
+CSS_LBRACE : '{';
+CSS_RBRACE : '}';
+CSS_COLON  : ':';
+CSS_SEMI   : ';';
+CSS_COMMA  : ',';
+CSS_DOT    : '.';
+CSS_HASH   : '#';
+CSS_ALL : '*';
+CSS_LP:'(';
+CSS_RP:')';
+CSS_HSL: 'hsl';
+CSS_TRANSLATEX: 'translateX';
+CSS_TRANSLATEY:'translateY';
+CSS_TRANSLATE:'translate';
+CSS_ROTATE:'rotate';
+CSS_SCALEX:'scaleX';
+CSS_SCALEY:'scaleY';
+CSS_SCALE:'scale';
+CSS_CALC:'calc';
+
+CSS_NUMBER
+    : '-'? [0-9]+ ('.' [0-9]+)?
+    ;
+
+CSS_MATH : '+'| '-' |'/';
+
+CSS_UNIT
+    : 'px' | 'em' | 'rem' | '%' | 'vh' | 'vw' | 'deg'
+    ;
+
+CSS_STRING
+    : '"' (~["\\] | '\\' .)* '"'
+    | '\'' (~['\\] | '\\' .)* '\''
+    ;
+
+CSS_NAME
+    :[_a-zA-Z] [_a-zA-Z0-9-]*
+    ;
+CSS_HEX
+    : [0-9a-fA-F]+
+    ;
+
+CSS_COMMENT
+    : '/*' .*? '*/' -> skip
+    ;
+
+CSS_WS
+    : [ \t\r\n]+ -> skip
+    ;

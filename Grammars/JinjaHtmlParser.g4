@@ -13,9 +13,10 @@ document: DOCTYPE? html_Body         #Html
         | jinjaInheritance                  #Jinja
         ;
 html_Body:
-startElement html_Body* endElement     #HtmlElement
-| singleElement                      #SingleHtml
-| jinjaExpr                         #JinjaExpression
+startElement html_Body* endElement       #HtmlElement
+|styleStartElement styleBody*           CSS_END_STYLE CT   #StyleElement
+| singleElement                         #SingleHtml
+| jinjaExpr                              #JinjaExpression
 | jinjaStmt                         #JinjaStatement
 | jinjaComnt                     #JinjaComment
 | jinjaConditionStmt                    #JinjaConditionStatement
@@ -25,6 +26,7 @@ startElement html_Body* endElement     #HtmlElement
 | ID                                #Identifier
 | TEXT                            #Text
 ;
+
 
 
 startElement: OST PAIRED_TAG attribute*? CT;
@@ -37,7 +39,70 @@ jinjaInheritance: inheritanceStart jinjaBlock+;
 
 inheritanceStart: JINJA_STMT_START JINJA_EXTENDS JINJA_STRING JINJA_STMT_END;
 
+//css
+styleStartElement: OST STYLE_TAG;
 
+styleBody
+    : cssRule+
+    ;
+
+cssRule
+    : selectorList CSS_LBRACE declarationList CSS_RBRACE
+    ;
+
+selectorList
+    : selector (CSS_COMMA? selector )*
+    ;
+
+selector
+    : CSS_NAME                   #NormalSelector
+    | CSS_DOT CSS_NAME           #ClassSelector
+    | CSS_HASH CSS_NAME          #IdSelector
+    | CSS_ALL                    #AllSelector
+    ;
+
+declarationList
+    : declaration*
+    ;
+
+declaration
+    : property CSS_COLON value (CSS_SEMI)?   // optional semicolon
+    ;
+
+property
+    : CSS_NAME
+    ;
+
+value
+    : (cssTerm(CSS_COMMA cssTerm)*?)+
+    ;
+
+cssTerm
+    : CSS_NUMBER CSS_UNIT?           #NumberTerm
+    | CSS_STRING                     #StringTerm
+    | CSS_NAME                       #NameTerm
+    |hexNum                          #HexTerm
+    |functions                       #FunctionTerm
+
+    ;
+functions
+: CSS_HSL CSS_LP CSS_NUMBER CSS_UNIT? CSS_COMMA CSS_NUMBER CSS_UNIT? CSS_COMMA CSS_NUMBER CSS_UNIT? CSS_RP      #HSLFunction
+|translate                                                                                                       #TranslateFunction
+|scale                                                                                                          #ScaleFunction
+| CSS_ROTATE CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                                                 #RotateFunction
+| CSS_CALC CSS_LP CSS_NUMBER CSS_UNIT? (CSS_MATH | CSS_ALL) CSS_NUMBER CSS_UNIT? CSS_RP                         #CalcFunction
+;
+translate
+: CSS_TRANSLATEX CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                 #TranslateX
+| CSS_TRANSLATEY CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                 #TranslateY
+| CSS_TRANSLATE CSS_LP CSS_NUMBER CSS_UNIT? CSS_COMMA CSS_NUMBER CSS_UNIT? CSS_RP   #TranslateFull
+;
+scale
+: CSS_SCALEX CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                 #ScaleX
+| CSS_SCALEY CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                 #ScaleY
+| CSS_SCALE CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                  #ScaleFull
+;
+hexNum: CSS_HASH (CSS_HEX | CSS_NAME | CSS_NUMBER);
 
 //JINJA BLOCK STATEMENT
 jinjaBlock: jinjaSuperBlock? jinjaBlockStart html_Body* jinjaBlockeEnd;
