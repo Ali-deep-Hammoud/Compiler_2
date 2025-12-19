@@ -28,42 +28,6 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBaseDocument(JinjaHtmlParser.BaseDocumentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBaseDocument(JinjaHtmlParser.BaseDocumentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTopLevelComment(JinjaHtmlParser.TopLevelCommentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTopLevelComment(JinjaHtmlParser.TopLevelCommentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTopLevelText(JinjaHtmlParser.TopLevelTextContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTopLevelText(JinjaHtmlParser.TopLevelTextContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterHtml(JinjaHtmlParser.HtmlContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -311,6 +275,18 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStyleStartElement(JinjaHtmlParser.StyleStartElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStyleEndElement(JinjaHtmlParser.StyleEndElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStyleEndElement(JinjaHtmlParser.StyleEndElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
