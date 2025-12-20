@@ -24,7 +24,7 @@ TEXT
         )+
     ;
 
-HTML_COMMENT : '<!--' .*? '-->' ;
+HTML_COMMENT : '<!--' .*? '-->' -> skip;
 
 WS : [ \t\r\n]+ -> skip ;
 
