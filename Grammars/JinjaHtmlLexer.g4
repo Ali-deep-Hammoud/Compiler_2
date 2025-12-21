@@ -8,7 +8,6 @@ DOCTYPE
 
 JINJA_EXPR_START : '{{' -> pushMode(JINJA_EXPR);
 JINJA_STMT_START : '{%' -> pushMode(JINJA_STMT);
-JINJA_COMMENT_START : '{#' -> pushMode(JINJA_COMMENT);
 
 
 
@@ -17,39 +16,48 @@ OST: '<' -> pushMode(TAG);
 OET: '</' -> pushMode(TAG);
 
 
+
+JINJA_COMMENT : '{#' .*? '#}'-> skip;
+
+HTML_COMMENT : '<!--' .*? '-->' -> skip;
+
+WS : [ \t\r\n]+ -> skip ;
 TEXT
     :   (   ~[<{}\n\r] |
            '{' ~[{%#] |
             ~[%#}] '}'
         )+
     ;
-
-HTML_COMMENT : '<!--' .*? '-->' -> skip;
-
-WS : [ \t\r\n]+ -> skip ;
-
 //JINJA EXPRESSION
 mode JINJA_EXPR;
 
 JINJA_EXPR_END : '}}' -> popMode;
 
-
+JINJA_LP_EXPR : '(';
+JINJA_RP_EXPR : ')';
 JINJA_COMMA : ',';
+JINJA_DOT_EXPR: '.';
+JINJA_EQUAL: '=';
+JINJA_COMBINE: '~';
+JINJA_ID_EXPR : [a-zA-Z_][a-zA-Z0-9_]* ;
+JINJA_STRING_EXPR
+    : '\'' (~['\\] | '\\' .)* '\''
+    | '"'  (~["\\] | '\\' .)* '"'
+    ;
 
 
 
 
-JINJA_TEXT
-    : (~'}')+ ;
 JINJA_EXPR_WS : [ \t\r\n]+ -> skip ;
-
-
+JINJA_TEXT
+    : (~[%\n\t])+? ;
 //JINJA STATEMENT
 mode JINJA_STMT;
 JINJA_STMT_END : '%}' -> popMode;
 
 JINJA_LP : '(';
 JINJA_RP : ')';
+JINJA_DOT_STMT: '.';
 
 JINJA_BLOCK : 'block';
 JINJA_ENDBLOCK : 'endblock';
@@ -62,9 +70,6 @@ JINJA_IF : 'if';
 JINJA_ELIF : 'elif';
 JINJA_ELSE : 'else';
 JINJA_ENDIF : 'endif';
-JINJA_SET : 'set';
-JINJA_IMPORT : 'import';
-JINJA_FROM : 'from';
 JINJA_INS:  'in' | 'not in';
 JINJA_COMPARE : '==' | '!=' | '<' | '>' | '<=' | '>=' | 'is' ;
 JINJA_LOGIC: 'and'|'or';
@@ -72,19 +77,14 @@ JINJA_NOT:'not';
 
 
 JINJA_NUM: '0'| [1-9][0-9]*;
-JINJA_ID : [a-zA-Z_][a-zA-Z0-9_]*( '.' [a-zA-Z_][a-zA-Z0-9_]* )* ;
+JINJA_ID_STMT : [a-zA-Z_][a-zA-Z0-9_]* ;
 JINJA_STRING : '"' ~["]* '"' ;
 
-
-JINJA_STMT_WS : [ \t]+ -> skip ;
-JINJA_STMT_NL : [\r\n]+ -> skip ;
-
+JINJA_STMT_WS : [ \t\r\n]+ -> skip ;
+JINJA_TEXT_STMT
+    : (~[%\n\t])+? ;
 // JINJA COMMENT
-mode JINJA_COMMENT;
-JINJA_COMMENT_END : '#}' -> popMode;
-JINJA_COMMENT_TEXT : .+? -> skip;
-JINJA_COMMENT_WS : [ \t\r\n]+ -> skip ;
-//TAG
+
 mode TAG;
 
 CT: '>' -> popMode ;
@@ -93,7 +93,7 @@ STYLE_TAG
     : 'style>' -> pushMode(CSS)
     ;
 JINJA_DQ:'"';
-
+JINJA_SQ: '\'';
 EM: '!';
 EQUALS: '=';
 COLON : ':';
@@ -109,16 +109,10 @@ PAIRED_TAG: 'html' | 'body' | 'head' | 'title'
           | 'table' | 'tr' | 'td' | 'th' | 'thead' | 'tbody' | 'tfoot';
 
 VOID_TAG: 'link' | 'img' | 'input' | 'br' | 'hr' | 'meta';
-ATTRIBUTE_NAME: 'class' | 'id' | 'name' | 'href' | 'src' | 'alt'| 'enctype' | 'step'
-              | 'title' | 'value' | 'method' | 'type' |'accept'|'name'
-              | 'placeholder' | 'action' | 'width' | 'height'
-              | 'charset' | 'rel' | 'target' | 'disabled' | 'checked'
-              | 'required' | 'readonly' | 'maxlength' | 'minlength'
-              | 'pattern' | 'autocomplete' | 'autofocus' | 'multiple'
-              | 'selected' | 'for' | 'colspan' | 'rowspan'
-              | 'data-' [a-zA-Z0-9_-]+;
-STRING: '"' ~[ <{"}]* '"';
 
+STRING: '"' (~["\\] | '\\' .)* '"'
+          | '\'' (~['\\] | '\\' .)* '\''
+          ;
 ID: [a-zA-Z0-9]+;
 
 
@@ -157,19 +151,22 @@ CSS_NUMBER
 CSS_MATH : '+'| '-' |'/';
 
 CSS_UNIT
-    : 'px' | 'em' | 'rem' | '%' | 'vh' | 'vw' | 'deg'
+    : 'px' | 'em' | 'rem' | '%' | 'vh' | 'vw' | 'deg' | 'fr'
     ;
 
 CSS_STRING
     : '"' (~["\\] | '\\' .)* '"'
     | '\'' (~['\\] | '\\' .)* '\''
     ;
+    fragment HEX : [0-9a-fA-F];
+CSS_HEX
+    : HEX HEX HEX
+    | HEX HEX HEX HEX HEX HEX
+    | HEX HEX HEX HEX HEX HEX HEX HEX
+    ;
 
 CSS_NAME
     :[_a-zA-Z] [_a-zA-Z0-9-]*
-    ;
-CSS_HEX
-    : [0-9a-fA-F]+
     ;
 
 CSS_COMMENT

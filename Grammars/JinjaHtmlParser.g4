@@ -13,25 +13,33 @@ startElement body* endElement                           #HtmlElement
 |  styleStartElement styleBody*  styleEndElement        #StyleElement
 | singleElement                                         #SingleHtml
 | jinjaExpr                                             #JinjaExpression
-| jinjaStmt                                             #JinjaStatement
-| jinjaComnt                                            #JinjaComment
 | jinjaConditionStmt                                    #JinjaConditionStatement
 | jinjaBlock                                            #JinjaBlockPlace
 | jinjaForLoop                                          #JinjaLoop
-| HTML_COMMENT                                          #HtmlComment
+| jinjaStmt                                             #JinjaStatement
+|jinjaInheritance                                       #JinjaInheritanceBody
 | ID                                                    #Identifier
 | TEXT                                                  #Text
 ;
 
 
 
-startElement: OST PAIRED_TAG attribute*? CT;
+startElement: OST PAIRED_TAG attribute* CT;
 endElement: OET PAIRED_TAG CT;
-singleElement: OST VOID_TAG attribute*? CT;
-attribute: ATTRIBUTE_NAME (EQUALS (JINJA_DQ jinjaExpr JINJA_DQ|STRING))?;
+singleElement: OST VOID_TAG attribute* CT;
+attribute
+    : ID
+      (EQUALS attributeValue)?
+    ;
+
+attributeValue
+    : JINJA_DQ jinjaExpr JINJA_DQ
+    | JINJA_SQ jinjaExpr JINJA_SQ
+    | STRING
+    ;
 
 
-jinjaInheritance: inheritanceStart jinjaBlock+;
+jinjaInheritance: inheritanceStart body* jinjaBlock+;
 
 inheritanceStart: JINJA_STMT_START JINJA_EXTENDS JINJA_STRING JINJA_STMT_END;
 
@@ -70,7 +78,7 @@ property
     ;
 
 value
-    : (cssTerm(CSS_COMMA cssTerm)*?)+
+    : (cssTerm(CSS_COMMA cssTerm)*)+
     ;
 
 cssTerm
@@ -102,7 +110,7 @@ hexNum: CSS_HASH (CSS_HEX | CSS_NAME | CSS_NUMBER);
 
 //JINJA BLOCK STATEMENT
 jinjaBlock: jinjaSuperBlock? jinjaBlockStart body* jinjaBlockeEnd;
-jinjaBlockStart: JINJA_STMT_START JINJA_BLOCK JINJA_ID JINJA_STMT_END;
+jinjaBlockStart: JINJA_STMT_START JINJA_BLOCK jinjaId JINJA_STMT_END;
 jinjaBlockeEnd:JINJA_STMT_START JINJA_ENDBLOCK JINJA_STMT_END;
 jinjaSuperBlock: JINJA_EXPR_START JINJA_SUPER JINJA_EXPR_END;
 
@@ -121,20 +129,31 @@ jinjaConditions
 ;
 //JINJA FOR STATEMENT
 jinjaForLoop: jinjaFor body? (jinjaElse body?)? jinjaEndFor;
-jinjaFor: JINJA_STMT_START JINJA_FOR JINJA_ID JINJA_INS JINJA_ID (JINJA_IF jinjaConditions)? JINJA_STMT_END;
+jinjaFor: JINJA_STMT_START JINJA_FOR jinjaId JINJA_INS jinjaId (JINJA_IF jinjaConditions)? JINJA_STMT_END;
 jinjaEndFor: JINJA_STMT_START JINJA_ENDFOR JINJA_STMT_END;
-jinjaVariable: JINJA_NUM | JINJA_ID | JINJA_STRING;
+jinjaVariable: JINJA_NUM | jinjaId | JINJA_STRING;
 
-
+jinjaId
+: JINJA_ID_EXPR (JINJA_DOT_EXPR JINJA_ID_EXPR)?           #JinjaExpressionID
+|JINJA_ID_STMT (JINJA_DOT_STMT JINJA_ID_STMT)?            #JinjaStatementID
+;
 
 jinjaExpr
-    : (JINJA_EXPR_START | JINJA_EXPR_START_TAG) (JINJA_TEXT (JINJA_COMMA JINJA_TEXT)*)* JINJA_EXPR_END
+    : (JINJA_EXPR_START | JINJA_EXPR_START_TAG) expr JINJA_EXPR_END
     ;
 
+expr
+    : jinjaId                                                  #JinjaExpressionIDBody
+    | functionCall                                             #JinjaExpressionFunction
+    | JINJA_TEXT                                               #JinjaExpressionText
+    | (JINJA_STRING_EXPR | jinjaId) (JINJA_COMBINE (JINJA_STRING_EXPR | jinjaId))*             #JinjaExpressionCombine
+    | jinjaId JINJA_EQUAL expr                                 #JinjaExpressionAssign
+    ;
+
+functionCall
+    : jinjaId JINJA_LP_EXPR (expr (JINJA_COMMA expr)*)? JINJA_RP_EXPR
+    ;
 jinjaStmt
-    : JINJA_STMT_START JINJA_TEXT* JINJA_STMT_END
+    : JINJA_STMT_START (JINJA_TEXT_STMT | jinjaId | JINJA_STRING)* JINJA_STMT_END
     ;
 
-jinjaComnt
-    : JINJA_COMMENT_START JINJA_COMMENT_TEXT* JINJA_COMMENT_END
-    ;
