@@ -1,6 +1,6 @@
 package AST;
 
-public class CSSNode extends Node{
+public abstract class CSSNode extends BodyNode{
     public CSSNode(int line,String name) {
         super(line, name);
     }

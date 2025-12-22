@@ -6,7 +6,7 @@ import java.util.List;
 public class HTMLElement extends HTMLNode{
     private final String tag;
     private final List<Attribute> attributes;
-    private final List<Node> children;
+    private final List<BodyNode> children;
 
     public HTMLElement(int line,String tag) {
         super(line,"HTML Element");
@@ -20,11 +20,11 @@ public class HTMLElement extends HTMLNode{
     public void removeAttribute(Attribute attribute){
         attributes.remove(attribute);
     }
-    public void addChild(Node node){
-        children.add(node);
+    public void addChild(BodyNode body){
+        children.add(body);
     }
-    public void removeChild(Node node){
-        children.remove(node);
+    public void removeChild(BodyNode body){
+        children.remove(body);
     }
 
     public String getTag() {
@@ -35,7 +35,7 @@ public class HTMLElement extends HTMLNode{
         return attributes;
     }
 
-    public List<Node> getChildren() {
+    public List<BodyNode> getChildren() {
         return children;
     }
 }

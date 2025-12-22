@@ -1,6 +1,6 @@
 package AST;
 
-public class HTMLNode extends Node{
+public abstract class HTMLNode extends BodyNode{
     public HTMLNode(int line,String name) {
         super(line, name);
     }

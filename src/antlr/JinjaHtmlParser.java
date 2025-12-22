@@ -25,8 +25,8 @@ public class JinjaHtmlParser extends Parser {
 		JINJA_IF=32, JINJA_ELIF=33, JINJA_ELSE=34, JINJA_ENDIF=35, JINJA_INS=36, 
 		JINJA_COMPARE=37, JINJA_LOGIC=38, JINJA_NOT=39, JINJA_NUM=40, JINJA_ID_STMT=41, 
 		JINJA_STRING=42, JINJA_STMT_WS=43, JINJA_TEXT_STMT=44, CT=45, JINJA_EXPR_START_TAG=46, 
-		STYLE_TAG=47, JINJA_DQ=48, JINJA_SQ=49, EM=50, EQUALS=51, COLON=52, LKB=53, 
-		RKB=54, PAIRED_TAG=55, VOID_TAG=56, STRING=57, ID=58, TAG_WS=59, CSS_END_STYLE=60, 
+		STYLE_TAG=47, EM=48, EQUALS=49, COLON=50, LKB=51, RKB=52, PAIRED_TAG=53, 
+		VOID_TAG=54, STRING=55, ID=56, JINJA_DQ=57, JINJA_SQ=58, TAG_WS=59, CSS_END_STYLE=60, 
 		CSS_LBRACE=61, CSS_RBRACE=62, CSS_COLON=63, CSS_SEMI=64, CSS_COMMA=65, 
 		CSS_DOT=66, CSS_HASH=67, CSS_ALL=68, CSS_LP=69, CSS_RP=70, CSS_HSL=71, 
 		CSS_TRANSLATEX=72, CSS_TRANSLATEY=73, CSS_TRANSLATE=74, CSS_ROTATE=75, 
@@ -69,7 +69,7 @@ public class JinjaHtmlParser extends Parser {
 			null, null, null, "'block'", "'endblock'", "'super'", "'extends'", "'include'", 
 			"'for'", "'endfor'", "'if'", "'elif'", "'else'", "'endif'", null, null, 
 			null, "'not'", null, null, null, null, null, "'>'", null, "'style>'", 
-			"'\"'", "'''", "'!'", null, null, null, null, null, null, null, null, 
+			"'!'", null, null, null, null, null, null, null, null, "'\"'", "'''", 
 			null, "'</style'", null, null, null, "';'", null, null, "'#'", "'*'", 
 			null, null, "'hsl'", "'translateX'", "'translateY'", "'translate'", "'rotate'", 
 			"'scaleX'", "'scaleY'", "'scale'", "'calc'"
@@ -87,14 +87,13 @@ public class JinjaHtmlParser extends Parser {
 			"JINJA_ENDFOR", "JINJA_IF", "JINJA_ELIF", "JINJA_ELSE", "JINJA_ENDIF", 
 			"JINJA_INS", "JINJA_COMPARE", "JINJA_LOGIC", "JINJA_NOT", "JINJA_NUM", 
 			"JINJA_ID_STMT", "JINJA_STRING", "JINJA_STMT_WS", "JINJA_TEXT_STMT", 
-			"CT", "JINJA_EXPR_START_TAG", "STYLE_TAG", "JINJA_DQ", "JINJA_SQ", "EM", 
-			"EQUALS", "COLON", "LKB", "RKB", "PAIRED_TAG", "VOID_TAG", "STRING", 
-			"ID", "TAG_WS", "CSS_END_STYLE", "CSS_LBRACE", "CSS_RBRACE", "CSS_COLON", 
-			"CSS_SEMI", "CSS_COMMA", "CSS_DOT", "CSS_HASH", "CSS_ALL", "CSS_LP", 
-			"CSS_RP", "CSS_HSL", "CSS_TRANSLATEX", "CSS_TRANSLATEY", "CSS_TRANSLATE", 
-			"CSS_ROTATE", "CSS_SCALEX", "CSS_SCALEY", "CSS_SCALE", "CSS_CALC", "CSS_NUMBER", 
-			"CSS_MATH", "CSS_UNIT", "CSS_STRING", "CSS_HEX", "CSS_NAME", "CSS_COMMENT", 
-			"CSS_WS"
+			"CT", "JINJA_EXPR_START_TAG", "STYLE_TAG", "EM", "EQUALS", "COLON", "LKB", 
+			"RKB", "PAIRED_TAG", "VOID_TAG", "STRING", "ID", "JINJA_DQ", "JINJA_SQ", 
+			"TAG_WS", "CSS_END_STYLE", "CSS_LBRACE", "CSS_RBRACE", "CSS_COLON", "CSS_SEMI", 
+			"CSS_COMMA", "CSS_DOT", "CSS_HASH", "CSS_ALL", "CSS_LP", "CSS_RP", "CSS_HSL", 
+			"CSS_TRANSLATEX", "CSS_TRANSLATEY", "CSS_TRANSLATE", "CSS_ROTATE", "CSS_SCALEX", 
+			"CSS_SCALEY", "CSS_SCALE", "CSS_CALC", "CSS_NUMBER", "CSS_MATH", "CSS_UNIT", 
+			"CSS_STRING", "CSS_HEX", "CSS_NAME", "CSS_COMMENT", "CSS_WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -186,7 +185,7 @@ public class JinjaHtmlParser extends Parser {
 			setState(91);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 288300744895889950L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 72127962782106142L) != 0)) {
 				{
 				{
 				setState(88);
@@ -577,7 +576,7 @@ public class JinjaHtmlParser extends Parser {
 				setState(107);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 288300744895889948L) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 72127962782106140L) != 0)) {
 					{
 					{
 					setState(104);
@@ -952,18 +951,18 @@ public class JinjaHtmlParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class AttributeValueContext extends ParserRuleContext {
-		public List<TerminalNode> JINJA_DQ() { return getTokens(JinjaHtmlParser.JINJA_DQ); }
-		public TerminalNode JINJA_DQ(int i) {
-			return getToken(JinjaHtmlParser.JINJA_DQ, i);
-		}
-		public JinjaExprContext jinjaExpr() {
-			return getRuleContext(JinjaExprContext.class,0);
-		}
+		public TerminalNode STRING() { return getToken(JinjaHtmlParser.STRING, 0); }
 		public List<TerminalNode> JINJA_SQ() { return getTokens(JinjaHtmlParser.JINJA_SQ); }
 		public TerminalNode JINJA_SQ(int i) {
 			return getToken(JinjaHtmlParser.JINJA_SQ, i);
 		}
-		public TerminalNode STRING() { return getToken(JinjaHtmlParser.STRING, 0); }
+		public JinjaExprContext jinjaExpr() {
+			return getRuleContext(JinjaExprContext.class,0);
+		}
+		public List<TerminalNode> JINJA_DQ() { return getTokens(JinjaHtmlParser.JINJA_DQ); }
+		public TerminalNode JINJA_DQ(int i) {
+			return getToken(JinjaHtmlParser.JINJA_DQ, i);
+		}
 		public AttributeValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -990,33 +989,33 @@ public class JinjaHtmlParser extends Parser {
 			setState(170);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case JINJA_DQ:
+			case STRING:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(161);
-				match(JINJA_DQ);
-				setState(162);
-				jinjaExpr();
-				setState(163);
-				match(JINJA_DQ);
+				match(STRING);
 				}
 				break;
 			case JINJA_SQ:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(165);
+				setState(162);
 				match(JINJA_SQ);
-				setState(166);
+				setState(163);
 				jinjaExpr();
-				setState(167);
+				setState(164);
 				match(JINJA_SQ);
 				}
 				break;
-			case STRING:
+			case JINJA_DQ:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(169);
-				match(STRING);
+				setState(166);
+				match(JINJA_DQ);
+				setState(167);
+				jinjaExpr();
+				setState(168);
+				match(JINJA_DQ);
 				}
 				break;
 			default:
@@ -4631,33 +4630,33 @@ public class JinjaHtmlParser extends Parser {
 		"\u0000wx\u0003\u0016\u000b\u0000x\u0083\u0001\u0000\u0000\u0000y\u0083"+
 		"\u0003\n\u0005\u0000z\u0083\u0003P(\u0000{\u0083\u0003:\u001d\u0000|\u0083"+
 		"\u00032\u0019\u0000}\u0083\u0003F#\u0000~\u0083\u0003V+\u0000\u007f\u0083"+
-		"\u0003\u0010\b\u0000\u0080\u0083\u0005:\u0000\u0000\u0081\u0083\u0005"+
+		"\u0003\u0010\b\u0000\u0080\u0083\u00058\u0000\u0000\u0081\u0083\u0005"+
 		"\t\u0000\u0000\u0082g\u0001\u0000\u0000\u0000\u0082p\u0001\u0000\u0000"+
 		"\u0000\u0082y\u0001\u0000\u0000\u0000\u0082z\u0001\u0000\u0000\u0000\u0082"+
 		"{\u0001\u0000\u0000\u0000\u0082|\u0001\u0000\u0000\u0000\u0082}\u0001"+
 		"\u0000\u0000\u0000\u0082~\u0001\u0000\u0000\u0000\u0082\u007f\u0001\u0000"+
 		"\u0000\u0000\u0082\u0080\u0001\u0000\u0000\u0000\u0082\u0081\u0001\u0000"+
 		"\u0000\u0000\u0083\u0005\u0001\u0000\u0000\u0000\u0084\u0085\u0005\u0004"+
-		"\u0000\u0000\u0085\u0089\u00057\u0000\u0000\u0086\u0088\u0003\f\u0006"+
+		"\u0000\u0000\u0085\u0089\u00055\u0000\u0000\u0086\u0088\u0003\f\u0006"+
 		"\u0000\u0087\u0086\u0001\u0000\u0000\u0000\u0088\u008b\u0001\u0000\u0000"+
 		"\u0000\u0089\u0087\u0001\u0000\u0000\u0000\u0089\u008a\u0001\u0000\u0000"+
 		"\u0000\u008a\u008c\u0001\u0000\u0000\u0000\u008b\u0089\u0001\u0000\u0000"+
 		"\u0000\u008c\u008d\u0005-\u0000\u0000\u008d\u0007\u0001\u0000\u0000\u0000"+
-		"\u008e\u008f\u0005\u0005\u0000\u0000\u008f\u0090\u00057\u0000\u0000\u0090"+
+		"\u008e\u008f\u0005\u0005\u0000\u0000\u008f\u0090\u00055\u0000\u0000\u0090"+
 		"\u0091\u0005-\u0000\u0000\u0091\t\u0001\u0000\u0000\u0000\u0092\u0093"+
-		"\u0005\u0004\u0000\u0000\u0093\u0097\u00058\u0000\u0000\u0094\u0096\u0003"+
+		"\u0005\u0004\u0000\u0000\u0093\u0097\u00056\u0000\u0000\u0094\u0096\u0003"+
 		"\f\u0006\u0000\u0095\u0094\u0001\u0000\u0000\u0000\u0096\u0099\u0001\u0000"+
 		"\u0000\u0000\u0097\u0095\u0001\u0000\u0000\u0000\u0097\u0098\u0001\u0000"+
 		"\u0000\u0000\u0098\u009a\u0001\u0000\u0000\u0000\u0099\u0097\u0001\u0000"+
 		"\u0000\u0000\u009a\u009b\u0005-\u0000\u0000\u009b\u000b\u0001\u0000\u0000"+
-		"\u0000\u009c\u009f\u0005:\u0000\u0000\u009d\u009e\u00053\u0000\u0000\u009e"+
+		"\u0000\u009c\u009f\u00058\u0000\u0000\u009d\u009e\u00051\u0000\u0000\u009e"+
 		"\u00a0\u0003\u000e\u0007\u0000\u009f\u009d\u0001\u0000\u0000\u0000\u009f"+
-		"\u00a0\u0001\u0000\u0000\u0000\u00a0\r\u0001\u0000\u0000\u0000\u00a1\u00a2"+
-		"\u00050\u0000\u0000\u00a2\u00a3\u0003P(\u0000\u00a3\u00a4\u00050\u0000"+
-		"\u0000\u00a4\u00ab\u0001\u0000\u0000\u0000\u00a5\u00a6\u00051\u0000\u0000"+
-		"\u00a6\u00a7\u0003P(\u0000\u00a7\u00a8\u00051\u0000\u0000\u00a8\u00ab"+
-		"\u0001\u0000\u0000\u0000\u00a9\u00ab\u00059\u0000\u0000\u00aa\u00a1\u0001"+
-		"\u0000\u0000\u0000\u00aa\u00a5\u0001\u0000\u0000\u0000\u00aa\u00a9\u0001"+
+		"\u00a0\u0001\u0000\u0000\u0000\u00a0\r\u0001\u0000\u0000\u0000\u00a1\u00ab"+
+		"\u00057\u0000\u0000\u00a2\u00a3\u0005:\u0000\u0000\u00a3\u00a4\u0003P"+
+		"(\u0000\u00a4\u00a5\u0005:\u0000\u0000\u00a5\u00ab\u0001\u0000\u0000\u0000"+
+		"\u00a6\u00a7\u00059\u0000\u0000\u00a7\u00a8\u0003P(\u0000\u00a8\u00a9"+
+		"\u00059\u0000\u0000\u00a9\u00ab\u0001\u0000\u0000\u0000\u00aa\u00a1\u0001"+
+		"\u0000\u0000\u0000\u00aa\u00a2\u0001\u0000\u0000\u0000\u00aa\u00a6\u0001"+
 		"\u0000\u0000\u0000\u00ab\u000f\u0001\u0000\u0000\u0000\u00ac\u00b0\u0003"+
 		"\u0012\t\u0000\u00ad\u00af\u0003\u0004\u0002\u0000\u00ae\u00ad\u0001\u0000"+
 		"\u0000\u0000\u00af\u00b2\u0001\u0000\u0000\u0000\u00b0\u00ae\u0001\u0000"+

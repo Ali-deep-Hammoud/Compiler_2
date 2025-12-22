@@ -5,19 +5,18 @@ options { tokenVocab= JinjaHtmlLexer; }
 prog: document* EOF;
 
 
-document: DOCTYPE? body                     #Html
-        | jinjaInheritance                  #Jinja
-        ;
+document: DOCTYPE? body;
+
 body:
 startElement body* endElement                           #HtmlElement
-|  styleStartElement styleBody*  styleEndElement        #StyleElement
+| styleStartElement styleBody*  styleEndElement         #StyleElement
 | singleElement                                         #SingleHtml
 | jinjaExpr                                             #JinjaExpression
 | jinjaConditionStmt                                    #JinjaConditionStatement
 | jinjaBlock                                            #JinjaBlockPlace
 | jinjaForLoop                                          #JinjaLoop
 | jinjaStmt                                             #JinjaStatement
-|jinjaInheritance                                       #JinjaInheritanceBody
+| jinjaInheritance                                      #JinjaInheritanceBody
 | ID                                                    #Identifier
 | TEXT                                                  #Text
 ;
@@ -33,9 +32,9 @@ attribute
     ;
 
 attributeValue
-    : JINJA_DQ jinjaExpr JINJA_DQ
-    | JINJA_SQ jinjaExpr JINJA_SQ
-    | STRING
+    : DQ_START DQ_TEXT? DQ_END                               #StringAttribute
+    | SQ_START jinjaExpr SQ_END           #JinjaSQAttribute
+    | DQ_START jinjaExpr DQ_END           #JinjaDQAttribute
     ;
 
 
@@ -70,12 +69,10 @@ declarationList
     ;
 
 declaration
-    : property CSS_COLON value (CSS_SEMI)?
+    : CSS_NAME CSS_COLON value (CSS_SEMI)?
     ;
 
-property
-    : CSS_NAME
-    ;
+
 
 value
     : (cssTerm(CSS_COMMA cssTerm)*)+
@@ -85,8 +82,8 @@ cssTerm
     : CSS_NUMBER CSS_UNIT?           #NumberTerm
     | CSS_STRING                     #StringTerm
     | CSS_NAME                       #NameTerm
-    |hexNum                          #HexTerm
-    |functions                       #FunctionTerm
+    | hexNum                         #HexTerm
+    | functions                      #FunctionTerm
 
     ;
 functions
@@ -108,13 +105,12 @@ scale
 ;
 hexNum: CSS_HASH (CSS_HEX | CSS_NAME | CSS_NUMBER);
 
-//JINJA BLOCK STATEMENT
+//Jinja
 jinjaBlock: jinjaSuperBlock? jinjaBlockStart body* jinjaBlockeEnd;
 jinjaBlockStart: JINJA_STMT_START JINJA_BLOCK jinjaId JINJA_STMT_END;
 jinjaBlockeEnd:JINJA_STMT_START JINJA_ENDBLOCK JINJA_STMT_END;
 jinjaSuperBlock: JINJA_EXPR_START JINJA_SUPER JINJA_EXPR_END;
 
-//JINJA IF STATEMENT
 jinjaConditionStmt: jinjaIf body? (jinjaElseIf body?)* (jinjaElse body?)? jinjaEndIf;
 jinjaIf: JINJA_STMT_START JINJA_IF jinjaConditions JINJA_STMT_END;
 jinjaElseIf:JINJA_STMT_START JINJA_ELIF jinjaConditions JINJA_STMT_END;
@@ -127,7 +123,6 @@ jinjaConditions
 | JINJA_NOT jinjaConditions                                               #JinjaCondition
 | jinjaVariable (JINJA_COMPARE | JINJA_INS)jinjaVariable                  #JinjaCompareCondition
 ;
-//JINJA FOR STATEMENT
 jinjaForLoop: jinjaFor body? (jinjaElse body?)? jinjaEndFor;
 jinjaFor: JINJA_STMT_START JINJA_FOR jinjaId JINJA_INS jinjaId (JINJA_IF jinjaConditions)? JINJA_STMT_END;
 jinjaEndFor: JINJA_STMT_START JINJA_ENDFOR JINJA_STMT_END;
@@ -139,21 +134,21 @@ jinjaId
 ;
 
 jinjaExpr
-    : (JINJA_EXPR_START | JINJA_EXPR_START_TAG) expr JINJA_EXPR_END
-    ;
+: (JINJA_EXPR_START | DQ_JINJA_START | SQ_JINJA_START) expr JINJA_EXPR_END
+;
 
 expr
-    : jinjaId                                                  #JinjaExpressionIDBody
-    | functionCall                                             #JinjaExpressionFunction
-    | JINJA_TEXT                                               #JinjaExpressionText
-    | (JINJA_STRING_EXPR | jinjaId) (JINJA_COMBINE (JINJA_STRING_EXPR | jinjaId))*             #JinjaExpressionCombine
-    | jinjaId JINJA_EQUAL expr                                 #JinjaExpressionAssign
-    ;
+: jinjaId                                                                                   #JinjaExpressionIDBody
+| functionCall                                                                              #JinjaExpressionFunction
+| JINJA_TEXT                                                                                #JinjaExpressionText
+| (JINJA_STRING_EXPR | jinjaId) (JINJA_COMBINE (JINJA_STRING_EXPR | jinjaId))*              #JinjaExpressionCombine
+| jinjaId JINJA_EQUAL expr                                                                  #JinjaExpressionAssign
+;
 
 functionCall
-    : jinjaId JINJA_LP_EXPR (expr (JINJA_COMMA expr)*)? JINJA_RP_EXPR
-    ;
+: jinjaId JINJA_LP_EXPR (expr (JINJA_COMMA expr)*)? JINJA_RP_EXPR
+;
 jinjaStmt
-    : JINJA_STMT_START (JINJA_TEXT_STMT | jinjaId | JINJA_STRING)* JINJA_STMT_END
-    ;
+: JINJA_STMT_START (JINJA_TEXT_STMT | jinjaId | JINJA_STRING)* JINJA_STMT_END
+;
 
