@@ -1,4 +1,5 @@
 // Generated from C:/Users/HP/Desktop/UniProjects/Compiler Project/Grammars/JinjaHtmlParser.g4 by ANTLR 4.13.2
+package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -16,19 +17,11 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(JinjaHtmlParser.ProgContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Html}
-	 * labeled alternative in {@link JinjaHtmlParser#document}.
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#document}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHtml(JinjaHtmlParser.HtmlContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Jinja}
-	 * labeled alternative in {@link JinjaHtmlParser#document}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja(JinjaHtmlParser.JinjaContext ctx);
+	T visitDocument(JinjaHtmlParser.DocumentContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code HtmlElement}
 	 * labeled alternative in {@link JinjaHtmlParser#body}.
@@ -131,11 +124,26 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttribute(JinjaHtmlParser.AttributeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#attributeValue}.
+	 * Visit a parse tree produced by the {@code StringAttribute}
+	 * labeled alternative in {@link JinjaHtmlParser#attributeValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAttributeValue(JinjaHtmlParser.AttributeValueContext ctx);
+	T visitStringAttribute(JinjaHtmlParser.StringAttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code JinjaSQAttribute}
+	 * labeled alternative in {@link JinjaHtmlParser#attributeValue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaSQAttribute(JinjaHtmlParser.JinjaSQAttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code JinjaDQAttribute}
+	 * labeled alternative in {@link JinjaHtmlParser#attributeValue}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaDQAttribute(JinjaHtmlParser.JinjaDQAttributeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaInheritance}.
 	 * @param ctx the parse tree
@@ -219,12 +227,6 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclaration(JinjaHtmlParser.DeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JinjaHtmlParser#property}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProperty(JinjaHtmlParser.PropertyContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JinjaHtmlParser#value}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -300,6 +302,12 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCalcFunction(JinjaHtmlParser.CalcFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#operator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperator(JinjaHtmlParser.OperatorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TranslateX}
 	 * labeled alternative in {@link JinjaHtmlParser#translate}.
@@ -410,19 +418,19 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJinjaParentecesCondition(JinjaHtmlParser.JinjaParentecesConditionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code JinjaNotCondition}
+	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaNotCondition(JinjaHtmlParser.JinjaNotConditionContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code JinjaConditionsRoot}
 	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitJinjaConditionsRoot(JinjaHtmlParser.JinjaConditionsRootContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code JinjaCondition}
-	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinjaCondition(JinjaHtmlParser.JinjaConditionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code JinjaVaraiableConditon}
 	 * labeled alternative in {@link JinjaHtmlParser#jinjaConditions}.
@@ -437,6 +445,12 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitJinjaCompareCondition(JinjaHtmlParser.JinjaCompareConditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#compare}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompare(JinjaHtmlParser.CompareContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JinjaHtmlParser#jinjaForLoop}.
 	 * @param ctx the parse tree
@@ -517,6 +531,12 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJinjaExpressionAssign(JinjaHtmlParser.JinjaExpressionAssignContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#combineHalf}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCombineHalf(JinjaHtmlParser.CombineHalfContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JinjaHtmlParser#functionCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -528,4 +548,10 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#stmtBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtBody(JinjaHtmlParser.StmtBodyContext ctx);
 }

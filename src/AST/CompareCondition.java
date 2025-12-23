@@ -19,4 +19,14 @@ public class CompareCondition extends Condition {
     public String getRightValue() {
         return rightValue;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.name).append("- ");
+        stringBuilder.append(leftValue).append(" ");
+        stringBuilder.append(operator).append(" ");
+        stringBuilder.append(rightValue).append(" ");
+        return stringBuilder.toString();
+    }
 }

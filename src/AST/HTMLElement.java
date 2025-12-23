@@ -38,4 +38,23 @@ public class HTMLElement extends HTMLNode{
     public List<BodyNode> getChildren() {
         return children;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString()).append("{\n");
+        stringBuilder.append("tag: ").append(tag).append("\n");
+        stringBuilder.append("attributes: ").append("\n");
+
+        for (Attribute attribute : attributes) {
+            stringBuilder.append(attribute).append(" ");
+        }
+        stringBuilder.append("body: ").append("\n");
+
+        for (BodyNode bodyNode : children) {
+            stringBuilder.append(bodyNode.toString());
+        }
+        stringBuilder.append("\n}\n");
+        return stringBuilder.toString();
+    }
 }

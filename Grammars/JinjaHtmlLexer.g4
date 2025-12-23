@@ -150,14 +150,16 @@ DQ_JINJA_START
     : '{{' -> pushMode(JINJA_EXPR)
     ;
 
-DQ_TEXT
-    : ~["\\{]+
-    ;
+
 
 DQ_END
     : '"' -> popMode
     ;
 
+DQ_WS:[ \t\r\n]+ -> skip ;
+DQ_TEXT
+    : ~["\\{]+
+    ;
 //SQ string mode -----------------------------------------------------------------------
 
 mode SQ_STRING;
@@ -166,13 +168,15 @@ SQ_JINJA_START
     : '{{' -> pushMode(JINJA_EXPR)
     ;
 
-SQ_TEXT
-    : ~['\\{]+
-    ;
 
 
 SQ_END
     : '\'' -> popMode
+    ;
+
+SQ_WS: [ \t\r\n]+ -> skip ;
+SQ_TEXT
+    : ~['\\{]+
     ;
 
 //css mode -----------------------------------------------------------------------

@@ -12,4 +12,16 @@ public class CSSRotateFunction extends CSSFunction {
 
     public double getAngle() { return angle; }
     public String getUnit() { return unit; }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.name + "- rotate( ");
+        stringBuilder.append(angle);
+        if (unit != null) {
+            stringBuilder.append(unit);
+        }
+        stringBuilder.append(" )");
+        return stringBuilder.toString();
+    }
 }

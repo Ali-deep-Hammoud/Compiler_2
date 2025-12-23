@@ -1,4 +1,5 @@
 // Generated from C:/Users/HP/Desktop/UniProjects/Compiler Project/Grammars/JinjaHtmlParser.g4 by ANTLR 4.13.2
+package antlr;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -28,25 +29,13 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHtml(JinjaHtmlParser.HtmlContext ctx) { }
+	@Override public void enterDocument(JinjaHtmlParser.DocumentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHtml(JinjaHtmlParser.HtmlContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterJinja(JinjaHtmlParser.JinjaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJinja(JinjaHtmlParser.JinjaContext ctx) { }
+	@Override public void exitDocument(JinjaHtmlParser.DocumentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -232,13 +221,37 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAttributeValue(JinjaHtmlParser.AttributeValueContext ctx) { }
+	@Override public void enterStringAttribute(JinjaHtmlParser.StringAttributeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAttributeValue(JinjaHtmlParser.AttributeValueContext ctx) { }
+	@Override public void exitStringAttribute(JinjaHtmlParser.StringAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinjaSQAttribute(JinjaHtmlParser.JinjaSQAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaSQAttribute(JinjaHtmlParser.JinjaSQAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinjaDQAttribute(JinjaHtmlParser.JinjaDQAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaDQAttribute(JinjaHtmlParser.JinjaDQAttributeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -400,18 +413,6 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProperty(JinjaHtmlParser.PropertyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitProperty(JinjaHtmlParser.PropertyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterValue(JinjaHtmlParser.ValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -539,6 +540,18 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCalcFunction(JinjaHtmlParser.CalcFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperator(JinjaHtmlParser.OperatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperator(JinjaHtmlParser.OperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -748,6 +761,18 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterJinjaNotCondition(JinjaHtmlParser.JinjaNotConditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinjaNotCondition(JinjaHtmlParser.JinjaNotConditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterJinjaConditionsRoot(JinjaHtmlParser.JinjaConditionsRootContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -755,18 +780,6 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJinjaConditionsRoot(JinjaHtmlParser.JinjaConditionsRootContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterJinjaCondition(JinjaHtmlParser.JinjaConditionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJinjaCondition(JinjaHtmlParser.JinjaConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -791,6 +804,18 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJinjaCompareCondition(JinjaHtmlParser.JinjaCompareConditionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompare(JinjaHtmlParser.CompareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompare(JinjaHtmlParser.CompareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -940,6 +965,18 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCombineHalf(JinjaHtmlParser.CombineHalfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCombineHalf(JinjaHtmlParser.CombineHalfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunctionCall(JinjaHtmlParser.FunctionCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -959,6 +996,18 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJinjaStmt(JinjaHtmlParser.JinjaStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStmtBody(JinjaHtmlParser.StmtBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtBody(JinjaHtmlParser.StmtBodyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

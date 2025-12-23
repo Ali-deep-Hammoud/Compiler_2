@@ -10,4 +10,9 @@ public class CSSHex extends CSSTerm{
     public String getNum() {
         return num;
     }
+
+    @Override
+    public String toString() {
+        return super.name + "- #" + num;
+    }
 }

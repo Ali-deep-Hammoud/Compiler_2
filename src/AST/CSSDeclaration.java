@@ -25,4 +25,14 @@ public class CSSDeclaration extends Node{
     public List<CSSTerm> getTerms() {
         return terms;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.name).append("- ").append(name).append(" : ");
+        for (CSSTerm term : terms) {
+            stringBuilder.append(term.toString()).append(" ");
+        }
+        return stringBuilder.toString();
+    }
 }

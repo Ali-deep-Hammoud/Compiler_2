@@ -10,5 +10,8 @@ public class CSSText extends CSSTerm{
         return text;
     }
 
-
+    @Override
+    public String toString() {
+        return super.name + "- "+ text;
+    }
 }
