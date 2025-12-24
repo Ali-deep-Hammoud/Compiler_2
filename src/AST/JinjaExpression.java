@@ -1,13 +1,48 @@
 package AST;
 
-public class JinjaExpression extends JinjaNode{
-    private final JinjaExpr expression;
+import java.util.ArrayList;
+import java.util.List;
 
-    public JinjaExpression(int line, JinjaExpr expression) {
+public class JinjaExpression extends JinjaNode{
+    private final List<JinjaExpr> expressions;
+
+    public JinjaExpression(int line) {
         super(line, "Jinja Expression");
-        this.expression = expression;
+        this.expressions = new ArrayList<>();
     }
-    public JinjaExpr getText() {
-        return expression;
+    public List<JinjaExpr> getText() {
+        return expressions;
+    }
+    public void addExpr(JinjaExpr expr){
+        expressions.add(expr);
+    }
+    public void removeExpr(JinjaExpr expr){
+        expressions.remove(expr);
+    }
+
+    @Override
+    public String print(String indent) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent).append(super.toString()).append("- ").append("{\n");
+        if (!expressions.isEmpty()){
+            stringBuilder.append(indent).append("expressions: ").append("\n");
+        }
+        String indentation = indent + "\t";
+        for (JinjaExpr expr : expressions) {
+            stringBuilder.append(indentation).append(expr.toString()).append("\n");
+        }
+        stringBuilder.append(indent).append("\n");
+        stringBuilder.append(indent).append("}\n");
+        return stringBuilder.toString();
+    }
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.name).append("- ");
+
+        for (JinjaExpr expr : expressions) {
+            stringBuilder.append(expr.toString()).append(" ");
+        }
+        return stringBuilder.toString();
     }
 }

@@ -10,4 +10,9 @@ public class NotCondition extends Condition {
     public Condition getCondition() {
         return condition;
     }
+
+    @Override
+    public String toString() {
+        return super.name + "- not (" + condition.toString() + ")";
+    }
 }

@@ -303,6 +303,12 @@ public interface JinjaHtmlParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCalcFunction(JinjaHtmlParser.CalcFunctionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JinjaHtmlParser#cssNum}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCssNum(JinjaHtmlParser.CssNumContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JinjaHtmlParser#operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

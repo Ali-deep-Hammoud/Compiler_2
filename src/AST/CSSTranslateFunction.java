@@ -28,8 +28,8 @@ public class CSSTranslateFunction extends CSSFunction {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(super.name).append("- translate");
-        if(x ==null) stringBuilder.append("X");
-        if(y ==null) stringBuilder.append("Y");
+        if(y ==null) stringBuilder.append("X");
+        if(x ==null) stringBuilder.append("Y");
         stringBuilder.append("( ");
         if (x != null) {
             stringBuilder.append(x);

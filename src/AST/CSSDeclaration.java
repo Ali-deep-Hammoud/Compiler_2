@@ -29,7 +29,7 @@ public class CSSDeclaration extends Node{
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.name).append("- ").append(name).append(" : ");
+        stringBuilder.append(super.toString()).append("- ").append(name).append(" : ");
         for (CSSTerm term : terms) {
             stringBuilder.append(term.toString()).append(" ");
         }

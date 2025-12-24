@@ -13,6 +13,6 @@ public class CSSIDSelector extends CSSSelector{
 
     @Override
     public String toString() {
-        return super.name + "- #" + name;
+        return super.toString() + "- #" + name;
     }
 }

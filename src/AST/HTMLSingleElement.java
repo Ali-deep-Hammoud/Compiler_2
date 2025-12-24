@@ -28,5 +28,23 @@ public class HTMLSingleElement extends HTMLNode{
         return attributes;
     }
 
+    public String print(String indent) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent).append(super.toString()).append("{\n");
+        stringBuilder.append(indent).append("tag: ").append(tag).append("\n");
+        if (!attributes.isEmpty()) {
+            stringBuilder.append(indent).append("attributes: ").append("\n");
+        }
+
+        for (Attribute attribute : attributes) {
+            stringBuilder.append(indent).append("\t").append(attribute).append(" \n");
+        }
+
+        stringBuilder.append(indent).append("\n");
+        stringBuilder.append(indent).append("}\n");
+
+        return stringBuilder.toString();
+    }
+
 
 }

@@ -21,13 +21,14 @@ public class CSSBody extends CSSNode{
     }
 
     @Override
-    public String toString() {
+    public String print(String indent) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString()).append("{\n");
+        stringBuilder.append(indent).append(super.toString()).append("{\n");
+        String indentation = indent + "\t";
         for (CSSRule cssRule : cssRules) {
-            stringBuilder.append(cssRule.toString());
+            stringBuilder.append(cssRule.print(indentation));
         }
-        stringBuilder.append("}\n");
+        stringBuilder.append(indent).append("}\n");
         return stringBuilder.toString();
     }
 }

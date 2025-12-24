@@ -1,9 +1,9 @@
 package AST;
 
 public class JinjaAssign extends JinjaExpr{
-    private final String name;
+    private final JinjaText name;
     private final JinjaExpr value;
-    public JinjaAssign(int line, String name, JinjaExpr value) {
+    public JinjaAssign(int line, JinjaText name, JinjaExpr value) {
         super(line, "Jinja Assign");
         this.name = name;
         this.value = value;
@@ -13,7 +13,12 @@ public class JinjaAssign extends JinjaExpr{
         return value;
     }
 
-    public String getName() {
+    public JinjaText getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return super.name+ "- "+  name.toString()+" = "+value.toString() + " ";
     }
 }

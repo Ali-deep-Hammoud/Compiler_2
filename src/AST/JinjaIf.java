@@ -34,4 +34,28 @@ public class JinjaIf extends JinjaNode{
     public BodyNode getElseBody() {
         return elseBody;
     }
+
+    @Override
+    public String print(String indent) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent).append(super.toString()).append("{\n");
+        stringBuilder.append(indent).append("IF Condition: ").append(condition).append("\n");
+        String indentation = indent + "\t";
+        if(ifBody != null){
+            stringBuilder.append(indent).append("IF Body: ").append("\n");
+            stringBuilder.append(ifBody.print(indentation));
+        }
+        if (elifs != null && !elifs.isEmpty()) {
+            for (JinjaElif elif : elifs) {
+                stringBuilder.append(elif.print(indent)).append("\n");
+            }
+        }
+        if(elseBody != null){
+            stringBuilder.append(indent).append("Else Body: ").append("\n");
+            stringBuilder.append(elseBody.print(indentation));
+        }
+        stringBuilder.append(indent).append("\n");
+        stringBuilder.append(indent).append("}\n");
+        return stringBuilder.toString();
+    }
 }

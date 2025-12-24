@@ -9,4 +9,9 @@ public class JinjaStatement extends JinjaNode {
     public String getText() {
         return Text;
     }
+
+    @Override
+    public String print(String indent) {
+        return indent + super.toString() + "" + this.Text + "\n";
+    }
 }

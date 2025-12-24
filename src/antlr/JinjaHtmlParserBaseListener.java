@@ -545,6 +545,18 @@ public class JinjaHtmlParserBaseListener implements JinjaHtmlParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCssNum(JinjaHtmlParser.CssNumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCssNum(JinjaHtmlParser.CssNumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOperator(JinjaHtmlParser.OperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}

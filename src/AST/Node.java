@@ -11,7 +11,8 @@ public abstract class Node {
 
     @Override
     public String toString() {
-        return this.line + "- " + this.name + " ";
+        return "line" +this.line + "- " + this.name + " ";
     }
+
 }
 

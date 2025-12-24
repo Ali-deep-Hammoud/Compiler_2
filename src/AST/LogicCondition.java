@@ -20,4 +20,9 @@ public class LogicCondition extends Condition {
         return right;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "- ("+left + ") " + operator + " (" + right + ")";
+    }
+
 }

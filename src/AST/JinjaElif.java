@@ -15,4 +15,17 @@ public class JinjaElif extends JinjaNode {
     public BodyNode getBody() {
         return body;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent).append("ElseIF Condition: ").append(condition).append("\n");
+        String indentation = indent + "\t";
+        if(body != null){
+            stringBuilder.append(indent).append("ElseIF Body: ").append("\n");
+            stringBuilder.append(body.print(indentation));
+        }
+
+        stringBuilder.append(indent).append("\n");
+        return stringBuilder.toString();
+    }
 }

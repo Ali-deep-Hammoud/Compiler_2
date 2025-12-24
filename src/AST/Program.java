@@ -18,4 +18,15 @@ public class Program extends Node{
     public List<BodyNode> getBodyNodes(){
         return this.bodyNodes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(super.toString()).append("{\n");
+        for (BodyNode bodyNode : bodyNodes){
+            stringBuilder.append(bodyNode.print("\t")).append("\n");
+        }
+        stringBuilder.append("\n}\n");
+        return stringBuilder.toString();
+    }
 }

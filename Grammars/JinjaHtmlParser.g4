@@ -87,22 +87,23 @@ cssTerm
 
     ;
 functions
-: CSS_HSL CSS_LP CSS_NUMBER CSS_UNIT? CSS_COMMA CSS_NUMBER CSS_UNIT? CSS_COMMA CSS_NUMBER CSS_UNIT? CSS_RP       #HSLFunction
+: CSS_HSL CSS_LP cssNum CSS_COMMA cssNum CSS_COMMA cssNum CSS_RP       #HSLFunction
 |translate                                                                                                       #TranslateFunction
 |scale                                                                                                           #ScaleFunction
-| CSS_ROTATE CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                                                  #RotateFunction
-| CSS_CALC CSS_LP CSS_NUMBER CSS_UNIT? operator CSS_NUMBER CSS_UNIT? CSS_RP                          #CalcFunction
+| CSS_ROTATE CSS_LP cssNum CSS_RP                                                                  #RotateFunction
+| CSS_CALC CSS_LP cssNum operator cssNum CSS_RP                          #CalcFunction
 ;
+cssNum : CSS_NUMBER CSS_UNIT?;
 operator: CSS_MATH | CSS_ALL;
 translate
-: CSS_TRANSLATEX CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                          #TranslateX
-| CSS_TRANSLATEY CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                          #TranslateY
-| CSS_TRANSLATE CSS_LP CSS_NUMBER CSS_UNIT? CSS_COMMA CSS_NUMBER CSS_UNIT? CSS_RP            #TranslateFull
+: CSS_TRANSLATEX CSS_LP cssNum CSS_RP                                          #TranslateX
+| CSS_TRANSLATEY CSS_LP cssNum CSS_RP                                          #TranslateY
+| CSS_TRANSLATE CSS_LP cssNum CSS_COMMA cssNum CSS_RP            #TranslateFull
 ;
 scale
-: CSS_SCALEX CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                                  #ScaleX
-| CSS_SCALEY CSS_LP CSS_NUMBER CSS_UNIT? CSS_RP                                                  #ScaleY
-| CSS_SCALE CSS_LP CSS_NUMBER CSS_UNIT? CSS_COMMA CSS_NUMBER CSS_UNIT? CSS_RP                    #ScaleFull
+: CSS_SCALEX CSS_LP cssNum CSS_RP                                                  #ScaleX
+| CSS_SCALEY CSS_LP cssNum CSS_RP                                                  #ScaleY
+| CSS_SCALE CSS_LP cssNum CSS_COMMA cssNum CSS_RP                    #ScaleFull
 ;
 hexNum: CSS_HASH (CSS_HEX | CSS_NAME | CSS_NUMBER);
 
@@ -137,14 +138,14 @@ jinjaId
 ;
 
 jinjaExpr
-: (JINJA_EXPR_START | DQ_JINJA_START | SQ_JINJA_START) expr JINJA_EXPR_END
+: (JINJA_EXPR_START | DQ_JINJA_START | SQ_JINJA_START) expr* JINJA_EXPR_END
 ;
 
 expr
 : jinjaId                                                                                   #JinjaExpressionIDBody
 | functionCall                                                                              #JinjaExpressionFunction
 | JINJA_TEXT                                                                                #JinjaExpressionText
-| combineHalf (JINJA_COMBINE combineHalf)*              #JinjaExpressionCombine
+| combineHalf (JINJA_COMBINE combineHalf)*                                                  #JinjaExpressionCombine
 | jinjaId JINJA_EQUAL expr                                                                  #JinjaExpressionAssign
 ;
 

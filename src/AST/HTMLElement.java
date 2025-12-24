@@ -40,21 +40,27 @@ public class HTMLElement extends HTMLNode{
     }
 
     @Override
-    public String toString() {
+    public String print(String indent) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString()).append("{\n");
-        stringBuilder.append("tag: ").append(tag).append("\n");
-        stringBuilder.append("attributes: ").append("\n");
+        stringBuilder.append(indent).append(super.toString()).append("{\n");
+        stringBuilder.append(indent).append("tag: ").append(tag).append("\n");
+        if (!attributes.isEmpty()) {
+            stringBuilder.append(indent).append("attributes: ").append("\n");
+        }
 
         for (Attribute attribute : attributes) {
-            stringBuilder.append(attribute).append(" ");
+            stringBuilder.append(indent).append("\t").append(attribute).append(" \n");
         }
-        stringBuilder.append("body: ").append("\n");
-
+        if (!children.isEmpty()) {
+            stringBuilder.append(indent).append("body: ").append("\n");
+        }
+        String indentaion = indent + "\t";
         for (BodyNode bodyNode : children) {
-            stringBuilder.append(bodyNode.toString());
+            stringBuilder.append(bodyNode.print(indentaion));
         }
-        stringBuilder.append("\n}\n");
+        stringBuilder.append(indent).append("\n");
+        stringBuilder.append(indent).append("}\n");
+
         return stringBuilder.toString();
     }
 }

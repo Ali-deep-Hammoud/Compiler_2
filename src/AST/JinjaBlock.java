@@ -5,34 +5,52 @@ import java.util.List;
 
 public class JinjaBlock extends JinjaNode{
     private final JinjaSuperBlock superBlock;
-    private final String name;
-    private final List<BodyNode> bodys;
+    private final JinjaText name;
+    private final List<BodyNode> bodies;
 
-    public JinjaBlock(int line, String name,JinjaSuperBlock superBlock) {
+    public JinjaBlock(int line, JinjaText name,JinjaSuperBlock superBlock) {
         super(line, "Jinja Block");
         this.name = name;
-        this.bodys = new ArrayList<>() ;
+        this.bodies = new ArrayList<>() ;
         this.superBlock = superBlock;
     }
-    public JinjaBlock(int line, String name) {
+    public JinjaBlock(int line, JinjaText name) {
         super(line, "Jinja Block");
         this.name = name;
-        this.bodys = new ArrayList<>();
+        this.bodies = new ArrayList<>();
         this.superBlock = null;
     }
     public void addBody(BodyNode body) {
-        this.bodys.add(body);
+        this.bodies.add(body);
     }
     public void removeBody(BodyNode body) {
-        this.bodys.remove(body);
+        this.bodies.remove(body);
     }
-    public String getName() {
+    public JinjaText getName() {
         return name;
     }
     public List<BodyNode> getBodys() {
-        return bodys;
+        return bodies;
     }
     public JinjaSuperBlock getSuperBlock() {
         return superBlock;
+    }
+
+    @Override
+    public String print(String indent) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(indent).append(super.toString()).append(" name: ").append(name.getText()).append("{\n");
+        if (superBlock != null) {
+            stringBuilder.append(indent).append("super()").append("\n");
+        }
+        String indentaion = indent + "\t";
+        if (!bodies.isEmpty()){
+            stringBuilder.append(indent).append("body:").append("\n");
+        }
+        for (BodyNode body : bodies) {
+            stringBuilder.append(body.print(indentaion));
+        }
+        stringBuilder.append(indent).append("}\n");
+        return stringBuilder.toString();
     }
 }

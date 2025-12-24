@@ -10,4 +10,8 @@ public class VariableCondition extends Condition {
     public String getVariable() {
         return variable;
     }
+    @Override
+    public String toString() {
+        return super.name  + "- " + variable + " ";
+    }
 }

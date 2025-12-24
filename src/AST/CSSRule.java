@@ -30,18 +30,18 @@ public class CSSRule extends Node{
         return declarations;
     }
 
-    @Override
-    public String toString() {
+    public String print(String indent) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(super.toString()).append("{\n");
+        stringBuilder.append(indent).append(super.toString()).append("{\n");
         for (CSSSelector selector : selectors) {
-            stringBuilder.append(selector.toString()).append("\n");
+            stringBuilder.append(indent).append(selector.toString()).append("\n");
         }
-        stringBuilder.append("{\n");
+        stringBuilder.append(indent).append("{\n");
         for (CSSDeclaration declaration : declarations) {
-            stringBuilder.append(declaration.toString()).append("\n");
+            stringBuilder.append(indent).append(declaration.toString()).append("\n");
         }
-        stringBuilder.append("}\n");
+        stringBuilder.append(indent).append("\n");
+        stringBuilder.append(indent).append("}\n");
         return stringBuilder.toString();
     }
 }

@@ -16,4 +16,9 @@ public class CSSNumber extends CSSTerm {
     public String getUnit() {
         return unit;
     }
+
+    @Override
+    public String toString() {
+        return super.name + "- " + value + " " + (unit != null ? unit : "") + " ";
+    }
 }

@@ -4,7 +4,7 @@ public class AttributeString extends AttributeValue{
     private final String value;
     public AttributeString(int line, String value){
         super(line,"String Value");
-        this.value=value;
+        this.value = value.replaceAll("^['\"]|['\"]$", "");
     }
 
     public String getValue() {

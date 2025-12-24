@@ -504,6 +504,16 @@ public interface JinjaHtmlParserListener extends ParseTreeListener {
 	 */
 	void exitCalcFunction(JinjaHtmlParser.CalcFunctionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JinjaHtmlParser#cssNum}.
+	 * @param ctx the parse tree
+	 */
+	void enterCssNum(JinjaHtmlParser.CssNumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JinjaHtmlParser#cssNum}.
+	 * @param ctx the parse tree
+	 */
+	void exitCssNum(JinjaHtmlParser.CssNumContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JinjaHtmlParser#operator}.
 	 * @param ctx the parse tree
 	 */

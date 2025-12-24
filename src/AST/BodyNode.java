@@ -5,4 +5,8 @@ public abstract class BodyNode extends Node {
     {
         super(line,name);
     }
+    public String print(String indent){
+
+        return "";
+    }
 }
