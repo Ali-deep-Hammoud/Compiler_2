@@ -36,7 +36,6 @@ public class CSSRule extends Node{
         for (CSSSelector selector : selectors) {
             stringBuilder.append(indent).append(selector.toString()).append("\n");
         }
-        stringBuilder.append(indent).append("{\n");
         for (CSSDeclaration declaration : declarations) {
             stringBuilder.append(indent).append(declaration.toString()).append("\n");
         }

@@ -1,17 +1,18 @@
 package AST;
 
 public class JinjaStatement extends JinjaNode {
-    private  final String Text;
+    private  final String text;
     public JinjaStatement(int line,String Text) {
         super(line,"Jinja Statement");
-        this.Text = Text;
+        this.text = Text;
     }
     public String getText() {
-        return Text;
+        return text;
     }
 
     @Override
     public String print(String indent) {
-        return indent + super.toString() + "" + this.Text + "\n";
+        return indent + super.toString() + "" + this.text + "\n";
     }
+
 }

@@ -13,7 +13,7 @@ public class JinjaIf extends JinjaNode{
         this.condition = condition;
         this.ifBody = ifBody;
         this.elseBody = elseBody;
-        this.elifs = new ArrayList<JinjaElif>();
+        this.elifs = new ArrayList<>();
     }
     public void addElif(JinjaElif elif){
         this.elifs.add(elif);

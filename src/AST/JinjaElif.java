@@ -1,6 +1,6 @@
 package AST;
 
-public class JinjaElif extends JinjaNode {
+public class JinjaElif extends Node {
     private final Condition condition;
     private final BodyNode body;
 
@@ -15,7 +15,8 @@ public class JinjaElif extends JinjaNode {
     public BodyNode getBody() {
         return body;
     }
-    @Override
+
+
     public String print(String indent) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(indent).append("ElseIF Condition: ").append(condition).append("\n");

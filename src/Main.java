@@ -15,7 +15,7 @@ import java.io.IOException;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws IOException {
-        String source = "Tests/test1.txt";
+        String source = "Tests/test2.txt";
         CharStream input = CharStreams.fromFileName(source);
         JinjaHtmlLexer lexer = new JinjaHtmlLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
