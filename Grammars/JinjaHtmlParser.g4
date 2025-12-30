@@ -9,7 +9,7 @@ document: DOCTYPE? body;
 
 body:
 startElement body* endElement                           #HtmlElement
-| styleStartElement styleBody styleEndElement         #StyleElement
+| styleStartElement styleBody styleEndElement           #StyleElement
 | singleElement                                         #SingleHtml
 | jinjaExpr                                             #JinjaExpression
 | jinjaConditionStmt                                    #JinjaConditionStatement

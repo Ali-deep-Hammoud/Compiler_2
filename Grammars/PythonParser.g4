@@ -1,16 +1,11 @@
 parser grammar PythonParser;
 options { tokenVocab = PythonLexer; }
 
-// ==========================================
-// ROOT RULE
-// ==========================================
+
 file_input
     : ( NEWLINE | stmt )* EOF
     ;
 
-// ==========================================
-// STATEMENTS
-// ==========================================
 stmt
     : simple_stmt
     | compound_stmt
