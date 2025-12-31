@@ -6,16 +6,18 @@ import AST2.SmallStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-class ImportFromStatement extends SmallStatement {
+public class ImportFromStatement extends SmallStatement {
     private final String module;
     private final int level;
     private final List<Alias> names;
+    private final boolean importAll;
 
-    public ImportFromStatement(int line,String module, int level) {
+    public ImportFromStatement(int line,String module, int level,boolean importAll) {
         super(line, "Import From Statement");
         this.module = module;
         this.level = level;
         this.names = new ArrayList<>();
+        this.importAll = importAll;
     }
     public void addAlias(Alias alias) {
         names.add(alias);
@@ -28,6 +30,9 @@ class ImportFromStatement extends SmallStatement {
     }
     public int getLevel() {
         return level;
+    }
+    public boolean isImportAll() {
+        return importAll;
     }
 
 }

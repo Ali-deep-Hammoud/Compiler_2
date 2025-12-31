@@ -7,8 +7,8 @@ file_input
     ;
 
 stmt
-    : simple_stmt
-    | compound_stmt
+    : simple_stmt #StmtSimple
+    | compound_stmt #StmtCompound
     ;
 
 simple_stmt
@@ -16,24 +16,28 @@ simple_stmt
     ;
 
 small_stmt
-    : expr_stmt
-    | del_stmt
-    | pass_stmt
-    | flow_stmt
-    | import_stmt
-    | global_stmt
-    | nonlocal_stmt
-    | assert_stmt
+    : expr_stmt #SmallStmtExpr
+    | del_stmt #SmallStmtDel
+    | pass_stmt #SmallStmtPass
+    | flow_stmt #SmallStmtFlow
+    | import_stmt #SmallStmtImport
+    | global_stmt #SmallStmtGlobal
+    | nonlocal_stmt #SmallStmtNonlocal
+    | assert_stmt #SmallStmtAssert
     ;
 
 expr_stmt
-    : testlist_star_expr (augassign testlist
-                         | (EQUAL testlist_star_expr)* )?
+    : testlist_star_expr (augassign testlist | (EQUAL testlist_star_expr)* )?
     ;
 
 augassign
-    : PLUSEQUAL | MINUSEQUAL | STAREQUAL | SLASHEQUAL
-    | PERCENTEQUAL | ATEQUAL | DOUBLESTAR_EQUAL
+    : PLUSEQUAL #AugAssignPlus
+    | MINUSEQUAL #AugAssignMinus
+    | STAREQUAL #AugAssignStar
+    | SLASHEQUAL #AugAssignSlash
+    | PERCENTEQUAL #AugAssignPercent
+    | ATEQUAL #AugAssignAt
+    | DOUBLESTAR_EQUAL #AugAssignDoubleStar
     ;
 
 del_stmt
@@ -45,11 +49,11 @@ pass_stmt
     ;
 
 flow_stmt
-    : break_stmt
-    | continue_stmt
-    | return_stmt
-    | raise_stmt
-    | yield_stmt
+    : break_stmt #FlowStmtBreak
+    | continue_stmt #FlowStmtContinue
+    | return_stmt #FlowStmtReturn
+    | raise_stmt #FlowStmtRaise
+    | yield_stmt #FlowStmtYield
     ;
 
 break_stmt
@@ -73,8 +77,8 @@ raise_stmt
     ;
 
 import_stmt
-    : import_name
-    | import_from
+    : import_name            #ImportStmtName
+    | import_from            #ImportStmtFrom
     ;
 
 import_name
@@ -121,14 +125,14 @@ assert_stmt
 // COMPOUND STATEMENTS
 // ==========================================
 compound_stmt
-    : if_stmt
-    | while_stmt
-    | for_stmt
-    | try_stmt
-    | with_stmt
-    | funcdef
-    | classdef
-    | decorated
+    : if_stmt               #CompoundStmtIf
+    | while_stmt            #CompoundStmtWhile
+    | for_stmt              #CompoundStmtFor
+    | try_stmt              #CompoundStmtTry
+    | with_stmt             #CompoundStmtWith
+    | funcdef               #CompoundStmtFunc
+    | classdef              #CompoundStmtClass
+    | decorated             #CompoundStmtDecorated
     ;
 
 if_stmt
@@ -164,8 +168,8 @@ except_clause
     ;
 
 suite
-    : simple_stmt
-    | NEWLINE* stmt+
+    : simple_stmt #SuiteSimple
+    | NEWLINE* stmt+ #SuiteCompound
     ;
 
 // ==========================================
@@ -176,7 +180,7 @@ funcdef
     ;
 
 parameters
-    : LPAREN typedargslist? RPAREN
+    : LPAREN typedargslist? RPAREN #Parameters_
     ;
 
 typedargslist
@@ -205,13 +209,13 @@ decorator
 // EXPRESSIONS
 // ==========================================
 test
-    : or_test (IF or_test ELSE test)?
-    | lambdef
+    : or_test (IF or_test ELSE test)? #TestCond
+    | lambdef #TestLambda
     ;
 
 test_nocond
-    : or_test
-    | lambdef_nocond
+    : or_test #TestNoCondOr
+    | lambdef_nocond #TestNoCondLambda
     ;
 
 lambdef
@@ -231,8 +235,8 @@ and_test
     ;
 
 not_test
-    : NOT not_test
-    | comparison
+    : NOT not_test #NotTestNot
+    | comparison #NotTestComp
     ;
 
 comparison
@@ -240,8 +244,16 @@ comparison
     ;
 
 comp_op
-    : LESS | GREATER | EQEQUAL | GREATEREQUAL | LESSEQUAL
-    | NOTEQUAL | IN | NOT IN | IS | IS NOT
+    : LESS #CompOpLess
+    | GREATER #CompOpGreater
+    | EQEQUAL #CompOpEq
+    | GREATEREQUAL #CompOpGe
+    | LESSEQUAL #CompOpLe
+    | NOTEQUAL #CompOpNe
+    | IN #CompOpIn
+    | NOT IN #CompOpNotIn
+    | IS #CompOpIs
+    | IS NOT #CompOpIsNot
     ;
 
 star_expr
@@ -273,8 +285,8 @@ term
     ;
 
 factor
-    : (PLUS | MINUS | TILDE) factor
-    | power
+    : (PLUS | MINUS | TILDE) factor #FactorUnary
+    | power #FactorPower
     ;
 
 power
@@ -286,16 +298,16 @@ atom_expr
     ;
 
 atom
-    : LPAREN (yield_expr | testlist_comp)? RPAREN
-    | LSQB testlist_comp? RSQB
-    | LBRACE dictorsetmaker? RBRACE
-    | NAME
-    | NUMBER
-    | STRING+
-    | ELLIPSIS
-    | NONE
-    | TRUE
-    | FALSE
+    : LPAREN (yield_expr | testlist_comp)? RPAREN #AtomParen
+    | LSQB testlist_comp? RSQB #AtomList
+    | LBRACE dictorsetmaker? RBRACE #AtomDict
+    | NAME #AtomName
+    | NUMBER #AtomNumber
+    | STRING+ #AtomString
+    | ELLIPSIS #AtomEllipsis
+    | NONE #AtomNone
+    | TRUE #AtomTrue
+    | FALSE #AtomFalse
     ;
 
 testlist_comp
@@ -303,9 +315,9 @@ testlist_comp
     ;
 
 trailer
-    : LPAREN arglist? RPAREN
-    | LSQB subscriptlist RSQB
-    | DOT NAME
+    : LPAREN arglist? RPAREN #TrailerCall
+    | LSQB subscriptlist RSQB #TrailerIndex
+    | DOT NAME #TrailerDot
     ;
 
 subscriptlist
@@ -313,8 +325,8 @@ subscriptlist
     ;
 
 subscript
-    : test
-    | test? COLON test? sliceop?
+    : test #SubscriptTest
+    | test? COLON test? sliceop? #SubscriptSlice
     ;
 
 sliceop
@@ -337,8 +349,8 @@ dictorsetmaker
     ;
 
 classdef_or_funcdef
-    : classdef
-    | funcdef
+    : classdef #ClassDefOrFuncDefClass
+    | funcdef #ClassDefOrFuncDefFunc
     ;
 
 arglist
@@ -346,15 +358,15 @@ arglist
     ;
 
 argument
-    : (test comp_for?
-      | test EQUAL test
-      | DOUBLESTAR test
-      | STAR test)
+    : test comp_for?                   #ArgumentComp
+      | test EQUAL test                 #ArgumentEqual
+      | DOUBLESTAR test                 #ArgumentDoubleStar
+      | STAR test                       #ArgumentStar
     ;
 
 comp_iter
-    : comp_for
-    | comp_if
+    : comp_for #CompIterFor
+    | comp_if #CompIterIf
     ;
 
 comp_for
@@ -370,8 +382,8 @@ yield_expr
     ;
 
 yield_arg
-    : FROM test
-    | testlist
+    : FROM test #YieldArgFrom
+    | testlist #YieldArgList
     ;
 
 // ==========================================

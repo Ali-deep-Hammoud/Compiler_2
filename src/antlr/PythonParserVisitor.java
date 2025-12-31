@@ -17,11 +17,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFile_input(PythonParser.File_inputContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#stmt}.
+	 * Visit a parse tree produced by the {@code StmtSimple}
+	 * labeled alternative in {@link PythonParser#stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStmt(PythonParser.StmtContext ctx);
+	T visitStmtSimple(PythonParser.StmtSimpleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StmtCompound}
+	 * labeled alternative in {@link PythonParser#stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtCompound(PythonParser.StmtCompoundContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#simple_stmt}.
 	 * @param ctx the parse tree
@@ -29,11 +37,61 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimple_stmt(PythonParser.Simple_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#small_stmt}.
+	 * Visit a parse tree produced by the {@code SmallStmtExpr}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSmall_stmt(PythonParser.Small_stmtContext ctx);
+	T visitSmallStmtExpr(PythonParser.SmallStmtExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallStmtDel}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallStmtDel(PythonParser.SmallStmtDelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallStmtPass}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallStmtPass(PythonParser.SmallStmtPassContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallStmtFlow}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallStmtFlow(PythonParser.SmallStmtFlowContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallStmtImport}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallStmtImport(PythonParser.SmallStmtImportContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallStmtGlobal}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallStmtGlobal(PythonParser.SmallStmtGlobalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallStmtNonlocal}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallStmtNonlocal(PythonParser.SmallStmtNonlocalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SmallStmtAssert}
+	 * labeled alternative in {@link PythonParser#small_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSmallStmtAssert(PythonParser.SmallStmtAssertContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#expr_stmt}.
 	 * @param ctx the parse tree
@@ -41,11 +99,54 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr_stmt(PythonParser.Expr_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#augassign}.
+	 * Visit a parse tree produced by the {@code AugAssignPlus}
+	 * labeled alternative in {@link PythonParser#augassign}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAugassign(PythonParser.AugassignContext ctx);
+	T visitAugAssignPlus(PythonParser.AugAssignPlusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AugAssignMinus}
+	 * labeled alternative in {@link PythonParser#augassign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAugAssignMinus(PythonParser.AugAssignMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AugAssignStar}
+	 * labeled alternative in {@link PythonParser#augassign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAugAssignStar(PythonParser.AugAssignStarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AugAssignSlash}
+	 * labeled alternative in {@link PythonParser#augassign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAugAssignSlash(PythonParser.AugAssignSlashContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AugAssignPercent}
+	 * labeled alternative in {@link PythonParser#augassign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAugAssignPercent(PythonParser.AugAssignPercentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AugAssignAt}
+	 * labeled alternative in {@link PythonParser#augassign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAugAssignAt(PythonParser.AugAssignAtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AugAssignDoubleStar}
+	 * labeled alternative in {@link PythonParser#augassign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAugAssignDoubleStar(PythonParser.AugAssignDoubleStarContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#del_stmt}.
 	 * @param ctx the parse tree
@@ -59,11 +160,40 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPass_stmt(PythonParser.Pass_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#flow_stmt}.
+	 * Visit a parse tree produced by the {@code FlowStmtBreak}
+	 * labeled alternative in {@link PythonParser#flow_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFlow_stmt(PythonParser.Flow_stmtContext ctx);
+	T visitFlowStmtBreak(PythonParser.FlowStmtBreakContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FlowStmtContinue}
+	 * labeled alternative in {@link PythonParser#flow_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlowStmtContinue(PythonParser.FlowStmtContinueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FlowStmtReturn}
+	 * labeled alternative in {@link PythonParser#flow_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlowStmtReturn(PythonParser.FlowStmtReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FlowStmtRaise}
+	 * labeled alternative in {@link PythonParser#flow_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlowStmtRaise(PythonParser.FlowStmtRaiseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FlowStmtYield}
+	 * labeled alternative in {@link PythonParser#flow_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFlowStmtYield(PythonParser.FlowStmtYieldContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#break_stmt}.
 	 * @param ctx the parse tree
@@ -95,11 +225,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRaise_stmt(PythonParser.Raise_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#import_stmt}.
+	 * Visit a parse tree produced by the {@code ImportStmtName}
+	 * labeled alternative in {@link PythonParser#import_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitImport_stmt(PythonParser.Import_stmtContext ctx);
+	T visitImportStmtName(PythonParser.ImportStmtNameContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ImportStmtFrom}
+	 * labeled alternative in {@link PythonParser#import_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportStmtFrom(PythonParser.ImportStmtFromContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#import_name}.
 	 * @param ctx the parse tree
@@ -161,11 +299,61 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssert_stmt(PythonParser.Assert_stmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#compound_stmt}.
+	 * Visit a parse tree produced by the {@code CompoundStmtIf}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCompound_stmt(PythonParser.Compound_stmtContext ctx);
+	T visitCompoundStmtIf(PythonParser.CompoundStmtIfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompoundStmtWhile}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStmtWhile(PythonParser.CompoundStmtWhileContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompoundStmtFor}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStmtFor(PythonParser.CompoundStmtForContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompoundStmtTry}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStmtTry(PythonParser.CompoundStmtTryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompoundStmtWith}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStmtWith(PythonParser.CompoundStmtWithContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompoundStmtFunc}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStmtFunc(PythonParser.CompoundStmtFuncContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompoundStmtClass}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStmtClass(PythonParser.CompoundStmtClassContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompoundStmtDecorated}
+	 * labeled alternative in {@link PythonParser#compound_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStmtDecorated(PythonParser.CompoundStmtDecoratedContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#if_stmt}.
 	 * @param ctx the parse tree
@@ -209,11 +397,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExcept_clause(PythonParser.Except_clauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#suite}.
+	 * Visit a parse tree produced by the {@code SuiteSimple}
+	 * labeled alternative in {@link PythonParser#suite}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSuite(PythonParser.SuiteContext ctx);
+	T visitSuiteSimple(PythonParser.SuiteSimpleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SuiteCompound}
+	 * labeled alternative in {@link PythonParser#suite}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSuiteCompound(PythonParser.SuiteCompoundContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#funcdef}.
 	 * @param ctx the parse tree
@@ -221,11 +417,12 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncdef(PythonParser.FuncdefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#parameters}.
+	 * Visit a parse tree produced by the {@code Parameters_}
+	 * labeled alternative in {@link PythonParser#parameters}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParameters(PythonParser.ParametersContext ctx);
+	T visitParameters_(PythonParser.Parameters_Context ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#typedargslist}.
 	 * @param ctx the parse tree
@@ -257,17 +454,33 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDecorator(PythonParser.DecoratorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#test}.
+	 * Visit a parse tree produced by the {@code TestCond}
+	 * labeled alternative in {@link PythonParser#test}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTest(PythonParser.TestContext ctx);
+	T visitTestCond(PythonParser.TestCondContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#test_nocond}.
+	 * Visit a parse tree produced by the {@code TestLambda}
+	 * labeled alternative in {@link PythonParser#test}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTest_nocond(PythonParser.Test_nocondContext ctx);
+	T visitTestLambda(PythonParser.TestLambdaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TestNoCondOr}
+	 * labeled alternative in {@link PythonParser#test_nocond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTestNoCondOr(PythonParser.TestNoCondOrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TestNoCondLambda}
+	 * labeled alternative in {@link PythonParser#test_nocond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTestNoCondLambda(PythonParser.TestNoCondLambdaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#lambdef}.
 	 * @param ctx the parse tree
@@ -293,11 +506,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAnd_test(PythonParser.And_testContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#not_test}.
+	 * Visit a parse tree produced by the {@code NotTestNot}
+	 * labeled alternative in {@link PythonParser#not_test}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNot_test(PythonParser.Not_testContext ctx);
+	T visitNotTestNot(PythonParser.NotTestNotContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NotTestComp}
+	 * labeled alternative in {@link PythonParser#not_test}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotTestComp(PythonParser.NotTestCompContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#comparison}.
 	 * @param ctx the parse tree
@@ -305,11 +526,75 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitComparison(PythonParser.ComparisonContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#comp_op}.
+	 * Visit a parse tree produced by the {@code CompOpLess}
+	 * labeled alternative in {@link PythonParser#comp_op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitComp_op(PythonParser.Comp_opContext ctx);
+	T visitCompOpLess(PythonParser.CompOpLessContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpGreater}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpGreater(PythonParser.CompOpGreaterContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpEq}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpEq(PythonParser.CompOpEqContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpGe}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpGe(PythonParser.CompOpGeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpLe}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpLe(PythonParser.CompOpLeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpNe}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpNe(PythonParser.CompOpNeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpIn}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpIn(PythonParser.CompOpInContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpNotIn}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpNotIn(PythonParser.CompOpNotInContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpIs}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpIs(PythonParser.CompOpIsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompOpIsNot}
+	 * labeled alternative in {@link PythonParser#comp_op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompOpIsNot(PythonParser.CompOpIsNotContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#star_expr}.
 	 * @param ctx the parse tree
@@ -353,11 +638,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTerm(PythonParser.TermContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#factor}.
+	 * Visit a parse tree produced by the {@code FactorUnary}
+	 * labeled alternative in {@link PythonParser#factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFactor(PythonParser.FactorContext ctx);
+	T visitFactorUnary(PythonParser.FactorUnaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FactorPower}
+	 * labeled alternative in {@link PythonParser#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactorPower(PythonParser.FactorPowerContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#power}.
 	 * @param ctx the parse tree
@@ -371,11 +664,75 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtom_expr(PythonParser.Atom_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#atom}.
+	 * Visit a parse tree produced by the {@code AtomParen}
+	 * labeled alternative in {@link PythonParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtom(PythonParser.AtomContext ctx);
+	T visitAtomParen(PythonParser.AtomParenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomList}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomList(PythonParser.AtomListContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomDict}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomDict(PythonParser.AtomDictContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomName}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomName(PythonParser.AtomNameContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomNumber}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomNumber(PythonParser.AtomNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomString}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomString(PythonParser.AtomStringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomEllipsis}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomEllipsis(PythonParser.AtomEllipsisContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomNone}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomNone(PythonParser.AtomNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomTrue}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomTrue(PythonParser.AtomTrueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomFalse}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomFalse(PythonParser.AtomFalseContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#testlist_comp}.
 	 * @param ctx the parse tree
@@ -383,11 +740,26 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTestlist_comp(PythonParser.Testlist_compContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#trailer}.
+	 * Visit a parse tree produced by the {@code TrailerCall}
+	 * labeled alternative in {@link PythonParser#trailer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTrailer(PythonParser.TrailerContext ctx);
+	T visitTrailerCall(PythonParser.TrailerCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrailerIndex}
+	 * labeled alternative in {@link PythonParser#trailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrailerIndex(PythonParser.TrailerIndexContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrailerDot}
+	 * labeled alternative in {@link PythonParser#trailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrailerDot(PythonParser.TrailerDotContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#subscriptlist}.
 	 * @param ctx the parse tree
@@ -395,11 +767,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSubscriptlist(PythonParser.SubscriptlistContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#subscript}.
+	 * Visit a parse tree produced by the {@code SubscriptTest}
+	 * labeled alternative in {@link PythonParser#subscript}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubscript(PythonParser.SubscriptContext ctx);
+	T visitSubscriptTest(PythonParser.SubscriptTestContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SubscriptSlice}
+	 * labeled alternative in {@link PythonParser#subscript}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubscriptSlice(PythonParser.SubscriptSliceContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#sliceop}.
 	 * @param ctx the parse tree
@@ -425,11 +805,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDictorsetmaker(PythonParser.DictorsetmakerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#classdef_or_funcdef}.
+	 * Visit a parse tree produced by the {@code ClassDefOrFuncDefClass}
+	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClassdef_or_funcdef(PythonParser.Classdef_or_funcdefContext ctx);
+	T visitClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ClassDefOrFuncDefFunc}
+	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#arglist}.
 	 * @param ctx the parse tree
@@ -437,17 +825,47 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArglist(PythonParser.ArglistContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#argument}.
+	 * Visit a parse tree produced by the {@code ArgumentComp}
+	 * labeled alternative in {@link PythonParser#argument}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArgument(PythonParser.ArgumentContext ctx);
+	T visitArgumentComp(PythonParser.ArgumentCompContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#comp_iter}.
+	 * Visit a parse tree produced by the {@code ArgumentEqual}
+	 * labeled alternative in {@link PythonParser#argument}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitComp_iter(PythonParser.Comp_iterContext ctx);
+	T visitArgumentEqual(PythonParser.ArgumentEqualContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArgumentDoubleStar}
+	 * labeled alternative in {@link PythonParser#argument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentDoubleStar(PythonParser.ArgumentDoubleStarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ArgumentStar}
+	 * labeled alternative in {@link PythonParser#argument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgumentStar(PythonParser.ArgumentStarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompIterFor}
+	 * labeled alternative in {@link PythonParser#comp_iter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompIterFor(PythonParser.CompIterForContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompIterIf}
+	 * labeled alternative in {@link PythonParser#comp_iter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompIterIf(PythonParser.CompIterIfContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#comp_for}.
 	 * @param ctx the parse tree
@@ -467,11 +885,19 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitYield_expr(PythonParser.Yield_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#yield_arg}.
+	 * Visit a parse tree produced by the {@code YieldArgFrom}
+	 * labeled alternative in {@link PythonParser#yield_arg}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitYield_arg(PythonParser.Yield_argContext ctx);
+	T visitYieldArgFrom(PythonParser.YieldArgFromContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code YieldArgList}
+	 * labeled alternative in {@link PythonParser#yield_arg}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitYieldArgList(PythonParser.YieldArgListContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#testlist_star_expr}.
 	 * @param ctx the parse tree

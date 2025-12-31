@@ -87,11 +87,11 @@ cssTerm
 
     ;
 functions
-: CSS_HSL CSS_LP cssNum CSS_COMMA cssNum CSS_COMMA cssNum CSS_RP       #HSLFunction
-|translate                                                                                                       #TranslateFunction
-|scale                                                                                                           #ScaleFunction
-| CSS_ROTATE CSS_LP cssNum CSS_RP                                                                  #RotateFunction
-| CSS_CALC CSS_LP cssNum operator cssNum CSS_RP                          #CalcFunction
+: CSS_HSL CSS_LP cssNum CSS_COMMA cssNum CSS_COMMA cssNum CSS_RP                               #HSLFunction
+|translate                                                                                     #TranslateFunction
+|scale                                                                                         #ScaleFunction
+| CSS_ROTATE CSS_LP cssNum CSS_RP                                                              #RotateFunction
+| CSS_CALC CSS_LP cssNum operator cssNum CSS_RP                                                #CalcFunction
 ;
 cssNum : CSS_NUMBER CSS_UNIT?;
 operator: CSS_MATH | CSS_ALL;

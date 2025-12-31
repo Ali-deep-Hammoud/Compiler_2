@@ -9,32 +9,22 @@ import java.util.List;
 
 public class IfStatement extends CompoundStatement {
     private final Expr condition;
-    private final List<Statement> ifBody;
+    private final Body ifBody;
     private final List<ElifStatement> elifStatements;
-    private final List<Statement> elseBody;
+    private final Body elseBody;
 
-    public IfStatement(int line, Expr condition) {
+    public IfStatement(int line, Expr condition,Body ifBody,Body elseBody) {
         super(line, "If Statement");
         this.condition = condition;
-        this.ifBody = new ArrayList<>();
+        this.ifBody = ifBody;
         this.elifStatements = new ArrayList<>();
-        this.elseBody = new ArrayList<>();
+        this.elseBody = elseBody;
     }
-    public void addIfBodyStatement(Statement statement) {
-        this.ifBody.add(statement);
-    }
-    public void addElseBodyStatement(Statement statement) {
-        this.elseBody.add(statement);
-    }
+
     public void addElifStatement(ElifStatement statement) {
         this.elifStatements.add(statement);
     }
-    public void removeIfBodyStatement(Statement statement) {
-        this.ifBody.remove(statement);
-    }
-    public void removeElseBodyStatement(Statement statement) {
-        this.elseBody.remove(statement);
-    }
+
     public void removeElifStatement(ElifStatement statement) {
         this.elifStatements.remove(statement);
     }
@@ -43,7 +33,7 @@ public class IfStatement extends CompoundStatement {
         return condition;
     }
 
-    public List<Statement> getIfBody() {
+    public Body getIfBody() {
         return ifBody;
     }
 
@@ -51,7 +41,7 @@ public class IfStatement extends CompoundStatement {
         return elifStatements;
     }
 
-    public List<Statement> getElseBody() {
+    public Body getElseBody() {
         return elseBody;
     }
 }

@@ -10,33 +10,23 @@ import java.util.List;
 public class ForStatement extends CompoundStatement {
     private final List<Expr> targets;
     private final Expr Iterator;
-    private final List<Statement> forBody;
-    private final List<Statement> elseBody;
+    private final Body forBody;
+    private final Body elseBody;
 
-    public ForStatement(int line, Expr iterator) {
+    public ForStatement(int line, Expr iterator, Body forBody, Body elseBody) {
         super(line, "For Statement");
         this.Iterator = iterator;
         this.targets = new ArrayList<>();
-        this.forBody = new ArrayList<>();
-        this.elseBody = new ArrayList<>();
+        this.forBody = forBody;
+        this.elseBody = elseBody;
     }
 
-    public void addForBodyStatement(Statement statement) {
-        this.forBody.add(statement);
-    }
-    public void addElseBodyStatement(Statement statement) {
-        this.elseBody.add(statement);
-    }
+
     public void addTarget(Expr expr) {
         this.targets.add(expr);
     }
 
-    public void removeForBodyStatement(Statement statement) {
-        this.forBody.remove(statement);
-    }
-    public void removeElseBodyStatement(Statement statement) {
-        this.elseBody.remove(statement);
-    }
+
     public void removeTarget(Expr expr) {
         this.targets.remove(expr);
     }
@@ -45,11 +35,11 @@ public class ForStatement extends CompoundStatement {
         return targets;
     }
 
-    public List<Statement> getElseBody() {
+    public Body getElseBody() {
         return elseBody;
     }
 
-    public List<Statement> getForBody() {
+    public Body getForBody() {
         return forBody;
     }
 

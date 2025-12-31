@@ -10,40 +10,26 @@ import java.util.List;
 
 public class WhileStatement extends CompoundStatement {
     private final Expr condition;
-    private final List<Statement> whileBody;
-    private final List<Statement> elseBody;
+    private final Body whileBody;
+    private final Body elseBody;
 
-    public WhileStatement(int line, Expr condition) {
+    public WhileStatement(int line, Expr condition, Body whileBody, Body elseBody) {
         super(line, "While Statement");
         this.condition = condition;
-        this.whileBody = new ArrayList<>();
-        this.elseBody = new ArrayList<>();
+        this.whileBody = whileBody;
+        this.elseBody = elseBody;
     }
-    public void addWhileBodyStatement(Statement statement) {
-        this.whileBody.add(statement);
-    }
-    public void addElseBodyStatement(Statement statement) {
-        this.elseBody.add(statement);
-    }
-
-    public void removeWhileBodyStatement(Statement statement) {
-        this.whileBody.remove(statement);
-    }
-    public void removeElseBodyStatement(Statement statement) {
-        this.elseBody.remove(statement);
-    }
-
 
     public Expr getCondition() {
         return condition;
     }
 
-    public List<Statement> getWhileBody() {
+    public Body getWhileBody() {
         return whileBody;
     }
 
 
-    public List<Statement> getElseBody() {
+    public Body getElseBody() {
         return elseBody;
     }
 }

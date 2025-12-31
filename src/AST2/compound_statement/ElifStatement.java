@@ -9,19 +9,13 @@ import java.util.List;
 
 public class ElifStatement extends Node {
     private final Expr condition;
-    private final List<Statement> body;
-    public ElifStatement(int line,Expr condition) {
+    private final Body body;
+    public ElifStatement(int line,Expr condition,Body body) {
         super(line,"Elif Statement");
         this.condition = condition;
-        this.body = new ArrayList<>();
+        this.body = body;
     }
-    public void addStatement(Statement statement) {
-        body.add(statement);
-    }
-    public void removeStatement(Statement statement) {
-        body.remove(statement);
-    }
-    public List<Statement> getBody() {
+    public Body getBody() {
         return body;
     }
 

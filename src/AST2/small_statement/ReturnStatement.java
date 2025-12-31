@@ -3,7 +3,7 @@ package AST2.small_statement;
 import AST2.Expr;
 import AST2.SmallStatement;
 
-public class ReturnStatement extends SmallStatement {
+public class ReturnStatement extends FlowStatement {
     private final Expr value;
 
     public ReturnStatement(int line, Expr value) {

@@ -29,13 +29,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStmt(PythonParser.StmtContext ctx) { }
+	@Override public void enterStmtSimple(PythonParser.StmtSimpleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStmt(PythonParser.StmtContext ctx) { }
+	@Override public void exitStmtSimple(PythonParser.StmtSimpleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStmtCompound(PythonParser.StmtCompoundContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtCompound(PythonParser.StmtCompoundContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -53,13 +65,97 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSmall_stmt(PythonParser.Small_stmtContext ctx) { }
+	@Override public void enterSmallStmtExpr(PythonParser.SmallStmtExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSmall_stmt(PythonParser.Small_stmtContext ctx) { }
+	@Override public void exitSmallStmtExpr(PythonParser.SmallStmtExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallStmtDel(PythonParser.SmallStmtDelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallStmtDel(PythonParser.SmallStmtDelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallStmtPass(PythonParser.SmallStmtPassContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallStmtPass(PythonParser.SmallStmtPassContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallStmtFlow(PythonParser.SmallStmtFlowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallStmtFlow(PythonParser.SmallStmtFlowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallStmtImport(PythonParser.SmallStmtImportContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallStmtImport(PythonParser.SmallStmtImportContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallStmtGlobal(PythonParser.SmallStmtGlobalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallStmtGlobal(PythonParser.SmallStmtGlobalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallStmtNonlocal(PythonParser.SmallStmtNonlocalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallStmtNonlocal(PythonParser.SmallStmtNonlocalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSmallStmtAssert(PythonParser.SmallStmtAssertContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSmallStmtAssert(PythonParser.SmallStmtAssertContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -77,13 +173,85 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAugassign(PythonParser.AugassignContext ctx) { }
+	@Override public void enterAugAssignPlus(PythonParser.AugAssignPlusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAugassign(PythonParser.AugassignContext ctx) { }
+	@Override public void exitAugAssignPlus(PythonParser.AugAssignPlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAugAssignMinus(PythonParser.AugAssignMinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAugAssignMinus(PythonParser.AugAssignMinusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAugAssignStar(PythonParser.AugAssignStarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAugAssignStar(PythonParser.AugAssignStarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAugAssignSlash(PythonParser.AugAssignSlashContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAugAssignSlash(PythonParser.AugAssignSlashContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAugAssignPercent(PythonParser.AugAssignPercentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAugAssignPercent(PythonParser.AugAssignPercentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAugAssignAt(PythonParser.AugAssignAtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAugAssignAt(PythonParser.AugAssignAtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAugAssignDoubleStar(PythonParser.AugAssignDoubleStarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAugAssignDoubleStar(PythonParser.AugAssignDoubleStarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -113,13 +281,61 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFlow_stmt(PythonParser.Flow_stmtContext ctx) { }
+	@Override public void enterFlowStmtBreak(PythonParser.FlowStmtBreakContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFlow_stmt(PythonParser.Flow_stmtContext ctx) { }
+	@Override public void exitFlowStmtBreak(PythonParser.FlowStmtBreakContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFlowStmtContinue(PythonParser.FlowStmtContinueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFlowStmtContinue(PythonParser.FlowStmtContinueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFlowStmtReturn(PythonParser.FlowStmtReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFlowStmtReturn(PythonParser.FlowStmtReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFlowStmtRaise(PythonParser.FlowStmtRaiseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFlowStmtRaise(PythonParser.FlowStmtRaiseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFlowStmtYield(PythonParser.FlowStmtYieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFlowStmtYield(PythonParser.FlowStmtYieldContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -185,13 +401,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterImport_stmt(PythonParser.Import_stmtContext ctx) { }
+	@Override public void enterImportStmtName(PythonParser.ImportStmtNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitImport_stmt(PythonParser.Import_stmtContext ctx) { }
+	@Override public void exitImportStmtName(PythonParser.ImportStmtNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportStmtFrom(PythonParser.ImportStmtFromContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportStmtFrom(PythonParser.ImportStmtFromContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -317,13 +545,97 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCompound_stmt(PythonParser.Compound_stmtContext ctx) { }
+	@Override public void enterCompoundStmtIf(PythonParser.CompoundStmtIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCompound_stmt(PythonParser.Compound_stmtContext ctx) { }
+	@Override public void exitCompoundStmtIf(PythonParser.CompoundStmtIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompoundStmtWhile(PythonParser.CompoundStmtWhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompoundStmtWhile(PythonParser.CompoundStmtWhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompoundStmtFor(PythonParser.CompoundStmtForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompoundStmtFor(PythonParser.CompoundStmtForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompoundStmtTry(PythonParser.CompoundStmtTryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompoundStmtTry(PythonParser.CompoundStmtTryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompoundStmtWith(PythonParser.CompoundStmtWithContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompoundStmtWith(PythonParser.CompoundStmtWithContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompoundStmtFunc(PythonParser.CompoundStmtFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompoundStmtFunc(PythonParser.CompoundStmtFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompoundStmtClass(PythonParser.CompoundStmtClassContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompoundStmtClass(PythonParser.CompoundStmtClassContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompoundStmtDecorated(PythonParser.CompoundStmtDecoratedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompoundStmtDecorated(PythonParser.CompoundStmtDecoratedContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -413,13 +725,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSuite(PythonParser.SuiteContext ctx) { }
+	@Override public void enterSuiteSimple(PythonParser.SuiteSimpleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSuite(PythonParser.SuiteContext ctx) { }
+	@Override public void exitSuiteSimple(PythonParser.SuiteSimpleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSuiteCompound(PythonParser.SuiteCompoundContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSuiteCompound(PythonParser.SuiteCompoundContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -437,13 +761,13 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameters(PythonParser.ParametersContext ctx) { }
+	@Override public void enterParameters_(PythonParser.Parameters_Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameters(PythonParser.ParametersContext ctx) { }
+	@Override public void exitParameters_(PythonParser.Parameters_Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -509,25 +833,49 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTest(PythonParser.TestContext ctx) { }
+	@Override public void enterTestCond(PythonParser.TestCondContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTest(PythonParser.TestContext ctx) { }
+	@Override public void exitTestCond(PythonParser.TestCondContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTest_nocond(PythonParser.Test_nocondContext ctx) { }
+	@Override public void enterTestLambda(PythonParser.TestLambdaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTest_nocond(PythonParser.Test_nocondContext ctx) { }
+	@Override public void exitTestLambda(PythonParser.TestLambdaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTestNoCondOr(PythonParser.TestNoCondOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTestNoCondOr(PythonParser.TestNoCondOrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTestNoCondLambda(PythonParser.TestNoCondLambdaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTestNoCondLambda(PythonParser.TestNoCondLambdaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -581,13 +929,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNot_test(PythonParser.Not_testContext ctx) { }
+	@Override public void enterNotTestNot(PythonParser.NotTestNotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNot_test(PythonParser.Not_testContext ctx) { }
+	@Override public void exitNotTestNot(PythonParser.NotTestNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNotTestComp(PythonParser.NotTestCompContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNotTestComp(PythonParser.NotTestCompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -605,13 +965,121 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComp_op(PythonParser.Comp_opContext ctx) { }
+	@Override public void enterCompOpLess(PythonParser.CompOpLessContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComp_op(PythonParser.Comp_opContext ctx) { }
+	@Override public void exitCompOpLess(PythonParser.CompOpLessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpGreater(PythonParser.CompOpGreaterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpGreater(PythonParser.CompOpGreaterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpEq(PythonParser.CompOpEqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpEq(PythonParser.CompOpEqContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpGe(PythonParser.CompOpGeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpGe(PythonParser.CompOpGeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpLe(PythonParser.CompOpLeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpLe(PythonParser.CompOpLeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpNe(PythonParser.CompOpNeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpNe(PythonParser.CompOpNeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpIn(PythonParser.CompOpInContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpIn(PythonParser.CompOpInContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpNotIn(PythonParser.CompOpNotInContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpNotIn(PythonParser.CompOpNotInContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpIs(PythonParser.CompOpIsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpIs(PythonParser.CompOpIsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompOpIsNot(PythonParser.CompOpIsNotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompOpIsNot(PythonParser.CompOpIsNotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -701,13 +1169,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(PythonParser.FactorContext ctx) { }
+	@Override public void enterFactorUnary(PythonParser.FactorUnaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(PythonParser.FactorContext ctx) { }
+	@Override public void exitFactorUnary(PythonParser.FactorUnaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorPower(PythonParser.FactorPowerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorPower(PythonParser.FactorPowerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -737,13 +1217,121 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtom(PythonParser.AtomContext ctx) { }
+	@Override public void enterAtomParen(PythonParser.AtomParenContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtom(PythonParser.AtomContext ctx) { }
+	@Override public void exitAtomParen(PythonParser.AtomParenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomList(PythonParser.AtomListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomList(PythonParser.AtomListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomDict(PythonParser.AtomDictContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomDict(PythonParser.AtomDictContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomName(PythonParser.AtomNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomName(PythonParser.AtomNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomNumber(PythonParser.AtomNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomNumber(PythonParser.AtomNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomString(PythonParser.AtomStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomString(PythonParser.AtomStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomEllipsis(PythonParser.AtomEllipsisContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomEllipsis(PythonParser.AtomEllipsisContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomNone(PythonParser.AtomNoneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomNone(PythonParser.AtomNoneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomTrue(PythonParser.AtomTrueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomTrue(PythonParser.AtomTrueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtomFalse(PythonParser.AtomFalseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtomFalse(PythonParser.AtomFalseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -761,13 +1349,37 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrailer(PythonParser.TrailerContext ctx) { }
+	@Override public void enterTrailerCall(PythonParser.TrailerCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrailer(PythonParser.TrailerContext ctx) { }
+	@Override public void exitTrailerCall(PythonParser.TrailerCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrailerIndex(PythonParser.TrailerIndexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrailerIndex(PythonParser.TrailerIndexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrailerDot(PythonParser.TrailerDotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrailerDot(PythonParser.TrailerDotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -785,13 +1397,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubscript(PythonParser.SubscriptContext ctx) { }
+	@Override public void enterSubscriptTest(PythonParser.SubscriptTestContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubscript(PythonParser.SubscriptContext ctx) { }
+	@Override public void exitSubscriptTest(PythonParser.SubscriptTestContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubscriptSlice(PythonParser.SubscriptSliceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubscriptSlice(PythonParser.SubscriptSliceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -845,13 +1469,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassdef_or_funcdef(PythonParser.Classdef_or_funcdefContext ctx) { }
+	@Override public void enterClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassdef_or_funcdef(PythonParser.Classdef_or_funcdefContext ctx) { }
+	@Override public void exitClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -869,25 +1505,73 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgument(PythonParser.ArgumentContext ctx) { }
+	@Override public void enterArgumentComp(PythonParser.ArgumentCompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgument(PythonParser.ArgumentContext ctx) { }
+	@Override public void exitArgumentComp(PythonParser.ArgumentCompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComp_iter(PythonParser.Comp_iterContext ctx) { }
+	@Override public void enterArgumentEqual(PythonParser.ArgumentEqualContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComp_iter(PythonParser.Comp_iterContext ctx) { }
+	@Override public void exitArgumentEqual(PythonParser.ArgumentEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgumentDoubleStar(PythonParser.ArgumentDoubleStarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgumentDoubleStar(PythonParser.ArgumentDoubleStarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgumentStar(PythonParser.ArgumentStarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgumentStar(PythonParser.ArgumentStarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompIterFor(PythonParser.CompIterForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompIterFor(PythonParser.CompIterForContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCompIterIf(PythonParser.CompIterIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCompIterIf(PythonParser.CompIterIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -929,13 +1613,25 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterYield_arg(PythonParser.Yield_argContext ctx) { }
+	@Override public void enterYieldArgFrom(PythonParser.YieldArgFromContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitYield_arg(PythonParser.Yield_argContext ctx) { }
+	@Override public void exitYieldArgFrom(PythonParser.YieldArgFromContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterYieldArgList(PythonParser.YieldArgListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitYieldArgList(PythonParser.YieldArgListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
