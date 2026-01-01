@@ -1398,6 +1398,16 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitSubscriptSlice(PythonParser.SubscriptSliceContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PythonParser#sliceEnd}.
+	 * @param ctx the parse tree
+	 */
+	void enterSliceEnd(PythonParser.SliceEndContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#sliceEnd}.
+	 * @param ctx the parse tree
+	 */
+	void exitSliceEnd(PythonParser.SliceEndContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PythonParser#sliceop}.
 	 * @param ctx the parse tree
 	 */
@@ -1428,39 +1438,97 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitTestlist(PythonParser.TestlistContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PythonParser#dictorsetmaker}.
+	 * Enter a parse tree produced by the {@code DictMaker}
+	 * labeled alternative in {@link PythonParser#dictorsetmaker}.
 	 * @param ctx the parse tree
 	 */
-	void enterDictorsetmaker(PythonParser.DictorsetmakerContext ctx);
+	void enterDictMaker(PythonParser.DictMakerContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PythonParser#dictorsetmaker}.
+	 * Exit a parse tree produced by the {@code DictMaker}
+	 * labeled alternative in {@link PythonParser#dictorsetmaker}.
 	 * @param ctx the parse tree
 	 */
-	void exitDictorsetmaker(PythonParser.DictorsetmakerContext ctx);
+	void exitDictMaker(PythonParser.DictMakerContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ClassDefOrFuncDefClass}
-	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
+	 * Enter a parse tree produced by the {@code SetMaker}
+	 * labeled alternative in {@link PythonParser#dictorsetmaker}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx);
+	void enterSetMaker(PythonParser.SetMakerContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ClassDefOrFuncDefClass}
-	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
+	 * Exit a parse tree produced by the {@code SetMaker}
+	 * labeled alternative in {@link PythonParser#dictorsetmaker}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx);
+	void exitSetMaker(PythonParser.SetMakerContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ClassDefOrFuncDefFunc}
-	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
+	 * Enter a parse tree produced by {@link PythonParser#dict_maker}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx);
+	void enterDict_maker(PythonParser.Dict_makerContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ClassDefOrFuncDefFunc}
-	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
+	 * Exit a parse tree produced by {@link PythonParser#dict_maker}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx);
+	void exitDict_maker(PythonParser.Dict_makerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#set_maker}.
+	 * @param ctx the parse tree
+	 */
+	void enterSet_maker(PythonParser.Set_makerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#set_maker}.
+	 * @param ctx the parse tree
+	 */
+	void exitSet_maker(PythonParser.Set_makerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DictEntry}
+	 * labeled alternative in {@link PythonParser#dict_element}.
+	 * @param ctx the parse tree
+	 */
+	void enterDictEntry(PythonParser.DictEntryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DictEntry}
+	 * labeled alternative in {@link PythonParser#dict_element}.
+	 * @param ctx the parse tree
+	 */
+	void exitDictEntry(PythonParser.DictEntryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DictUnpack}
+	 * labeled alternative in {@link PythonParser#dict_element}.
+	 * @param ctx the parse tree
+	 */
+	void enterDictUnpack(PythonParser.DictUnpackContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DictUnpack}
+	 * labeled alternative in {@link PythonParser#dict_element}.
+	 * @param ctx the parse tree
+	 */
+	void exitDictUnpack(PythonParser.DictUnpackContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SetValue}
+	 * labeled alternative in {@link PythonParser#set_element}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetValue(PythonParser.SetValueContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SetValue}
+	 * labeled alternative in {@link PythonParser#set_element}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetValue(PythonParser.SetValueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SetUnpack}
+	 * labeled alternative in {@link PythonParser#set_element}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetUnpack(PythonParser.SetUnpackContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SetUnpack}
+	 * labeled alternative in {@link PythonParser#set_element}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetUnpack(PythonParser.SetUnpackContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PythonParser#arglist}.
 	 * @param ctx the parse tree

@@ -902,10 +902,13 @@ public class PythonVisitor extends PythonParserBaseVisitor {
             }
         return list;
     }
-    //TODO
     @Override
-    public Object visitAtomDict(PythonParser.AtomDictContext ctx) {
-        return super.visitAtomDict(ctx);
+    public Atom visitAtomDict(PythonParser.AtomDictContext ctx) {
+        int line = ctx.start.getLine();
+        if(ctx.dictorsetmaker() != null) {
+            return (Atom) visit(ctx.dictorsetmaker());
+        }
+        return new DictAtom(line,null);
     }
 
     @Override
@@ -962,24 +965,43 @@ public class PythonVisitor extends PythonParserBaseVisitor {
 
 
     @Override
-    public Object visitSubscriptlist(PythonParser.SubscriptlistContext ctx) {
-        return super.visitSubscriptlist(ctx);
+    public SubscriptList visitSubscriptlist(PythonParser.SubscriptlistContext ctx) {
+        int line = ctx.start.getLine();
+        SubscriptList subscriptList = new SubscriptList(line);
+        for (int i = 0;i < ctx.subscript().size();i++) {
+            Subscript subscript = (Subscript) visit(ctx.subscript().get(i));
+            subscriptList.addSubscript(subscript);
+        }
+        return subscriptList;
     }
 
     @Override
-    public Object visitSubscriptTest(PythonParser.SubscriptTestContext ctx) {
-        return super.visitSubscriptTest(ctx);
+    public SubscriptIndex visitSubscriptTest(PythonParser.SubscriptTestContext ctx) {
+        int line = ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.test());
+        SubscriptIndex subscriptIndex = new SubscriptIndex(line, expr);
+        return subscriptIndex;
     }
 
     @Override
-    public Object visitSubscriptSlice(PythonParser.SubscriptSliceContext ctx) {
-        return super.visitSubscriptSlice(ctx);
+    public SubscriptSlice visitSubscriptSlice(PythonParser.SubscriptSliceContext ctx) {
+        int line = ctx.start.getLine();
+        Expr start = null;
+        Expr end = null;
+        Expr steps = null;
+        if(ctx.test() != null){
+            start = (Expr) visit(ctx.test());
+        }
+        if (ctx.sliceEnd().test() != null) {
+            end = (Expr) visit(ctx.sliceEnd().test());
+        }
+        if(ctx.sliceop() != null && ctx.sliceop().test() != null) {
+            steps = (Expr) visit(ctx.sliceop().test());
+        }
+        SubscriptSlice subscriptSlice = new SubscriptSlice(line, start, end, steps);
+        return subscriptSlice;
     }
 
-    @Override
-    public Object visitSliceop(PythonParser.SliceopContext ctx) {
-        return super.visitSliceop(ctx);
-    }
 
     @Override
     public Expr visitExprlist(PythonParser.ExprlistContext ctx) {
@@ -1004,58 +1026,139 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitTestlist(PythonParser.TestlistContext ctx) {
-        return super.visitTestlist(ctx);
+    public Expr visitTestlist(PythonParser.TestlistContext ctx) {
+        int line  = ctx.start.getLine();
+        boolean hasComma = !ctx.COMMA().isEmpty();
+        TupleExpr tupleExpr = new TupleExpr(line);
+        for (int i = 0; i< ctx.test().size();i++) {
+            Expr expr = (Expr) visit(ctx.test().get(i));
+            tupleExpr.addElement(expr);
+        }
+        if(tupleExpr.getElements().size() == 1 && !hasComma) {
+            return tupleExpr.getElements().get(0);
+        }
+
+        return tupleExpr;
     }
 
     @Override
-    public Object visitDictorsetmaker(PythonParser.DictorsetmakerContext ctx) {
-        return super.visitDictorsetmaker(ctx);
+    public SetUnpack visitSetUnpack(PythonParser.SetUnpackContext ctx) {
+        int line  = ctx.start.getLine();
+        StarExpr expr = visitStar_expr(ctx.star_expr());
+        SetUnpack setUnpack = new SetUnpack(line, expr);
+        return setUnpack;
     }
 
     @Override
-    public Object visitClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx) {
-        return super.visitClassDefOrFuncDefClass(ctx);
+    public SetValue visitSetValue(PythonParser.SetValueContext ctx) {
+        int line   = ctx.start.getLine();
+        Expr value = (Expr) visit(ctx.test());
+        SetValue setValue = new SetValue(line, value);
+        return setValue;
     }
 
     @Override
-    public Object visitClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx) {
-        return super.visitClassDefOrFuncDefFunc(ctx);
+    public DictUnpack visitDictUnpack(PythonParser.DictUnpackContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = visitExpr(ctx.expr());
+        DictUnpack dictUnpack = new DictUnpack(line, expr);
+        return dictUnpack;
     }
 
     @Override
-    public Object visitArglist(PythonParser.ArglistContext ctx) {
-        return super.visitArglist(ctx);
+    public DictEntry visitDictEntry(PythonParser.DictEntryContext ctx) {
+        int line = ctx.start.getLine();
+        Expr key = (Expr) visit(ctx.test().getFirst());
+        Expr value = (Expr) visit(ctx.test().getLast());
+        DictEntry dictEntry = new DictEntry(line, key, value);
+        return dictEntry;
     }
 
     @Override
-    public Object visitArgumentComp(PythonParser.ArgumentCompContext ctx) {
-        return super.visitArgumentComp(ctx);
+    public SetAtom visitSet_maker(PythonParser.Set_makerContext ctx) {
+        int line  = ctx.start.getLine();
+        CompForExpr compForExpr = null;
+        if(ctx.comp_for() != null){
+            compForExpr = (CompForExpr) visit(ctx.comp_for());
+        }
+        SetAtom setAtom = new SetAtom(line, compForExpr);
+        for(int i = 0;i < ctx.set_element().size();i++){
+            SetElement setElement = (SetElement) visit(ctx.set_element().get(i));
+            setAtom.addElement(setElement);
+        }
+        return setAtom;
     }
 
     @Override
-    public Object visitArgumentEqual(PythonParser.ArgumentEqualContext ctx) {
-        return super.visitArgumentEqual(ctx);
+    public DictAtom visitDict_maker(PythonParser.Dict_makerContext ctx) {
+        int line  = ctx.start.getLine();
+        CompForExpr compForExpr = null;
+        if(ctx.comp_for() != null){
+            compForExpr = (CompForExpr) visit(ctx.comp_for());
+        }
+        DictAtom dictAtom = new DictAtom(line, compForExpr);
+        for(int i = 0;i < ctx.dict_element().size();i++){
+            DictElement dictElement = (DictElement) visit(ctx.dict_element().get(i));
+            dictAtom.addElement(dictElement);
+        }
+        return dictAtom;    }
+
+    @Override
+    public SetAtom visitSetMaker(PythonParser.SetMakerContext ctx) {
+        return visitSet_maker(ctx.set_maker());
     }
 
     @Override
-    public Object visitArgumentDoubleStar(PythonParser.ArgumentDoubleStarContext ctx) {
-        return super.visitArgumentDoubleStar(ctx);
+    public DictAtom visitDictMaker(PythonParser.DictMakerContext ctx) {
+        return visitDict_maker(ctx.dict_maker());
+    }
+
+
+    @Override
+    public ArgumentComp visitArgumentComp(PythonParser.ArgumentCompContext ctx) {
+        int line = ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.test());
+        CompForExpr compForExpr = null;
+        if(ctx.comp_for() != null){
+            compForExpr = (CompForExpr) visit(ctx.comp_for());
+        }
+        ArgumentComp argumentComp = new ArgumentComp(line, expr, compForExpr);
+        return argumentComp;
     }
 
     @Override
-    public Object visitArgumentStar(PythonParser.ArgumentStarContext ctx) {
-        return super.visitArgumentStar(ctx);
+    public ArgumentEqual visitArgumentEqual(PythonParser.ArgumentEqualContext ctx) {
+        int line = ctx.start.getLine();
+        Expr name = (Expr) visit(ctx.test().getFirst());
+        Expr value = (Expr) visit(ctx.test().getLast());
+        ArgumentEqual argumentEqual = new ArgumentEqual(line, name, value);
+        return argumentEqual;
     }
 
     @Override
-    public Object visitCompIterFor(PythonParser.CompIterForContext ctx) {
-        return super.visitCompIterFor(ctx);
+    public ArgumentDoubleStar visitArgumentDoubleStar(PythonParser.ArgumentDoubleStarContext ctx) {
+        int line = ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.test());
+        ArgumentDoubleStar argumentDoubleStar = new ArgumentDoubleStar(line, expr);
+        return argumentDoubleStar;
     }
 
     @Override
-    public Object visitCompIterIf(PythonParser.CompIterIfContext ctx) {
-        return super.visitCompIterIf(ctx);
+    public ArgumentStar visitArgumentStar(PythonParser.ArgumentStarContext ctx) {
+        int line = ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.test());
+        ArgumentStar argumentStar = new ArgumentStar(line, expr);
+        return argumentStar;
+    }
+
+    @Override
+    public CompForExpr visitCompIterFor(PythonParser.CompIterForContext ctx) {
+        return visitComp_for(ctx.comp_for());
+    }
+
+    @Override
+    public CompIfExpr visitCompIterIf(PythonParser.CompIterIfContext ctx) {
+        return visitComp_if(ctx.comp_if());
     }
 
     @Override
@@ -1084,23 +1187,42 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitYield_expr(PythonParser.Yield_exprContext ctx) {
-        return super.visitYield_expr(ctx);
+    public YieldExpr visitYield_expr(PythonParser.Yield_exprContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.yield_arg());
+        YieldExpr yieldExpr = new YieldExpr(line, expr);
+        return yieldExpr;
     }
 
     @Override
-    public Object visitYieldArgFrom(PythonParser.YieldArgFromContext ctx) {
-        return super.visitYieldArgFrom(ctx);
+    public Expr visitYieldArgFrom(PythonParser.YieldArgFromContext ctx) {
+        return (Expr) visit(ctx.test());
     }
 
     @Override
-    public Object visitYieldArgList(PythonParser.YieldArgListContext ctx) {
-        return super.visitYieldArgList(ctx);
+    public Expr visitYieldArgList(PythonParser.YieldArgListContext ctx) {
+        return (Expr) visit(ctx.testlist());
     }
 
     @Override
-    public Object visitTestlist_star_expr(PythonParser.Testlist_star_exprContext ctx) {
-        return super.visitTestlist_star_expr(ctx);
+    public Expr visitTestlist_star_expr(PythonParser.Testlist_star_exprContext ctx) {
+        int line  = ctx.start.getLine();
+        boolean hasComma = !ctx.COMMA().isEmpty();
+        TupleExpr tupleExpr = new TupleExpr(line);
+        for (int i = 0; i< ctx.testlistElement().size();i++) {
+            if(ctx.testlistElement().get(i).test() != null) {
+                Expr expr = (Expr) visit(ctx.testlistElement().get(i).test());
+                tupleExpr.addElement(expr);
+            }else {
+                StarExpr starExpr = visitStar_expr(ctx.testlistElement().get(i).star_expr());
+                tupleExpr.addElement(starExpr);
+            }
+        }
+        if(tupleExpr.getElements().size() == 1 && !hasComma) {
+            return tupleExpr.getElements().get(0);
+        }
+
+        return tupleExpr;
     }
 
     @Override

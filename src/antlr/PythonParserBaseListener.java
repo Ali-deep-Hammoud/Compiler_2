@@ -1517,6 +1517,18 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSliceEnd(PythonParser.SliceEndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSliceEnd(PythonParser.SliceEndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSliceop(PythonParser.SliceopContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1553,37 +1565,97 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDictorsetmaker(PythonParser.DictorsetmakerContext ctx) { }
+	@Override public void enterDictMaker(PythonParser.DictMakerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDictorsetmaker(PythonParser.DictorsetmakerContext ctx) { }
+	@Override public void exitDictMaker(PythonParser.DictMakerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx) { }
+	@Override public void enterSetMaker(PythonParser.SetMakerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx) { }
+	@Override public void exitSetMaker(PythonParser.SetMakerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx) { }
+	@Override public void enterDict_maker(PythonParser.Dict_makerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx) { }
+	@Override public void exitDict_maker(PythonParser.Dict_makerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSet_maker(PythonParser.Set_makerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSet_maker(PythonParser.Set_makerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDictEntry(PythonParser.DictEntryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDictEntry(PythonParser.DictEntryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDictUnpack(PythonParser.DictUnpackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDictUnpack(PythonParser.DictUnpackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSetValue(PythonParser.SetValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetValue(PythonParser.SetValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSetUnpack(PythonParser.SetUnpackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetUnpack(PythonParser.SetUnpackContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -20,7 +20,14 @@ public class Program extends Node{
     }
 
     public String print(String indent){
-    return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+        for(Statement statement : this.statements){
+            sb.append(statement.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
     }
 
 }

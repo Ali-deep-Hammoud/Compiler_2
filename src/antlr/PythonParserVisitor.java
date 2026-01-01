@@ -831,6 +831,12 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSubscriptSlice(PythonParser.SubscriptSliceContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PythonParser#sliceEnd}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSliceEnd(PythonParser.SliceEndContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PythonParser#sliceop}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -849,25 +855,59 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTestlist(PythonParser.TestlistContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#dictorsetmaker}.
+	 * Visit a parse tree produced by the {@code DictMaker}
+	 * labeled alternative in {@link PythonParser#dictorsetmaker}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDictorsetmaker(PythonParser.DictorsetmakerContext ctx);
+	T visitDictMaker(PythonParser.DictMakerContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ClassDefOrFuncDefClass}
-	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
+	 * Visit a parse tree produced by the {@code SetMaker}
+	 * labeled alternative in {@link PythonParser#dictorsetmaker}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClassDefOrFuncDefClass(PythonParser.ClassDefOrFuncDefClassContext ctx);
+	T visitSetMaker(PythonParser.SetMakerContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ClassDefOrFuncDefFunc}
-	 * labeled alternative in {@link PythonParser#classdef_or_funcdef}.
+	 * Visit a parse tree produced by {@link PythonParser#dict_maker}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClassDefOrFuncDefFunc(PythonParser.ClassDefOrFuncDefFuncContext ctx);
+	T visitDict_maker(PythonParser.Dict_makerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#set_maker}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSet_maker(PythonParser.Set_makerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DictEntry}
+	 * labeled alternative in {@link PythonParser#dict_element}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDictEntry(PythonParser.DictEntryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DictUnpack}
+	 * labeled alternative in {@link PythonParser#dict_element}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDictUnpack(PythonParser.DictUnpackContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SetValue}
+	 * labeled alternative in {@link PythonParser#set_element}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetValue(PythonParser.SetValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SetUnpack}
+	 * labeled alternative in {@link PythonParser#set_element}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetUnpack(PythonParser.SetUnpackContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#arglist}.
 	 * @param ctx the parse tree

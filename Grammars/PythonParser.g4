@@ -343,10 +343,12 @@ subscriptlist
     ;
 
 subscript
-    : test #SubscriptTest
-    | test? COLON test? sliceop? #SubscriptSlice
+    : test                       #SubscriptTest
+    | test? sliceEnd sliceop? #SubscriptSlice
     ;
-
+sliceEnd
+    : COLON test?
+    ;
 sliceop
     : COLON test?
     ;
@@ -358,23 +360,34 @@ exprlist
 testlist
     : test (COMMA test)* COMMA?
     ;
-
 dictorsetmaker
-    : NEWLINE* ( aaa NEWLINE*
-       (comp_for | (COMMA NEWLINE* aaa NEWLINE*)* COMMA? NEWLINE*)
-      | bbb NEWLINE*
-       (comp_for | (COMMA NEWLINE* bbb NEWLINE*)* COMMA? NEWLINE*))
+    : dict_maker       #DictMaker
+    | set_maker        #SetMaker
     ;
-aaa
-: (test COLON test | DOUBLESTAR expr)
-;
-bbb
-:(test | star_expr)
-;
-classdef_or_funcdef
-    : classdef #ClassDefOrFuncDefClass
-    | funcdef #ClassDefOrFuncDefFunc
+dict_maker
+    : NEWLINE* dict_element NEWLINE*
+      ( comp_for
+      | (COMMA NEWLINE* dict_element NEWLINE*)* COMMA? NEWLINE*
+      )
     ;
+set_maker
+    : NEWLINE* set_element NEWLINE*
+      ( comp_for
+      | (COMMA NEWLINE* set_element NEWLINE*)* COMMA? NEWLINE*
+      )
+    ;
+
+
+dict_element
+    : test COLON test          #DictEntry
+    | DOUBLESTAR expr          #DictUnpack
+    ;
+
+set_element
+    : test                     #SetValue
+    | star_expr                #SetUnpack
+    ;
+
 
 arglist
     : argument (COMMA argument)* COMMA?
@@ -413,7 +426,7 @@ yield_arg
 // HELPER RULES
 // ==========================================
 testlist_star_expr
-    : (test | star_expr) (COMMA (test | star_expr))* COMMA?
+    : testlistElement (COMMA testlistElement)* COMMA?
     ;
 
 varargslist
