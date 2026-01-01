@@ -11,23 +11,23 @@ public class FunctionStatement extends CompoundStatement {
     private final String name;
     private final List<Parameter> parameters;
     private final Expr returnType;
-    private final List<Statement> body;
+    private final Body body;
 
-    public FunctionStatement(int line, String name, Expr returnType) {
+    public FunctionStatement(int line, String name, Expr returnType,Body body, List<Parameter> parameters) {
         super(line, "Function Statement");
         this.name = name;
         this.returnType = returnType;
-        this.body = new ArrayList<>();
-        this.parameters = new ArrayList<>();
+        this.body = body;
+        if(parameters != null){
+            this.parameters = parameters;
+
+        }else {
+            this.parameters = new ArrayList<>();
+
+        }
     }
     public void addParameter(Parameter parameter) {
         this.parameters.add(parameter);
-    }
-    public void addBodyStatement(Statement statement) {
-        this.body.add(statement);
-    }
-    public void removeBodyStatement(Statement statement) {
-        this.body.remove(statement);
     }
     public void removeParameter(Parameter parameter) {
         this.parameters.remove(parameter);
@@ -45,7 +45,7 @@ public class FunctionStatement extends CompoundStatement {
         return returnType;
     }
 
-    public List<Statement> getBody() {
+    public Body getBody() {
         return body;
     }
 }

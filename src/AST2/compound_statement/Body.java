@@ -9,7 +9,7 @@ import java.util.List;
 public class Body extends Node {
     private final List<Statement> statements;
 
-    public Body(int line, String name) {
+    public Body(int line) {
         super(line, "Body");
         statements = new ArrayList<>();
     }

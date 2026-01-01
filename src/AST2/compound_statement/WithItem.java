@@ -12,4 +12,12 @@ public class WithItem extends Node {
         this.context = context;
         this.target = target;
     }
+
+    public Expr getTarget() {
+        return target;
+    }
+
+    public Expr getContext() {
+        return context;
+    }
 }

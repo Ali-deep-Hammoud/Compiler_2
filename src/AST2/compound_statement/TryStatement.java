@@ -7,52 +7,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TryStatement extends CompoundStatement {
-    private final List<Statement> forBody;
+    private final Body tryBody;
     private final List<ExceptStatement> excepts;
-    private final List<Statement> elseBody;
-    private final List<Statement> finallyBody;
+    private  Body elseBody;
+    private  Body finallyBody;
 
-    public TryStatement(int line) {
+    public TryStatement(int line,Body tryBody, Body elseBody, Body finallyBody) {
         super(line, "Try Statement");
-        this.forBody = new ArrayList<>();
+        this.tryBody = tryBody;
         this.excepts = new ArrayList<>();
-        this.elseBody = new ArrayList<>();
-        this.finallyBody = new ArrayList<>();
-    }
-    public void addForBodyStatement(Statement statement) {
-        this.forBody.add(statement);
+        this.elseBody = elseBody;
+        this.finallyBody = finallyBody;
     }
     public void addExceptStatement(ExceptStatement statement) {
         this.excepts.add(statement);
     }
-    public void addElseBodyStatement(Statement statement) {
-        this.elseBody.add(statement);
-    }
-    public void addFinallyBodyStatement(Statement statement) {
-        this.finallyBody.add(statement);
-    }
-    public void removeForBodyStatement(Statement statement) {
-        this.forBody.remove(statement);
-    }
+
     public void removeExceptStatement(ExceptStatement statement) {
         this.excepts.remove(statement);
     }
-    public void removeElseBodyStatement(Statement statement) {
-        this.elseBody.remove(statement);
+
+    public void setElseBody(Body elseBody) {
+        this.elseBody = elseBody;
     }
-    public void removeFinallyBodyStatement(Statement statement) {
-        this.finallyBody.remove(statement);
+
+    public void setFinallyBody(Body finallyBody) {
+        this.finallyBody = finallyBody;
     }
-    public List<Statement> getForBody() {
-        return forBody;
+
+    public Body getForBody() {
+        return tryBody;
     }
     public List<ExceptStatement> getExcepts() {
         return excepts;
     }
-    public List<Statement> getElseBody() {
+    public Body getElseBody() {
         return elseBody;
     }
-    public List<Statement> getFinallyBody() {
+    public Body getFinallyBody() {
         return finallyBody;
     }
 }

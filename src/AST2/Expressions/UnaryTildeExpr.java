@@ -1,0 +1,15 @@
+package AST2.Expressions;
+
+import AST2.Expr;
+
+public class UnaryTildeExpr extends Expr {
+    private final Expr expression;
+    public UnaryTildeExpr(int line, Expr expression1) {
+        super(line,"Unary Tilde Expression");
+        this.expression = expression1;
+    }
+
+    public Expr getExpression() {
+        return expression;
+    }
+}

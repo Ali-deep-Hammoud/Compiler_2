@@ -6,20 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrExpr extends Expr {
-    private final List<Expr> expressions;
-    public OrExpr(int line) {
-        super(line,"Boolean Expression");
-        expressions = new ArrayList<>();
+    private final Expr left;
+    private final Expr right;
+    public OrExpr(int line,Expr left,Expr right) {
+        super(line,"Or Expression");
+        this.left=left;
+        this.right=right;
     }
-    public void addExpression(Expr expr) {
-        expressions.add(expr);
+    public Expr getLeft() {
+        return left;
     }
-    public void removeExpression(Expr expr) {
-        expressions.remove(expr);
+    public Expr getRight() {
+        return right;
     }
-    public List<Expr> getExpressions() {
-        return expressions;
-    }
-
-
 }

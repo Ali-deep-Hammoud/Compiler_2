@@ -168,8 +168,8 @@ except_clause
     ;
 
 suite
-    : simple_stmt #SuiteSimple
-    | NEWLINE* stmt+ #SuiteCompound
+    : simple_stmt        #SuiteSimple
+    | NEWLINE* stmt+    #SuiteCompound
     ;
 
 // ==========================================
@@ -180,14 +180,22 @@ funcdef
     ;
 
 parameters
-    : LPAREN typedargslist? RPAREN #Parameters_
+    : LPAREN typedargslist? RPAREN
     ;
 
 typedargslist
-    : (tfpdef (EQUAL test)? (COMMA tfpdef (EQUAL test)?)* COMMA?
-      | STAR tfpdef? (COMMA tfpdef (EQUAL test)?)* (COMMA DOUBLESTAR tfpdef)?
-      | DOUBLESTAR tfpdef)
+    : normalPar (COMMA normalPar)* COMMA?                                        #NormalParameter
+    | STAR tfpdef? (COMMA normalPar)* (COMMA doubleStarPar)?                     #StarParaneter
+    | doubleStarPar                                                              #DoubleStarParameter
     ;
+
+normalPar:
+tfpdef (EQUAL test)?
+;
+
+doubleStarPar:
+DOUBLESTAR tfpdef
+;
 
 tfpdef
     : NAME (COLON test)?
@@ -210,7 +218,7 @@ decorator
 // ==========================================
 test
     : or_test (IF or_test ELSE test)? #TestCond
-    | lambdef #TestLambda
+    | lambdef                         #TestLambda
     ;
 
 test_nocond
@@ -273,16 +281,24 @@ and_expr
     ;
 
 shift_expr
-    : arith_expr ((LEFTSHIFT | RIGHTSHIFT) arith_expr)*
-    ;
+: arith_expr shift*
+;
+
+shift
+:(LEFTSHIFT | RIGHTSHIFT) arith_expr
+;
 
 arith_expr
-    : term ((PLUS | MINUS) term)*
+    : term math*
     ;
+math:(PLUS | MINUS) term;
 
 term
-    : factor ((STAR | AT | SLASH | PERCENT | DOUBLESLASH) factor)*
-    ;
+: factor terms*
+;
+terms
+:(STAR | AT | SLASH | PERCENT | DOUBLESLASH) factor
+;
 
 factor
     : (PLUS | MINUS | TILDE) factor #FactorUnary
@@ -311,8 +327,10 @@ atom
     ;
 
 testlist_comp
-    : (test | star_expr) (comp_for | (COMMA (test | star_expr))* COMMA?)
+    : testlistElement (comp_for | (COMMA testlistElement)* COMMA?)
     ;
+testlistElement
+:(test | star_expr);
 
 trailer
     : LPAREN arglist? RPAREN #TrailerCall
@@ -342,12 +360,17 @@ testlist
     ;
 
 dictorsetmaker
-    : NEWLINE* ((test COLON test | DOUBLESTAR expr) NEWLINE*
-       (comp_for | (COMMA NEWLINE* (test COLON test | DOUBLESTAR expr) NEWLINE*)* COMMA? NEWLINE*)
-      | (test | star_expr) NEWLINE*
-       (comp_for | (COMMA NEWLINE* (test | star_expr) NEWLINE*)* COMMA? NEWLINE*))
+    : NEWLINE* ( aaa NEWLINE*
+       (comp_for | (COMMA NEWLINE* aaa NEWLINE*)* COMMA? NEWLINE*)
+      | bbb NEWLINE*
+       (comp_for | (COMMA NEWLINE* bbb NEWLINE*)* COMMA? NEWLINE*))
     ;
-
+aaa
+: (test COLON test | DOUBLESTAR expr)
+;
+bbb
+:(test | star_expr)
+;
 classdef_or_funcdef
     : classdef #ClassDefOrFuncDefClass
     | funcdef #ClassDefOrFuncDefFunc
@@ -358,10 +381,10 @@ arglist
     ;
 
 argument
-    : test comp_for?                   #ArgumentComp
-      | test EQUAL test                 #ArgumentEqual
-      | DOUBLESTAR test                 #ArgumentDoubleStar
-      | STAR test                       #ArgumentStar
+    : test comp_for?                  #ArgumentComp
+    | test EQUAL test                 #ArgumentEqual
+    | DOUBLESTAR test                 #ArgumentDoubleStar
+    | STAR test                       #ArgumentStar
     ;
 
 comp_iter
@@ -394,11 +417,16 @@ testlist_star_expr
     ;
 
 varargslist
-    : (vfpdef (EQUAL test)? (COMMA vfpdef (EQUAL test)?)* COMMA?
-      | STAR vfpdef? (COMMA vfpdef (EQUAL test)?)* (COMMA DOUBLESTAR vfpdef)?
-      | DOUBLESTAR vfpdef)
-    ;
-
+: normalVar (COMMA normalVar)* COMMA?                           #NormalVariable
+| STAR vfpdef? (COMMA normalVar)* (COMMA doubleStarVar)?        #StarVariable
+| doubleStarVar                                                 #DoubleStarVariable
+;
+normalVar
+:vfpdef (EQUAL test)?
+;
+doubleStarVar
+:DOUBLESTAR vfpdef
+;
 vfpdef
-    : NAME
-    ;
+: NAME
+;

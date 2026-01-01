@@ -8,12 +8,12 @@ import java.util.List;
 
 public class WithStatement extends CompoundStatement {
     private final List<WithItem> items;
-    private final List<Statement> body;
+    private final Body body;
 
-    public WithStatement(int line) {
+    public WithStatement(int line,Body body) {
         super(line, "With Statement");
-        items = new ArrayList<>();
-        body = new ArrayList<>();
+        this.items = new ArrayList<>();
+        this.body = body;
     }
     public void addItem(WithItem item) {
         items.add(item);
@@ -21,13 +21,8 @@ public class WithStatement extends CompoundStatement {
     public void removeItem(WithItem item) {
         items.remove(item);
     }
-    public void addBodyStatement(Statement statement) {
-        body.add(statement);
-    }
-    public void removeBodyStatement(Statement statement) {
-        body.remove(statement);
-    }
-    public List<Statement> getBody() {
+
+    public Body getBody() {
         return body;
     }
     public List<WithItem> getItems() {

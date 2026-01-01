@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Decorator extends Node {
-    private final Expr name;
+    private final String name;
     private final List<Expr> args;
 
-    public Decorator(int line, Expr name) {
+    public Decorator(int line, String name) {
         super(line, "Decorator");
         this.name = name;
         this.args = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Decorator extends Node {
     public void removeArg(Expr arg) {
         this.args.remove(arg);
     }
-    public Expr getName() {
+    public String getName() {
         return name;
     }
     public List<Expr> getArgs() {

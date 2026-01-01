@@ -6,20 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AndExpr extends Expr {
-    private final List<Expr> expressions;
-    public AndExpr(int line) {
-        super(line,"Boolean Expression");
-        expressions = new ArrayList<>();
+    private final Expr left;
+    private final Expr right;
+    public AndExpr(int line,Expr left,Expr right) {
+        super(line,"And Expression");
+        this.left=left;
+        this.right=right;
     }
-    public void addExpression(Expr expr) {
-        expressions.add(expr);
+    public Expr getLeft() {
+        return left;
     }
-    public void removeExpression(Expr expr) {
-        expressions.remove(expr);
+    public Expr getRight() {
+        return right;
     }
-    public List<Expr> getExpressions() {
-        return expressions;
-    }
-
 
 }

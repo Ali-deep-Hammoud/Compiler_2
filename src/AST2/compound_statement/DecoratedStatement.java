@@ -1,7 +1,6 @@
 package AST2.compound_statement;
 
 import AST2.CompoundStatement;
-import AST2.Expr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,19 +8,19 @@ import java.util.List;
 public class DecoratedStatement extends CompoundStatement {
     private final List<Decorator> decorators;
     private final FunctionStatement function;
-    private final Class aClass;
+    private final ClassStatement classStatement;
 
-    public DecoratedStatement(int line, Class aClass) {
+    public DecoratedStatement(int line, ClassStatement classStatement) {
         super(line,"Decorated Class");
         this.decorators = new ArrayList<>();
         this.function = null;
-        this.aClass = aClass;
+        this.classStatement = classStatement;
     }
     public DecoratedStatement(int line, FunctionStatement function) {
         super(line,"Decorated Function");
         this.decorators = new ArrayList<>();
         this.function = function;
-        this.aClass = null;
+        this.classStatement = null;
     }
 
     public void addDecorator(Decorator decorator) {
@@ -36,7 +35,7 @@ public class DecoratedStatement extends CompoundStatement {
     public FunctionStatement getFunction() {
         return function;
     }
-    public Class getaClass() {
-        return aClass;
+    public ClassStatement getaClass() {
+        return classStatement;
     }
 }

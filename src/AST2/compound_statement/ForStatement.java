@@ -8,31 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForStatement extends CompoundStatement {
-    private final List<Expr> targets;
+    private final Expr target;
     private final Expr Iterator;
     private final Body forBody;
     private final Body elseBody;
 
-    public ForStatement(int line, Expr iterator, Body forBody, Body elseBody) {
+    public ForStatement(int line,Expr target, Expr iterator, Body forBody, Body elseBody) {
         super(line, "For Statement");
         this.Iterator = iterator;
-        this.targets = new ArrayList<>();
+        this.target = target;
         this.forBody = forBody;
         this.elseBody = elseBody;
     }
 
 
-    public void addTarget(Expr expr) {
-        this.targets.add(expr);
-    }
 
-
-    public void removeTarget(Expr expr) {
-        this.targets.remove(expr);
-    }
-
-    public List<Expr> getTargets() {
-        return targets;
+    public Expr getTarget() {
+        return target;
     }
 
     public Body getElseBody() {

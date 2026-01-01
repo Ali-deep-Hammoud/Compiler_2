@@ -417,18 +417,44 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncdef(PythonParser.FuncdefContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Parameters_}
-	 * labeled alternative in {@link PythonParser#parameters}.
+	 * Visit a parse tree produced by {@link PythonParser#parameters}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParameters_(PythonParser.Parameters_Context ctx);
+	T visitParameters(PythonParser.ParametersContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#typedargslist}.
+	 * Visit a parse tree produced by the {@code NormalParameter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTypedargslist(PythonParser.TypedargslistContext ctx);
+	T visitNormalParameter(PythonParser.NormalParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StarParaneter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStarParaneter(PythonParser.StarParaneterContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoubleStarParameter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleStarParameter(PythonParser.DoubleStarParameterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#normalPar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNormalPar(PythonParser.NormalParContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#doubleStarPar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleStarPar(PythonParser.DoubleStarParContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#tfpdef}.
 	 * @param ctx the parse tree
@@ -626,17 +652,35 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitShift_expr(PythonParser.Shift_exprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PythonParser#shift}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShift(PythonParser.ShiftContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PythonParser#arith_expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitArith_expr(PythonParser.Arith_exprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PythonParser#math}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMath(PythonParser.MathContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PythonParser#term}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitTerm(PythonParser.TermContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#terms}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTerms(PythonParser.TermsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FactorUnary}
 	 * labeled alternative in {@link PythonParser#factor}.
@@ -739,6 +783,12 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTestlist_comp(PythonParser.Testlist_compContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#testlistElement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTestlistElement(PythonParser.TestlistElementContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TrailerCall}
 	 * labeled alternative in {@link PythonParser#trailer}.
@@ -905,11 +955,38 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTestlist_star_expr(PythonParser.Testlist_star_exprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#varargslist}.
+	 * Visit a parse tree produced by the {@code NormalVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVarargslist(PythonParser.VarargslistContext ctx);
+	T visitNormalVariable(PythonParser.NormalVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StarVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStarVariable(PythonParser.StarVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoubleStarVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleStarVariable(PythonParser.DoubleStarVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#normalVar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNormalVar(PythonParser.NormalVarContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#doubleStarVar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleStarVar(PythonParser.DoubleStarVarContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#vfpdef}.
 	 * @param ctx the parse tree

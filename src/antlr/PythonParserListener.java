@@ -696,27 +696,71 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitFuncdef(PythonParser.FuncdefContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Parameters_}
-	 * labeled alternative in {@link PythonParser#parameters}.
+	 * Enter a parse tree produced by {@link PythonParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameters_(PythonParser.Parameters_Context ctx);
+	void enterParameters(PythonParser.ParametersContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Parameters_}
-	 * labeled alternative in {@link PythonParser#parameters}.
+	 * Exit a parse tree produced by {@link PythonParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameters_(PythonParser.Parameters_Context ctx);
+	void exitParameters(PythonParser.ParametersContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PythonParser#typedargslist}.
+	 * Enter a parse tree produced by the {@code NormalParameter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
 	 * @param ctx the parse tree
 	 */
-	void enterTypedargslist(PythonParser.TypedargslistContext ctx);
+	void enterNormalParameter(PythonParser.NormalParameterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PythonParser#typedargslist}.
+	 * Exit a parse tree produced by the {@code NormalParameter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
 	 * @param ctx the parse tree
 	 */
-	void exitTypedargslist(PythonParser.TypedargslistContext ctx);
+	void exitNormalParameter(PythonParser.NormalParameterContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StarParaneter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
+	 * @param ctx the parse tree
+	 */
+	void enterStarParaneter(PythonParser.StarParaneterContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StarParaneter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
+	 * @param ctx the parse tree
+	 */
+	void exitStarParaneter(PythonParser.StarParaneterContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DoubleStarParameter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoubleStarParameter(PythonParser.DoubleStarParameterContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DoubleStarParameter}
+	 * labeled alternative in {@link PythonParser#typedargslist}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoubleStarParameter(PythonParser.DoubleStarParameterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#normalPar}.
+	 * @param ctx the parse tree
+	 */
+	void enterNormalPar(PythonParser.NormalParContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#normalPar}.
+	 * @param ctx the parse tree
+	 */
+	void exitNormalPar(PythonParser.NormalParContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#doubleStarPar}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoubleStarPar(PythonParser.DoubleStarParContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#doubleStarPar}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoubleStarPar(PythonParser.DoubleStarParContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PythonParser#tfpdef}.
 	 * @param ctx the parse tree
@@ -1050,6 +1094,16 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitShift_expr(PythonParser.Shift_exprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PythonParser#shift}.
+	 * @param ctx the parse tree
+	 */
+	void enterShift(PythonParser.ShiftContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#shift}.
+	 * @param ctx the parse tree
+	 */
+	void exitShift(PythonParser.ShiftContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PythonParser#arith_expr}.
 	 * @param ctx the parse tree
 	 */
@@ -1060,6 +1114,16 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitArith_expr(PythonParser.Arith_exprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PythonParser#math}.
+	 * @param ctx the parse tree
+	 */
+	void enterMath(PythonParser.MathContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#math}.
+	 * @param ctx the parse tree
+	 */
+	void exitMath(PythonParser.MathContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PythonParser#term}.
 	 * @param ctx the parse tree
 	 */
@@ -1069,6 +1133,16 @@ public interface PythonParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTerm(PythonParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#terms}.
+	 * @param ctx the parse tree
+	 */
+	void enterTerms(PythonParser.TermsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#terms}.
+	 * @param ctx the parse tree
+	 */
+	void exitTerms(PythonParser.TermsContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code FactorUnary}
 	 * labeled alternative in {@link PythonParser#factor}.
@@ -1243,6 +1317,16 @@ public interface PythonParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTestlist_comp(PythonParser.Testlist_compContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#testlistElement}.
+	 * @param ctx the parse tree
+	 */
+	void enterTestlistElement(PythonParser.TestlistElementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#testlistElement}.
+	 * @param ctx the parse tree
+	 */
+	void exitTestlistElement(PythonParser.TestlistElementContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TrailerCall}
 	 * labeled alternative in {@link PythonParser#trailer}.
@@ -1524,15 +1608,61 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitTestlist_star_expr(PythonParser.Testlist_star_exprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PythonParser#varargslist}.
+	 * Enter a parse tree produced by the {@code NormalVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
 	 * @param ctx the parse tree
 	 */
-	void enterVarargslist(PythonParser.VarargslistContext ctx);
+	void enterNormalVariable(PythonParser.NormalVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PythonParser#varargslist}.
+	 * Exit a parse tree produced by the {@code NormalVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
 	 * @param ctx the parse tree
 	 */
-	void exitVarargslist(PythonParser.VarargslistContext ctx);
+	void exitNormalVariable(PythonParser.NormalVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StarVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
+	 * @param ctx the parse tree
+	 */
+	void enterStarVariable(PythonParser.StarVariableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StarVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
+	 * @param ctx the parse tree
+	 */
+	void exitStarVariable(PythonParser.StarVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DoubleStarVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoubleStarVariable(PythonParser.DoubleStarVariableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DoubleStarVariable}
+	 * labeled alternative in {@link PythonParser#varargslist}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoubleStarVariable(PythonParser.DoubleStarVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#normalVar}.
+	 * @param ctx the parse tree
+	 */
+	void enterNormalVar(PythonParser.NormalVarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#normalVar}.
+	 * @param ctx the parse tree
+	 */
+	void exitNormalVar(PythonParser.NormalVarContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#doubleStarVar}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoubleStarVar(PythonParser.DoubleStarVarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#doubleStarVar}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoubleStarVar(PythonParser.DoubleStarVarContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PythonParser#vfpdef}.
 	 * @param ctx the parse tree

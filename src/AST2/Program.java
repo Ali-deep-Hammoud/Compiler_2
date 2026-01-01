@@ -19,4 +19,8 @@ public class Program extends Node{
         return this.statements;
     }
 
+    public String print(String indent){
+    return "";
+    }
+
 }

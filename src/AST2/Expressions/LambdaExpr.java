@@ -7,22 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LambdaExpr extends Expr {
-    private final List<Parameter> parameters;
+    private final List<Variable> variables;
     private final Expr body;
 
-    public LambdaExpr(int line,Expr body) {
+    public LambdaExpr(int line,Expr body,List<Variable> variables) {
         super(line,"Lambda Expression");
         this.body = body;
-        parameters = new ArrayList<>();
+        if (variables != null) {this.variables = variables;}
+        else {
+
+            this.variables = new ArrayList<>();
+        }
     }
-    public void addParameter(Parameter parameter) {
-        parameters.add(parameter);
+    public void addVariable(Variable variable) {
+        variables.add(variable);
     }
-    public void removeParameter(Parameter parameter) {
-        parameters.remove(parameter);
+    public void removeVariable(Variable variable) {
+        variables.remove(variable);
     }
-    public List<Parameter> getParameters() {
-        return parameters;
+    public List<Variable> getVariables() {
+        return variables;
     }
     public Expr getBody() {
         return body;

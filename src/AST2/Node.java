@@ -7,4 +7,7 @@ public abstract class Node {
         this.line = line;
         this.name = name;
     }
+    public String print(String indent){
+        return "line- " + this.line + " | name- " + this.name + " ";
+    }
 }

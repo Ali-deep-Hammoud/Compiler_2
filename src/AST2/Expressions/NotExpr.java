@@ -2,9 +2,9 @@ package AST2.Expressions;
 
 import AST2.Expr;
 
-public class notExpr extends Expr {
+public class NotExpr extends Expr {
     private final Expr expression;
-    public notExpr(int line,Expr expression) {
+    public NotExpr(int line, Expr expression) {
         super(line,"Not Expression");
         this.expression = expression;
     }

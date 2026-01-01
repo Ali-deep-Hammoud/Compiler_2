@@ -10,21 +10,16 @@ import java.util.List;
 public class ExceptStatement extends Node {
     private final Expr type;
     private final String name;
-    private final List<Statement> body;
+    private final Body body;
 
-    public ExceptStatement(int line,Expr type, String name) {
+    public ExceptStatement(int line,Expr type, String name,Body body) {
         super(line,"Except Statement");
         this.type = type;
         this.name = name;
-        this.body = new ArrayList<>();
+        this.body = body;
     }
-    public void addBodyStatement(Statement statement) {
-        this.body.add(statement);
-    }
-    public void removeBodyStatement(Statement statement) {
-        this.body.remove(statement);
-    }
-    public List<Statement> getBody() {
+
+    public Body getBody() {
         return body;
     }
     public Expr getType() {

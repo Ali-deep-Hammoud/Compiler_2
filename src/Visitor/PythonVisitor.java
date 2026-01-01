@@ -1,13 +1,17 @@
 package Visitor;
 
 import AST2.*;
-import AST2.compound_statement.Body;
-import AST2.compound_statement.ElifStatement;
-import AST2.compound_statement.IfStatement;
-import AST2.compound_statement.WhileStatement;
+import AST2.Expressions.*;
+import AST2.Expressions.Atoms.*;
+import AST2.compound_statement.*;
+import AST2.compound_statement.ClassStatement;
 import AST2.small_statement.*;
 import antlr.PythonParser;
 import antlr.PythonParserBaseVisitor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 
 public class PythonVisitor extends PythonParserBaseVisitor {
@@ -37,7 +41,7 @@ public class PythonVisitor extends PythonParserBaseVisitor {
 
 
     @Override
-    public Object visitSimple_stmt(PythonParser.Simple_stmtContext ctx) {
+    public SimpleStatement visitSimple_stmt(PythonParser.Simple_stmtContext ctx) {
         int line  =  ctx.start.getLine();
         SimpleStatement statement = new SimpleStatement(line);
         for (int i = 0; i< ctx.small_stmt().size(); i++) {
@@ -51,15 +55,19 @@ public class PythonVisitor extends PythonParserBaseVisitor {
 
         return (SmallStatement) visit(ctx.expr_stmt());
     }
-    //TODO
     @Override
     public DelStatement visitSmallStmtDel(PythonParser.SmallStmtDelContext ctx) {
         int line  =  ctx.start.getLine();
         PythonParser.ExprlistContext context = ctx.del_stmt().exprlist();
         DelStatement statement = new DelStatement(line);
-        for (int i = 0;i < context.expr().size(); i++) {
-            Expr expr = (Expr) visit(context.expr().get(i));
-            statement.addTarget(expr);
+        Expr expression = visitExprlist(context);
+        if(expression instanceof TupleExpr){
+            for(int i = 0; i < ((TupleExpr)expression).getElements().size(); i++){
+                statement.addTarget(((TupleExpr)expression).getElements().get(i));
+            }
+        }
+        else {
+            statement.addTarget(expression);
         }
         return statement;
     }
@@ -229,7 +237,7 @@ public class PythonVisitor extends PythonParserBaseVisitor {
             name.append(dottedCtx.dotted_name().NAME().get(dottedCtx.dotted_name().NAME().size() - 1).getText()).append('.');
 
             String alias = null;
-            if (dottedCtx.NAME() != null) { // NAME AS NAME
+            if (dottedCtx.NAME() != null) {
                 alias = dottedCtx.NAME().getText();
             }
 
@@ -284,7 +292,7 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitCompoundStmtIf(PythonParser.CompoundStmtIfContext ctx) {
+    public IfStatement visitCompoundStmtIf(PythonParser.CompoundStmtIfContext ctx) {
         int line  =  ctx.start.getLine();
         Expr condition = (Expr) visit(ctx.if_stmt().test().getFirst());
         Body body = (Body) visit(ctx.if_stmt().suite().getFirst());
@@ -308,7 +316,7 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitCompoundStmtWhile(PythonParser.CompoundStmtWhileContext ctx) {
+    public WhileStatement visitCompoundStmtWhile(PythonParser.CompoundStmtWhileContext ctx) {
         int line = ctx.start.getLine();
         Expr condition = (Expr) visit(ctx.while_stmt().test());
         Body body = (Body) visit(ctx.while_stmt().suite().getFirst());
@@ -319,350 +327,639 @@ public class PythonVisitor extends PythonParserBaseVisitor {
         WhileStatement statement = new WhileStatement(line,condition,body,elseBody);
         return  statement;
     }
-    //TODO
     @Override
-    public Object visitCompoundStmtFor(PythonParser.CompoundStmtForContext ctx) {
+    public ForStatement visitCompoundStmtFor(PythonParser.CompoundStmtForContext ctx) {
         int line = ctx.start.getLine();
-        for(int i = 0; i<ctx.for_stmt().exprlist().expr().size(); i++) {
-            Expr expr = (Expr) visit(ctx.for_stmt().exprlist().expr().get(i));
+        Expr target = (Expr) visit(ctx.for_stmt().exprlist());
+        Expr iterator = (Expr) visit(ctx.for_stmt().testlist());
+        Body body = (Body) visit(ctx.for_stmt().suite().getFirst());
+        Body elseBody = null;
+        if(ctx.for_stmt().ELSE() != null) {
+            elseBody = (Body) visit(ctx.for_stmt().suite().getLast());
+        }
+        ForStatement statement = new ForStatement(line,target,iterator,body,elseBody);
+        return  statement;
+    }
 
+    @Override
+    public TryStatement visitCompoundStmtTry(PythonParser.CompoundStmtTryContext ctx) {
+        int line = ctx.start.getLine();
+
+        Body tryBody = (Body) visit(ctx.try_stmt().suite(0));
+
+        Body elseBody = null;
+        Body finallyBody = null;
+
+        int suiteIndex = 1;
+
+        TryStatement tryStatement = new TryStatement(line, tryBody, elseBody, finallyBody);
+
+        for (PythonParser.Except_clauseContext exceptCtx : ctx.try_stmt().except_clause()) {
+            Body exceptBody = (Body) visit(ctx.try_stmt().suite(suiteIndex++));
+            Expr exceptionType = null;
+            String name = null;
+            if (exceptCtx.test() != null) {
+                exceptionType = (Expr) visit(exceptCtx.test());
+                if (exceptCtx.NAME() != null) {
+                    name = exceptCtx.NAME().getText();
+                }
+            }
+            ExceptStatement exceptStatement = new ExceptStatement(line,exceptionType, name, exceptBody);
+            tryStatement.addExceptStatement(exceptStatement);
+        }
+
+        if (ctx.try_stmt().ELSE() != null) {
+            elseBody =  (Body) visit(ctx.try_stmt().suite(suiteIndex++));
+            tryStatement.setElseBody(elseBody);
+        }
+
+        if (ctx.try_stmt().FINALLY() != null) {
+            finallyBody = (Body) visit(ctx.try_stmt().suite(suiteIndex));
+            tryStatement.setFinallyBody(finallyBody);
+        }
+
+        return tryStatement;
+    }
+
+
+    @Override
+    public WithStatement visitCompoundStmtWith(PythonParser.CompoundStmtWithContext ctx) {
+        int line = ctx.start.getLine();
+
+        Body body = (Body) visit(ctx.with_stmt().suite());
+
+        WithStatement withStmt = new WithStatement(line, body);
+
+        List<PythonParser.With_itemContext> items = ctx.with_stmt().with_item();
+        for (PythonParser.With_itemContext itemCtx : items) {
+            Expr contextExpr = (Expr) visit(itemCtx.test());
+            Expr target = null;
+            if (itemCtx.expr() != null) {
+                target = (Expr) visit(itemCtx.expr());
+            }
+            withStmt.addItem(new WithItem(line,contextExpr, target));
+        }
+
+        return withStmt;
+    }
+
+    public FunctionStatement visitCompoundStmtFunc(PythonParser.CompoundStmtFuncContext ctx) {
+        return visitFuncdef(ctx.funcdef());
+    }
+
+
+
+    @Override
+    public ClassStatement visitCompoundStmtClass(PythonParser.CompoundStmtClassContext ctx) {
+        return visitClassdef(ctx.classdef());
+    }
+
+    @Override
+    public DecoratedStatement visitCompoundStmtDecorated(PythonParser.CompoundStmtDecoratedContext ctx) {
+       return visitDecorated(ctx.decorated());
+    }
+
+    @Override
+    public Body visitSuiteSimple(PythonParser.SuiteSimpleContext ctx) {
+        int line = ctx.start.getLine();
+        Body body = new Body(line);
+        SimpleStatement statement = visitSimple_stmt(ctx.simple_stmt());
+        body.addStatement(statement);
+        return  body;
+    }
+
+    @Override
+    public Body visitSuiteCompound(PythonParser.SuiteCompoundContext ctx) {
+        int line = ctx.start.getLine();
+        Body body = new Body(line);
+        for (int i = 0;i < ctx.stmt().size();i++) {
+            Statement statement = (Statement) visit(ctx.stmt().get(i));
+            body.addStatement(statement);
+        }
+        return body;
+    }
+
+    @Override
+    public FunctionStatement visitFuncdef(PythonParser.FuncdefContext ctx) {
+        int line = ctx.start.getLine();
+
+        String name = ctx.NAME().getText();
+
+        Expr returnType = null;
+        if (ctx.ARROW() != null) {
+            returnType = (Expr) visit(ctx.test());
+        }
+        Body body = (Body) visit(ctx.suite());
+
+        List<Parameter> parameters =null;
+        if (ctx.parameters().typedargslist() != null) {
+            parameters = (List<Parameter>) visit(ctx.parameters().typedargslist());
+        }
+        FunctionStatement funcStmt = new FunctionStatement(line, name, returnType, body, parameters);
+
+
+        return funcStmt;
+    }
+
+
+
+    @Override
+    public List<Parameter> visitDoubleStarParameter(PythonParser.DoubleStarParameterContext ctx) {
+        int line = ctx.start.getLine();
+        String name = ctx.doubleStarPar().tfpdef().NAME().getText();
+        Expr type= null;
+        if(ctx.doubleStarPar().tfpdef().test() != null) {
+            type = (Expr) visit(ctx.doubleStarPar().tfpdef().test());
+        }
+        DoubleStarParameter parameter = new DoubleStarParameter(line, name, type);
+        List<Parameter> parameters = new ArrayList<>();
+        parameters.add(parameter);
+        return parameters;
+    }
+
+    @Override
+    public List<Parameter> visitStarParaneter(PythonParser.StarParaneterContext ctx) {
+        int line = ctx.start.getLine();
+        List<Parameter> params = new ArrayList<>();
+
+        String name = null;
+        Expr type = null;
+        if (ctx.tfpdef() != null) {
+            name = ctx.tfpdef().NAME().getText();
+            if (ctx.tfpdef().test() != null) {
+                type = (Expr) visit(ctx.tfpdef().test());
+            }
+        }
+        params.add(new StarParameter(line, name, type));
+        if(ctx.normalPar() != null) {
+            for (int i = 0; i < ctx.normalPar().size(); i++) {
+                String name2 = ctx.normalPar().get(i).tfpdef().NAME().getText();
+                Expr type2 = null;
+                if (ctx.normalPar().get(i).tfpdef().test() != null) {
+                    type2 = (Expr) visit(ctx.normalPar().get(i).tfpdef().test());
+                }
+                Expr value = null;
+                if (ctx.normalPar().get(i).EQUAL() != null) {
+                    value = (Expr) visit(ctx.normalPar().get(i).test());
+                }
+                params.add(new NormalParameter(line, name2, type2, value));
+
+            }
+        }
+        if (ctx.doubleStarPar() != null) {
+            String name3 = ctx.doubleStarPar().tfpdef().NAME().getText();
+            Expr type3 = null;
+            if (ctx.doubleStarPar().tfpdef().test() != null) {
+                type3 = (Expr) visit(ctx.doubleStarPar().tfpdef().test());
+            }
+            params.add(new DoubleStarParameter(line, name3, type3));
+        }
+
+        return params;
+    }
+
+    @Override
+    public List<Parameter> visitNormalParameter(PythonParser.NormalParameterContext ctx) {
+        int line = ctx.start.getLine();
+        List<Parameter> params = new ArrayList<>();
+        for (int i = 0;i < ctx.normalPar().size();i++) {
+            String name = ctx.normalPar().get(i).tfpdef().NAME().getText();
+            Expr type = null;
+            if (ctx.normalPar().get(i).EQUAL() != null) {
+                type = (Expr) visit(ctx.normalPar().get(i).test());
+            }
+            NormalParameter parameter = new NormalParameter(line, name, null, type);
+            params.add(parameter);
+        }
+        return params;
+    }
+
+
+
+    @Override
+    public ClassStatement visitClassdef(PythonParser.ClassdefContext ctx) {
+        int line = ctx.start.getLine();
+        String name = ctx.NAME().getText();
+        Body body = (Body) visit(ctx.suite());
+        ClassStatement clazz = new ClassStatement(line, name, body);
+        if (ctx.arglist() != null) {
+            for (int i = 0;i < ctx.arglist().argument().size();i++) {
+                Expr base =  (Expr) visit(ctx.arglist().argument().get(i));
+                clazz.addBase(base);
+
+            }
+        }
+        return clazz;
+    }
+
+    @Override
+    public DecoratedStatement visitDecorated(PythonParser.DecoratedContext ctx) {
+        int line  = ctx.start.getLine();
+        DecoratedStatement decorated = null;
+        if (ctx.funcdef() != null) {
+            FunctionStatement function = (FunctionStatement) visit(ctx.funcdef());
+            decorated = new DecoratedStatement(line, function);
+        }
+        else {
+            ClassStatement classStatement = (ClassStatement) visit(ctx.classdef());
+            decorated = new DecoratedStatement(line, classStatement);
+        }
+        for (int i = 0;i < ctx.decorator().size();i++){
+            String name = ctx.decorator().get(i).dotted_name().getText();
+            Decorator decorator = new Decorator(line,name);
+            if (ctx.decorator().get(i).arglist() != null) {
+                for (int j = 0;j < ctx.decorator().get(i).arglist().argument().size();j++) {
+                    Expr base =  (Expr) visit(ctx.decorator().get(i).arglist().argument().get(j));
+                    decorator.addArg(base);
+                }
+            }
+            decorated.addDecorator(decorator);
+        }
+        return decorated;
+    }
+
+
+
+    @Override
+    public Expr visitTestCond(PythonParser.TestCondContext ctx) {
+        int line = ctx.start.getLine();
+        Expr first = (Expr) visit(ctx.or_test().getFirst());
+        if (ctx.IF() != null) {
+            Expr then = (Expr) visit(ctx.or_test().getLast());
+            Expr els = (Expr) visit(ctx.test());
+            Ifexpr ifexpr = new Ifexpr(line, first, then, els);
+            return ifexpr;
+        }
+        return first;
+    }
+
+    @Override
+    public LambdaExpr visitTestLambda(PythonParser.TestLambdaContext ctx) {
+        return visitLambdef(ctx.lambdef());
+    }
+
+    @Override
+    public Expr visitTestNoCondOr(PythonParser.TestNoCondOrContext ctx) {
+        Expr expr = (Expr) visit(ctx.or_test());
+        return expr;    }
+
+    @Override
+    public LambdaExpr visitTestNoCondLambda(PythonParser.TestNoCondLambdaContext ctx) {
+        return visitLambdef_nocond(ctx.lambdef_nocond());
+    }
+
+    @Override
+    public LambdaExpr visitLambdef(PythonParser.LambdefContext ctx) {
+        int line = ctx.start.getLine();
+        Expr body = (Expr) visit(ctx.test());
+        List<Variable> variables = null;
+        if (ctx.varargslist() != null) {
+             variables = (List<Variable>) visit(ctx.varargslist());
+        }
+        LambdaExpr lambda = new LambdaExpr(line, body,variables);
+        return lambda;
+    }
+
+    @Override
+    public LambdaExpr visitLambdef_nocond(PythonParser.Lambdef_nocondContext ctx) {
+        int line = ctx.start.getLine();
+        Expr body = (Expr) visit(ctx.test_nocond());
+        List<Variable> variables = null;
+        if (ctx.varargslist() != null) {
+            variables = (List<Variable>) visit(ctx.varargslist());
+        }
+        LambdaExpr lambda = new LambdaExpr(line, body,variables);
+        return lambda;
+    }
+
+    @Override
+    public Expr visitOr_test(PythonParser.Or_testContext ctx) {
+        int line = ctx.start.getLine();
+        Expr expr = visitAnd_test(ctx.and_test().getFirst());
+        if(ctx.and_test().size()>1){
+            for (int i = 1; i < ctx.and_test().size(); i++) {
+                Expr right = visitAnd_test(ctx.and_test().get(i));
+                expr = new OrExpr(line, expr, right);
+            }
+        }
+
+        return expr;
+    }
+
+    @Override
+    public Expr visitAnd_test(PythonParser.And_testContext ctx) {
+        int line = ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.not_test().getFirst());
+        if(ctx.not_test().size()>1){
+            for (int i = 1; i < ctx.not_test().size(); i++) {
+                Expr right = (Expr) visit(ctx.not_test().get(i));
+                expr = new AndExpr(line, expr, right);
+            }
+        }
+
+        return expr;    }
+
+    @Override
+    public NotExpr visitNotTestNot(PythonParser.NotTestNotContext ctx) {
+        int line = ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.not_test());
+        NotExpr notExpr = new NotExpr(line, expr);
+        return notExpr;
+    }
+
+    @Override
+    public Expr visitNotTestComp(PythonParser.NotTestCompContext ctx) {
+        return visitComparison(ctx.comparison());
+    }
+
+    @Override
+    public Expr visitComparison(PythonParser.ComparisonContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.expr().getFirst());
+        if(ctx.expr().size()>1){
+            for (int i = 1; i < ctx.expr().size(); i++) {
+                String op = ctx.comp_op().get(i-1).getText();
+                Expr right = (Expr) visit(ctx.expr().get(i));
+                expr = new ComparisonExpr(line, expr,op, right);
+            }
+        }
+        return expr;
+    }
+
+    @Override
+    public StarExpr visitStar_expr(PythonParser.Star_exprContext ctx) {
+        int line  = ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.expr());
+        StarExpr starExpr = new StarExpr(line, expr);
+        return starExpr;
+    }
+
+    @Override
+    public Expr visitExpr(PythonParser.ExprContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.xor_expr().getFirst());
+        if(ctx.xor_expr().size()>1){
+            for (int i = 1; i < ctx.xor_expr().size(); i++) {
+                Expr right = (Expr) visit(ctx.xor_expr().get(i));
+                expr = new BitOr(line, expr, right);
+            }
+        }
+        return expr;
+    }
+
+    @Override
+    public Expr visitXor_expr(PythonParser.Xor_exprContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.and_expr().getFirst());
+        if(ctx.and_expr().size()>1){
+            for (int i = 1; i < ctx.and_expr().size(); i++) {
+                Expr right = (Expr) visit(ctx.and_expr().get(i));
+                expr = new BitXor(line, expr, right);
+            }
+        }
+        return expr;    }
+
+    @Override
+    public Expr visitAnd_expr(PythonParser.And_exprContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.shift_expr().getFirst());
+        if(ctx.shift_expr().size()>1){
+            for (int i = 1; i < ctx.shift_expr().size(); i++) {
+                Expr right = (Expr) visit(ctx.shift_expr().get(i));
+                expr = new BitAnd(line, expr, right);
+            }
+        }
+        return expr;       }
+
+    @Override
+    public Expr visitShift_expr(PythonParser.Shift_exprContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.arith_expr());
+        if(ctx.shift() != null){
+            for (int i = 0; i < ctx.shift().size(); i++) {
+                Expr right = (Expr) visit(ctx.shift().get(i).arith_expr());
+                if(ctx.shift().get(i).LEFTSHIFT() != null) {
+                    expr = new BitShift(line, expr, right,false);
+                }else {
+                    expr = new BitShift(line, expr, right,true);
+                }
+            }
+        }
+        return expr;     }
+
+    @Override
+    public Expr visitArith_expr(PythonParser.Arith_exprContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.term());
+        if(ctx.math() != null){
+            for (int i = 0; i < ctx.math().size(); i++) {
+                Expr right = (Expr) visit(ctx.math().get(i).term());
+                if(ctx.math().get(i).MINUS() != null) {
+                    expr = new SubtractionExpr(line, expr, right);
+                }else {
+                    expr = new AdditionExpr(line, expr, right);
+                }
+            }
+        }
+        return expr;      }
+
+    @Override
+    public Expr visitTerm(PythonParser.TermContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.factor());
+        if(ctx.terms() != null){
+            for (int i = 0; i < ctx.terms().size(); i++) {
+                Expr right = (Expr) visit(ctx.terms().get(i).factor());
+                if(ctx.terms().get(i).DOUBLESLASH() != null) {
+                    expr = new FloorDivideExpr(line, expr, right);
+                }else if(ctx.terms().get(i).STAR() != null) {
+                    expr = new MultiplyExpr(line, expr, right);
+                }else if(ctx.terms().get(i).SLASH() != null) {
+                    expr = new DivideExpr(line, expr, right);
+                }else if(ctx.terms().get(i).AT() != null) {
+                    expr = new ATExpr(line, expr, right);
+                }else  {
+                    expr = new RemainExpr(line, expr, right);
+                }
+            }
+        }
+        return expr;      }
+
+    @Override
+    public Expr visitFactorUnary(PythonParser.FactorUnaryContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.factor());
+        Expr factor;
+        if (ctx.MINUS() != null) {
+            factor = new UnaryMinusExpr(line,expr);
+        } else if (ctx.PLUS() != null) {
+            factor = new UnaryPlusExpr(line,expr);
+        }else {
+            factor = new UnaryTildeExpr(line,expr);
+        }
+        return factor;
+    }
+
+    @Override
+    public Expr visitFactorPower(PythonParser.FactorPowerContext ctx) {
+        return visitPower(ctx.power());
+    }
+
+    @Override
+    public Expr visitPower(PythonParser.PowerContext ctx) {
+        int line = ctx.start.getLine();
+
+        Expr base = (Expr) visit(ctx.atom_expr());
+
+        if (ctx.DOUBLESTAR() != null) {
+            Expr exponent = (Expr) visit(ctx.factor());
+            return new PowerExpr(line, base, exponent);
+        }
+
+        return base;
+    }
+
+    @Override
+    public Expr visitAtom_expr(PythonParser.Atom_exprContext ctx) {
+        int line = ctx.start.getLine();
+
+        Expr expr = (Atom) visit(ctx.atom());
+
+        for (PythonParser.TrailerContext t : ctx.trailer()) {
+
+            if (t instanceof PythonParser.TrailerCallContext callCtx) {
+                List<Expr> args = new ArrayList<>();
+                if (callCtx.arglist() != null) {
+                    for (PythonParser.ArgumentContext a : callCtx.arglist().argument()) {
+                        args.add((Expr) visit(a));
+                    }
+                }
+                expr = new CallExpr(line, expr, args);
+
+            } else if (t instanceof PythonParser.TrailerIndexContext indexCtx) {
+                Expr index = (Expr) visit(indexCtx.subscriptlist());
+                expr = new IndexExpr(line, expr, index);
+
+            } else if (t instanceof PythonParser.TrailerDotContext dotCtx) {
+                String name = dotCtx.NAME().getText();
+                expr = new AttributeExpr(line, expr, name);
+
+            }
+        }
+
+        return expr;
+    }
+
+    @Override
+    public Expr visitTestlistElement(PythonParser.TestlistElementContext ctx) {
+        if (ctx.test() != null) {
+            return (Expr) visit(ctx.test());
+        } else if (ctx.star_expr() != null) {
+            return (Expr) visit(ctx.star_expr());
+        } else {
+            return null;
         }
     }
-
     @Override
-    public Object visitCompoundStmtTry(PythonParser.CompoundStmtTryContext ctx) {
-        return super.visitCompoundStmtTry(ctx);
+    public ParenAtom visitAtomParen(PythonParser.AtomParenContext ctx) {
+        int line = ctx.start.getLine();
+        ParenAtom atom = new ParenAtom(line);
+        if (ctx.yield_expr() != null) {
+            Expr inner = (Expr) visit(ctx.yield_expr());
+            atom.addExpr(inner);
+        } else if (ctx.testlist_comp() != null) {
+            if(ctx.testlist_comp().comp_for() != null) {
+
+                CompForExpr compForExpr = visitComp_for(ctx.testlist_comp().comp_for());
+                atom.addExpr(compForExpr);
+            }else {
+                for (int i = 0; i < ctx.testlist_comp().testlistElement().size(); i++) {
+                    Expr expr = (Expr) visit(ctx.testlist_comp().testlistElement().get(i));
+                    atom.addExpr(expr);
+
+                }
+            }
+        }
+        return atom;
     }
 
     @Override
-    public Object visitCompoundStmtWith(PythonParser.CompoundStmtWithContext ctx) {
-        return super.visitCompoundStmtWith(ctx);
-    }
+    public ListAtom visitAtomList(PythonParser.AtomListContext ctx) {
+        int line = ctx.start.getLine();
+        ListAtom list = new ListAtom(line);
+        if (ctx.testlist_comp() != null) {
+            if(ctx.testlist_comp().comp_for() != null) {
 
-    @Override
-    public Object visitCompoundStmtFunc(PythonParser.CompoundStmtFuncContext ctx) {
-        return super.visitCompoundStmtFunc(ctx);
-    }
+                CompForExpr compForExpr = visitComp_for(ctx.testlist_comp().comp_for());
+                list.addElement(compForExpr);
+            }else {
+                for (int i = 0; i < ctx.testlist_comp().testlistElement().size(); i++) {
+                    Expr expr = (Expr) visit(ctx.testlist_comp().testlistElement().get(i));
+                    list.addElement(expr);
 
-    @Override
-    public Object visitCompoundStmtClass(PythonParser.CompoundStmtClassContext ctx) {
-        return super.visitCompoundStmtClass(ctx);
+                }
+            }
+            }
+        return list;
     }
-
-    @Override
-    public Object visitCompoundStmtDecorated(PythonParser.CompoundStmtDecoratedContext ctx) {
-        return super.visitCompoundStmtDecorated(ctx);
-    }
-
-    @Override
-    public Object visitIf_stmt(PythonParser.If_stmtContext ctx) {
-        return super.visitIf_stmt(ctx);
-    }
-
-    @Override
-    public Object visitWhile_stmt(PythonParser.While_stmtContext ctx) {
-        return super.visitWhile_stmt(ctx);
-    }
-
-    @Override
-    public Object visitFor_stmt(PythonParser.For_stmtContext ctx) {
-        return super.visitFor_stmt(ctx);
-    }
-
-    @Override
-    public Object visitTry_stmt(PythonParser.Try_stmtContext ctx) {
-        return super.visitTry_stmt(ctx);
-    }
-
-    @Override
-    public Object visitWith_stmt(PythonParser.With_stmtContext ctx) {
-        return super.visitWith_stmt(ctx);
-    }
-
-    @Override
-    public Object visitWith_item(PythonParser.With_itemContext ctx) {
-        return super.visitWith_item(ctx);
-    }
-
-    @Override
-    public Object visitExcept_clause(PythonParser.Except_clauseContext ctx) {
-        return super.visitExcept_clause(ctx);
-    }
-
-    @Override
-    public Object visitSuiteSimple(PythonParser.SuiteSimpleContext ctx) {
-        return super.visitSuiteSimple(ctx);
-    }
-
-    @Override
-    public Object visitSuiteCompound(PythonParser.SuiteCompoundContext ctx) {
-        return super.visitSuiteCompound(ctx);
-    }
-
-    @Override
-    public Object visitFuncdef(PythonParser.FuncdefContext ctx) {
-        return super.visitFuncdef(ctx);
-    }
-
-    @Override
-    public Object visitParameters_(PythonParser.Parameters_Context ctx) {
-        return super.visitParameters_(ctx);
-    }
-
-    @Override
-    public Object visitTypedargslist(PythonParser.TypedargslistContext ctx) {
-        return super.visitTypedargslist(ctx);
-    }
-
-    @Override
-    public Object visitTfpdef(PythonParser.TfpdefContext ctx) {
-        return super.visitTfpdef(ctx);
-    }
-
-    @Override
-    public Object visitClassdef(PythonParser.ClassdefContext ctx) {
-        return super.visitClassdef(ctx);
-    }
-
-    @Override
-    public Object visitDecorated(PythonParser.DecoratedContext ctx) {
-        return super.visitDecorated(ctx);
-    }
-
-    @Override
-    public Object visitDecorator(PythonParser.DecoratorContext ctx) {
-        return super.visitDecorator(ctx);
-    }
-
-    @Override
-    public Object visitTestCond(PythonParser.TestCondContext ctx) {
-        return super.visitTestCond(ctx);
-    }
-
-    @Override
-    public Object visitTestLambda(PythonParser.TestLambdaContext ctx) {
-        return super.visitTestLambda(ctx);
-    }
-
-    @Override
-    public Object visitTestNoCondOr(PythonParser.TestNoCondOrContext ctx) {
-        return super.visitTestNoCondOr(ctx);
-    }
-
-    @Override
-    public Object visitTestNoCondLambda(PythonParser.TestNoCondLambdaContext ctx) {
-        return super.visitTestNoCondLambda(ctx);
-    }
-
-    @Override
-    public Object visitLambdef(PythonParser.LambdefContext ctx) {
-        return super.visitLambdef(ctx);
-    }
-
-    @Override
-    public Object visitLambdef_nocond(PythonParser.Lambdef_nocondContext ctx) {
-        return super.visitLambdef_nocond(ctx);
-    }
-
-    @Override
-    public Object visitOr_test(PythonParser.Or_testContext ctx) {
-        return super.visitOr_test(ctx);
-    }
-
-    @Override
-    public Object visitAnd_test(PythonParser.And_testContext ctx) {
-        return super.visitAnd_test(ctx);
-    }
-
-    @Override
-    public Object visitNotTestNot(PythonParser.NotTestNotContext ctx) {
-        return super.visitNotTestNot(ctx);
-    }
-
-    @Override
-    public Object visitNotTestComp(PythonParser.NotTestCompContext ctx) {
-        return super.visitNotTestComp(ctx);
-    }
-
-    @Override
-    public Object visitComparison(PythonParser.ComparisonContext ctx) {
-        return super.visitComparison(ctx);
-    }
-
-    @Override
-    public Object visitCompOpLess(PythonParser.CompOpLessContext ctx) {
-        return super.visitCompOpLess(ctx);
-    }
-
-    @Override
-    public Object visitCompOpGreater(PythonParser.CompOpGreaterContext ctx) {
-        return super.visitCompOpGreater(ctx);
-    }
-
-    @Override
-    public Object visitCompOpEq(PythonParser.CompOpEqContext ctx) {
-        return super.visitCompOpEq(ctx);
-    }
-
-    @Override
-    public Object visitCompOpGe(PythonParser.CompOpGeContext ctx) {
-        return super.visitCompOpGe(ctx);
-    }
-
-    @Override
-    public Object visitCompOpLe(PythonParser.CompOpLeContext ctx) {
-        return super.visitCompOpLe(ctx);
-    }
-
-    @Override
-    public Object visitCompOpNe(PythonParser.CompOpNeContext ctx) {
-        return super.visitCompOpNe(ctx);
-    }
-
-    @Override
-    public Object visitCompOpIn(PythonParser.CompOpInContext ctx) {
-        return super.visitCompOpIn(ctx);
-    }
-
-    @Override
-    public Object visitCompOpNotIn(PythonParser.CompOpNotInContext ctx) {
-        return super.visitCompOpNotIn(ctx);
-    }
-
-    @Override
-    public Object visitCompOpIs(PythonParser.CompOpIsContext ctx) {
-        return super.visitCompOpIs(ctx);
-    }
-
-    @Override
-    public Object visitCompOpIsNot(PythonParser.CompOpIsNotContext ctx) {
-        return super.visitCompOpIsNot(ctx);
-    }
-
-    @Override
-    public Object visitStar_expr(PythonParser.Star_exprContext ctx) {
-        return super.visitStar_expr(ctx);
-    }
-
-    @Override
-    public Object visitExpr(PythonParser.ExprContext ctx) {
-        return super.visitExpr(ctx);
-    }
-
-    @Override
-    public Object visitXor_expr(PythonParser.Xor_exprContext ctx) {
-        return super.visitXor_expr(ctx);
-    }
-
-    @Override
-    public Object visitAnd_expr(PythonParser.And_exprContext ctx) {
-        return super.visitAnd_expr(ctx);
-    }
-
-    @Override
-    public Object visitShift_expr(PythonParser.Shift_exprContext ctx) {
-        return super.visitShift_expr(ctx);
-    }
-
-    @Override
-    public Object visitArith_expr(PythonParser.Arith_exprContext ctx) {
-        return super.visitArith_expr(ctx);
-    }
-
-    @Override
-    public Object visitTerm(PythonParser.TermContext ctx) {
-        return super.visitTerm(ctx);
-    }
-
-    @Override
-    public Object visitFactorUnary(PythonParser.FactorUnaryContext ctx) {
-        return super.visitFactorUnary(ctx);
-    }
-
-    @Override
-    public Object visitFactorPower(PythonParser.FactorPowerContext ctx) {
-        return super.visitFactorPower(ctx);
-    }
-
-    @Override
-    public Object visitPower(PythonParser.PowerContext ctx) {
-        return super.visitPower(ctx);
-    }
-
-    @Override
-    public Object visitAtom_expr(PythonParser.Atom_exprContext ctx) {
-        return super.visitAtom_expr(ctx);
-    }
-
-    @Override
-    public Object visitAtomParen(PythonParser.AtomParenContext ctx) {
-        return super.visitAtomParen(ctx);
-    }
-
-    @Override
-    public Object visitAtomList(PythonParser.AtomListContext ctx) {
-        return super.visitAtomList(ctx);
-    }
-
+    //TODO
     @Override
     public Object visitAtomDict(PythonParser.AtomDictContext ctx) {
         return super.visitAtomDict(ctx);
     }
 
     @Override
-    public Object visitAtomName(PythonParser.AtomNameContext ctx) {
-        return super.visitAtomName(ctx);
+    public NameAtom visitAtomName(PythonParser.AtomNameContext ctx) {
+        int line  = ctx.start.getLine();
+        String name = ctx.NAME().getText();
+        NameAtom nameAtom = new NameAtom(line, name);
+        return nameAtom;
     }
 
     @Override
-    public Object visitAtomNumber(PythonParser.AtomNumberContext ctx) {
-        return super.visitAtomNumber(ctx);
+    public NumberAtom visitAtomNumber(PythonParser.AtomNumberContext ctx) {
+        int line  = ctx.start.getLine();
+        String number = ctx.NUMBER().getText();
+        NumberAtom numberAtom = new NumberAtom(line, number);
+        return numberAtom;    }
+
+    @Override
+    public StringAtom visitAtomString(PythonParser.AtomStringContext ctx) {
+        int line  = ctx.start.getLine();
+        StringAtom stringAtom = new StringAtom(line);
+        for (int i = 0;i<ctx.STRING().size();i++) {
+            stringAtom.addString(ctx.STRING().get(i).getText());
+        }
+        return stringAtom;
     }
 
     @Override
-    public Object visitAtomString(PythonParser.AtomStringContext ctx) {
-        return super.visitAtomString(ctx);
+    public EllipsisAtom visitAtomEllipsis(PythonParser.AtomEllipsisContext ctx) {
+        int line  = ctx.start.getLine();
+        EllipsisAtom ellipsisAtom = new EllipsisAtom(line);
+        return ellipsisAtom;
     }
 
     @Override
-    public Object visitAtomEllipsis(PythonParser.AtomEllipsisContext ctx) {
-        return super.visitAtomEllipsis(ctx);
+    public NoneAtom visitAtomNone(PythonParser.AtomNoneContext ctx) {
+        int line  = ctx.start.getLine();
+        NoneAtom noneAtom = new NoneAtom(line);
+        return noneAtom;
     }
 
     @Override
-    public Object visitAtomNone(PythonParser.AtomNoneContext ctx) {
-        return super.visitAtomNone(ctx);
+    public BooleanAtom visitAtomTrue(PythonParser.AtomTrueContext ctx) {
+        int line  = ctx.start.getLine();
+        BooleanAtom atom = new BooleanAtom(line, true);
+        return atom;
     }
 
     @Override
-    public Object visitAtomTrue(PythonParser.AtomTrueContext ctx) {
-        return super.visitAtomTrue(ctx);
-    }
+    public BooleanAtom visitAtomFalse(PythonParser.AtomFalseContext ctx) {
+        int line  = ctx.start.getLine();
+        BooleanAtom atom = new BooleanAtom(line, false);
+        return atom;    }
 
-    @Override
-    public Object visitAtomFalse(PythonParser.AtomFalseContext ctx) {
-        return super.visitAtomFalse(ctx);
-    }
-
-    @Override
-    public Object visitTestlist_comp(PythonParser.Testlist_compContext ctx) {
-        return super.visitTestlist_comp(ctx);
-    }
-
-    @Override
-    public Object visitTrailerCall(PythonParser.TrailerCallContext ctx) {
-        return super.visitTrailerCall(ctx);
-    }
-
-    @Override
-    public Object visitTrailerIndex(PythonParser.TrailerIndexContext ctx) {
-        return super.visitTrailerIndex(ctx);
-    }
-
-    @Override
-    public Object visitTrailerDot(PythonParser.TrailerDotContext ctx) {
-        return super.visitTrailerDot(ctx);
-    }
 
     @Override
     public Object visitSubscriptlist(PythonParser.SubscriptlistContext ctx) {
@@ -685,8 +982,25 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitExprlist(PythonParser.ExprlistContext ctx) {
-        return super.visitExprlist(ctx);
+    public Expr visitExprlist(PythonParser.ExprlistContext ctx) {
+        int line = ctx.start.getLine();
+        boolean hasComma = !ctx.COMMA().isEmpty();
+        List<Expr> elements = new ArrayList<>();
+        TupleExpr expression = new TupleExpr(line);
+        for (int i = 0;i< ctx.children.size();i++) {
+            if (ctx.getChild(i) instanceof PythonParser.Star_exprContext ||
+            ctx.getChild(i) instanceof PythonParser.ExprContext) {
+                Expr expr = (Expr) visit(ctx.getChild(i));
+                elements.add(expr);
+                expression.addElement(expr);
+            }
+        }
+        if(elements.size() == 1 && !hasComma) {
+            return elements.get(0);
+        }
+
+        return expression;
+
     }
 
     @Override
@@ -745,13 +1059,28 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitComp_for(PythonParser.Comp_forContext ctx) {
-        return super.visitComp_for(ctx);
+    public CompForExpr visitComp_for(PythonParser.Comp_forContext ctx) {
+        int line = ctx.start.getLine();
+        Expr targets = visitExprlist(ctx.exprlist());
+        Expr iterable = visitOr_test(ctx.or_test());
+        Expr loop = null;
+        if(ctx.comp_iter() != null) {
+            loop = (Expr) visit(ctx.comp_iter());
+        }
+        CompForExpr compForExpr = new CompForExpr(line, targets, iterable, loop);
+        return compForExpr;
     }
 
     @Override
-    public Object visitComp_if(PythonParser.Comp_ifContext ctx) {
-        return super.visitComp_if(ctx);
+    public CompIfExpr visitComp_if(PythonParser.Comp_ifContext ctx) {
+        int line =  ctx.start.getLine();
+        Expr expr = (Expr) visit(ctx.test_nocond());
+        Expr loop = null;
+        if(ctx.comp_iter() != null) {
+            loop = (Expr) visit(ctx.comp_iter());
+        }
+        CompIfExpr compIfExpr = new CompIfExpr(line, expr, loop);
+        return compIfExpr;
     }
 
     @Override
@@ -775,12 +1104,59 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitVarargslist(PythonParser.VarargslistContext ctx) {
-        return super.visitVarargslist(ctx);
+    public List<Variable> visitDoubleStarVariable(PythonParser.DoubleStarVariableContext ctx) {
+        int line = ctx.start.getLine();
+        List<Variable> variables = new ArrayList<>();
+        String name = ctx.doubleStarVar().vfpdef().NAME().getText();
+        DoubleStarVariable variable = new DoubleStarVariable(line, name);
+        variables.add(variable);
+        return variables;
     }
 
     @Override
-    public Object visitVfpdef(PythonParser.VfpdefContext ctx) {
-        return super.visitVfpdef(ctx);
+    public List<Variable> visitStarVariable(PythonParser.StarVariableContext ctx) {
+        int line = ctx.start.getLine();
+        List<Variable> variables = new ArrayList<>();
+
+        String name = null;
+        if (ctx.vfpdef() != null) {
+            name = ctx.vfpdef().NAME().getText();
+
+        }
+        variables.add(new StarVariable(line, name));
+        if(ctx.normalVar() != null) {
+            for (int i = 0; i < ctx.normalVar().size(); i++) {
+                String name2 = ctx.normalVar().get(i).vfpdef().NAME().getText();
+
+                Expr value = null;
+                if (ctx.normalVar().get(i).EQUAL() != null) {
+                    value = (Expr) visit(ctx.normalVar().get(i).test());
+                }
+                variables.add(new NormalVariable(line, name2, value));
+
+            }
+        }
+        if (ctx.doubleStarVar() != null) {
+            String name3 = ctx.doubleStarVar().vfpdef().NAME().getText();
+
+            variables.add(new DoubleStarVariable(line, name3));
+        }
+
+        return variables;    }
+
+    @Override
+    public List<Variable> visitNormalVariable(PythonParser.NormalVariableContext ctx) {
+        int line = ctx.start.getLine();
+        List<Variable> variables = new ArrayList<>();
+        for (int i = 0 ; i < ctx.normalVar().size(); i++) {
+            String name = ctx.normalVar().get(i).vfpdef().NAME().getText();
+            Expr value = null;
+            if (ctx.normalVar().get(i).EQUAL() != null) {
+                value = (Expr) visit(ctx.normalVar().get(i).test());
+            }
+            variables.add(new NormalVariable(line, name, value));
+        }
+        return variables;
     }
+
 }
