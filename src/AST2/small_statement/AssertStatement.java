@@ -17,4 +17,19 @@ public class AssertStatement extends SmallStatement {
     public Expr getMessage() {
         return message;
     }
+
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+        if(condition != null) {
+            sb.append(condition.print(indentation)).append("\n");
+        }
+        if (message != null) {
+            sb.append(message.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

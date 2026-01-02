@@ -19,4 +19,17 @@ public class AttributeExpr extends Expr {
     public Expr getTarget() {
         return target;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (target != null) {
+            sb.append(target.print(indentation)).append("\n");
+        }
+
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

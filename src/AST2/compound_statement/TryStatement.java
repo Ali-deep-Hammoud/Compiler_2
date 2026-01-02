@@ -47,4 +47,29 @@ public class TryStatement extends CompoundStatement {
     public Body getFinallyBody() {
         return finallyBody;
     }
+
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+
+        if (tryBody != null) {
+            sb.append(tryBody.print(indentation)).append("\n");
+        }
+        if (!excepts.isEmpty()) {
+            for (ExceptStatement exceptStatement : excepts) {
+                sb.append(exceptStatement.print(indentation)).append("\n");
+            }
+        }
+        if (elseBody != null) {
+            sb.append(elseBody.print(indentation)).append("\n");
+        }
+        if (finallyBody != null) {
+            sb.append(finallyBody.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

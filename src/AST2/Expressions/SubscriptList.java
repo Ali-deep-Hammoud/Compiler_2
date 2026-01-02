@@ -21,4 +21,18 @@ public class SubscriptList extends Expr {
     public List<Subscript> getSubscripts() {
         return subscripts;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!subscripts.isEmpty()) {
+            for (Subscript subscript : subscripts) {
+                sb.append(subscript.print(indentation)).append("\n");
+            }
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

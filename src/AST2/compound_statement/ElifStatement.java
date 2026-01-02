@@ -22,4 +22,19 @@ public class ElifStatement extends Node {
     public Expr getCondition() {
         return condition;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (condition != null) {
+            sb.append(condition.print(indentation)).append("\n");
+        }
+        if (body != null) {
+            sb.append(body.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

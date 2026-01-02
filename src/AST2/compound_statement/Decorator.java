@@ -27,4 +27,19 @@ public class Decorator extends Node {
     public List<Expr> getArgs() {
         return args;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!args.isEmpty()) {
+            for (Expr expr : args) {
+                sb.append(expr.print(indentation)).append("\n");
+            }
+        }
+
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

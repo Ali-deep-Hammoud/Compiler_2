@@ -10,4 +10,5 @@ public class DoubleStarVariable extends Variable{
     public String getName() {
         return name;
     }
+
 }

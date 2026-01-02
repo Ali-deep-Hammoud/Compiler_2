@@ -30,4 +30,21 @@ public class DictAtom extends Atom {
     public CompForExpr getExpr() {
         return expr;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!elements.isEmpty()) {
+            for (DictElement e : elements) {
+                sb.append(e.print(indentation)).append("\n");
+            }
+        }
+        if (expr != null) {
+            sb.append(expr.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

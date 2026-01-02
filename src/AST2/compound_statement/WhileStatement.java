@@ -32,4 +32,24 @@ public class WhileStatement extends CompoundStatement {
     public Body getElseBody() {
         return elseBody;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+
+        if (condition != null) {
+            sb.append(condition.print(indentation)).append("\n");
+        }
+
+        if (whileBody != null) {
+            sb.append(whileBody.print(indentation)).append("\n");
+        }
+        if (elseBody != null) {
+            sb.append(elseBody.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

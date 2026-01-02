@@ -15,8 +15,5 @@ public class Alias extends Node{
         return alias;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + name + " " + alias;
-    }
+
 }

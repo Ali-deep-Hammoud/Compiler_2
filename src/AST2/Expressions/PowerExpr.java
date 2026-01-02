@@ -15,5 +15,20 @@ public class PowerExpr extends Expr {
 
     public Expr getBase() { return base; }
     public Expr getExponent() { return exponent; }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (base != null) {
+            sb.append(exponent.print(indentation)).append("\n");
+        }
+        if (base != null) {
+            sb.append(exponent.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }
 

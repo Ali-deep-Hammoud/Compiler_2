@@ -48,5 +48,25 @@ public class FunctionStatement extends CompoundStatement {
     public Body getBody() {
         return body;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!parameters.isEmpty()) {
+            for (Parameter parameter : parameters) {
+                sb.append(parameter.print(indentation)).append("\n");
+            }
+        }
+        if (returnType != null) {
+            sb.append(returnType.print(indentation)).append("\n");
+        }
+        if (body != null) {
+            sb.append(body.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }
 

@@ -22,4 +22,19 @@ public class ListAtom extends Atom {
     public List<Expr> getElements() {
         return elements;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!elements.isEmpty()) {
+            for (Expr e : elements) {
+                sb.append(e.print(indentation)).append("\n");
+            }
+        }
+
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

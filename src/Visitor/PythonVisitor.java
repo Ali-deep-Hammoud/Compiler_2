@@ -11,7 +11,6 @@ import antlr.PythonParserBaseVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 
 public class PythonVisitor extends PythonParserBaseVisitor {
@@ -136,7 +135,7 @@ public class PythonVisitor extends PythonParserBaseVisitor {
                  statement = new AugmentedMinus(line,target,value);
             }
             else if(ctx.augassign() instanceof PythonParser.AugAssignStarContext){
-                 statement = new AugmentedMuliply(line,target,value);
+                 statement = new AugmentedMultiply(line,target,value);
             }
             else if(ctx.augassign() instanceof PythonParser.AugAssignSlashContext){
                  statement = new AugmentedDivide(line,target,value);

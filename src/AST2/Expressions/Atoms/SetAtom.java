@@ -27,4 +27,21 @@ public class SetAtom extends Atom {
     public CompForExpr getCompForExpr() {
         return compForExpr;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!elements.isEmpty()) {
+            for (SetElement e : elements) {
+                sb.append(e.print(indentation)).append("\n");
+            }
+        }
+        if (compForExpr != null) {
+            sb.append(compForExpr.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

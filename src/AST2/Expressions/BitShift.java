@@ -22,4 +22,19 @@ public class BitShift extends Expr {
     public boolean isRight() {
         return isRight;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (left != null) {
+            sb.append(left.print(indentation)).append("\n");
+        }
+        if (right != null) {
+            sb.append(right.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

@@ -21,4 +21,22 @@ public class CompForExpr extends Expr {
     public Expr getLoop() {
         return loop;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (targets != null) {
+            sb.append(targets.print(indentation)).append("\n");
+        }
+        if (iterable != null) {
+            sb.append(iterable.print(indentation)).append("\n");
+        }
+        if (loop != null) {
+            sb.append(loop.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

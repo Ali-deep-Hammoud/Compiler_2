@@ -22,4 +22,20 @@ public class Body extends Node {
     public List<Statement> getStatements() {
         return statements;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!statements.isEmpty()) {
+            for (Statement statement : statements) {
+                sb.append(statement.print(indentation)).append("\n");
+            }
+        }
+
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
+
 }

@@ -21,4 +21,22 @@ public class SubscriptSlice extends Subscript {
     public Expr getSteps() {
         return steps;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (start != null) {
+            sb.append(start.print(indentation)).append("\n");
+        }
+        if (end != null) {
+            sb.append(end.print(indentation)).append("\n");
+        }
+        if (steps != null) {
+            sb.append(steps.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

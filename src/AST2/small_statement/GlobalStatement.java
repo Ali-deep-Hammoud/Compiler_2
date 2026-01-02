@@ -23,4 +23,5 @@ public class GlobalStatement extends SmallStatement {
     public List<String> getNames() {
         return names;
     }
+
 }

@@ -22,4 +22,19 @@ public class ParenAtom extends Atom {
     public List<Expr> getExpr() {
         return exprs;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!exprs.isEmpty()) {
+            for (Expr expr : exprs) {
+                sb.append(expr.print(indentation)).append("\n");
+            }
+        }
+
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

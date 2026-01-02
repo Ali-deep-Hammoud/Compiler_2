@@ -31,4 +31,22 @@ public class LambdaExpr extends Expr {
     public Expr getBody() {
         return body;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+        if(!variables.isEmpty()) {
+            for (Variable variable : variables) {
+                sb.append(variable.print(indentation)).append("\n");
+            }
+        }
+        if (body != null) {
+            sb.append(body.print(indentation)).append("\n");
+        }
+
+
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

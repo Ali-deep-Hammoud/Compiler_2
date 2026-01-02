@@ -13,4 +13,9 @@ public class NameAtom extends Atom {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String print(String indent) {
+        return super.print(indent) ;
+    }
 }

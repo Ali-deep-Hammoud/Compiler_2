@@ -20,4 +20,18 @@ public class ListExpr extends Expr {
     public List<Expr> getList() {
         return list;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+        if(!list.isEmpty()) {
+            for (Expr expr : list) {
+                sb.append(expr.print(indentation)).append("\n");
+            }
+        }
+
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

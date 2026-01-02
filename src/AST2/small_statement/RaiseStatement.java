@@ -18,4 +18,18 @@ public class RaiseStatement extends FlowStatement {
     public Expr getCause() {
         return cause;
     }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+        if(exception != null) {
+            sb.append(exception.print(indentation)).append("\n");
+        }
+        if (cause != null) {
+            sb.append(cause.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
+    }
 }

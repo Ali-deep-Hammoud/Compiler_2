@@ -2,6 +2,7 @@ package AST2.compound_statement;
 
 import AST2.CompoundStatement;
 import AST2.Expr;
+import AST2.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,23 @@ public class ClassStatement extends CompoundStatement {
 
     public String getName() {
         return name;
+    }
+    @Override
+    public String print(String indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.print(indent)).append("{\n");
+        String indentation = indent + "\t";
+
+        if (!base.isEmpty()) {
+            for (Expr expr : base) {
+                sb.append(expr.print(indentation)).append("\n");
+            }
+        }
+        if (body != null) {
+            sb.append(body.print(indentation)).append("\n");
+        }
+        sb.append(indent).append("}");
+        return sb.toString();
     }
 }
 
