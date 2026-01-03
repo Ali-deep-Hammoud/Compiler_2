@@ -33,11 +33,12 @@ public class CSSRule extends Node{
     public String print(String indent) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(indent).append(super.toString()).append("{\n");
+        String indentation = indent + "\t";
         for (CSSSelector selector : selectors) {
-            stringBuilder.append(indent).append(selector.toString()).append("\n");
+            stringBuilder.append(indentation).append(selector.toString()).append("\n");
         }
         for (CSSDeclaration declaration : declarations) {
-            stringBuilder.append(indent).append(declaration.toString()).append("\n");
+            stringBuilder.append(indentation).append(declaration.toString()).append("\n");
         }
         stringBuilder.append(indent).append("\n");
         stringBuilder.append(indent).append("}\n");

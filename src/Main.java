@@ -18,8 +18,8 @@ import java.io.IOException;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws IOException {
-        /*
-        String source = "Tests/test2.txt";
+
+        String source = "Tests/test1.txt";
         CharStream input = CharStreams.fromFileName(source);
         JinjaHtmlLexer lexer = new JinjaHtmlLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -28,7 +28,7 @@ public class Main {
         JinjaHtmlVisitor visitor = new JinjaHtmlVisitor();
         Program program = (Program) visitor.visit(ast);
         System.out.println(program);
-         */
+         /*
         String source = "Tests/test.txt";
         CharStream input = CharStreams.fromFileName(source);
         PythonLexer lexer = new PythonLexer(input);
@@ -38,5 +38,7 @@ public class Main {
         PythonVisitor visitor = new PythonVisitor();
         AST2.Program program = (AST2.Program) visitor.visit(ast);
         System.out.println(program.print(""));
+
+          */
     }
 }

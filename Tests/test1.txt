@@ -6,11 +6,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            background: #4b4b4b;
         }
 
         nav {
-            background: #333;
+            background: #131313;
             padding: 10px;
         }
 
@@ -36,7 +36,7 @@
 
         .product-card {
             padding: 15px;
-            background: white;
+            background: #c0c0c0;
             border-radius: 8px;
             position: relative;
             text-align: center;

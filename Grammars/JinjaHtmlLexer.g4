@@ -123,6 +123,7 @@ EQUALS : '=';
 COLON  : ':';
 LKB    : '{';
 RKB    : '}';
+COMMA : ',';
 
 PAIRED_TAG
     : 'html' | 'body' | 'head' | 'title'

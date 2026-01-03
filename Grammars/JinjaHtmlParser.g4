@@ -27,8 +27,7 @@ startElement: OST PAIRED_TAG attribute* CT;
 endElement: OET PAIRED_TAG CT;
 singleElement: OST VOID_TAG attribute* CT;
 attribute
-    : ID
-      (EQUALS attributeValue)?
+    : COMMA? ID (EQUALS attributeValue)?
     ;
 
 attributeValue
