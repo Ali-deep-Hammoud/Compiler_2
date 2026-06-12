@@ -8,8 +8,8 @@ DOCTYPE
 JINJA_EXPR_START : '{{' -> pushMode(JINJA_EXPR);
 JINJA_STMT_START : '{%' -> pushMode(JINJA_STMT);
 
-OST : '<'  -> pushMode(TAG);
 OET : '</' -> pushMode(TAG);
+OST : '<'  -> pushMode(TAG);
 
 JINJA_COMMENT : '{#' .*? '#}' -> skip;
 HTML_COMMENT  : '<!--' .*? '-->' -> skip;
@@ -17,10 +17,11 @@ HTML_COMMENT  : '<!--' .*? '-->' -> skip;
 WS : [ \t\r\n]+ -> skip ;
 
 TEXT
-    : ( ~[<{}\n\r]
-      | '{' ~[{%#]
-      | ~[%#}] '}'
-      )+
+    : ~[<{]+
+//    ( ~[<{}\n\r]
+//      | '{' ~[{%#]
+//      | ~[%#}] '}'
+//      )+
     ;
 
 //Jinja Expression mode -----------------------------------------------------------------------
@@ -48,7 +49,8 @@ JINJA_STRING_EXPR
 JINJA_EXPR_WS : [ \t\r\n]+ -> skip ;
 
 JINJA_TEXT
-    : (~[%\n\t])+?
+    : (~[}\n\t%])+
+//    ?
     ;
 
 //Jinja Statement mode -----------------------------------------------------------------------
@@ -73,7 +75,8 @@ JINJA_ELIF     : 'elif';
 JINJA_ELSE     : 'else';
 JINJA_ENDIF   : 'endif';
 
-JINJA_INS      : 'in' | 'not in';
+JINJA_INS      : 'in' ;
+// DELETE ( | 'not in').............
 JINJA_COMPARE : '==' | '!=' | '<' | '>' | '<=' | '>=' | 'is';
 JINJA_LOGIC   : 'and' | 'or';
 JINJA_NOT     : 'not';
@@ -87,13 +90,15 @@ JINJA_ID_STMT
     ;
 
 JINJA_STRING
-    : '"' (~["\\])* '"'
+    : '\'' (~['\\] | '\\' .)* '\''
+    | '"' (~["\\] | '\\' .)* '"'
     ;
 
 JINJA_STMT_WS : [ \t\r\n]+ -> skip ;
 
 JINJA_TEXT_STMT
-    : (~[%\n\t])+?
+    : (~[%\n\t])+
+//    ?
     ;
 
 //Tag mode -----------------------------------------------------------------------
@@ -101,6 +106,8 @@ JINJA_TEXT_STMT
 mode TAG;
 
 CT : '>' -> popMode ;
+
+SELF_CLOSE: '/>' -> popMode ;
 
 
 
@@ -161,6 +168,7 @@ DQ_WS:[ \t\r\n]+ -> skip ;
 DQ_TEXT
     : ~["\\{]+
     ;
+DQ_ESCAPE: '\\' . ;
 //SQ string mode -----------------------------------------------------------------------
 
 mode SQ_STRING;
@@ -179,13 +187,13 @@ SQ_WS: [ \t\r\n]+ -> skip ;
 SQ_TEXT
     : ~['\\{]+
     ;
-
+SQ_ESCAPE: '\\' . ;
 //css mode -----------------------------------------------------------------------
 
 mode CSS;
 
 CSS_END_STYLE
-    : '</style' -> popMode
+    : '</style>' -> popMode
     ;
 
 CSS_LBRACE : '{';

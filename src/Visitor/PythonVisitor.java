@@ -230,10 +230,10 @@ public class PythonVisitor extends PythonParserBaseVisitor {
         for (int i = 0; i < dottedNamesCtx.dotted_as_name().size(); i++) {
             PythonParser.Dotted_as_nameContext dottedCtx =  dottedNamesCtx.dotted_as_name(i);
             StringBuilder name = new StringBuilder();
-            for (int j = 0;j< dottedCtx.dotted_name().NAME().size() - 1;j++){
-                name.append(dottedCtx.dotted_name().NAME().get(j).getText()).append('.');
+            for (int j = 0; j < dottedCtx.dotted_name().NAME().size(); j++) {
+                if (j > 0) name.append('.');
+                name.append(dottedCtx.dotted_name().NAME().get(j).getText());
             }
-            name.append(dottedCtx.dotted_name().NAME().get(dottedCtx.dotted_name().NAME().size() - 1).getText()).append('.');
 
             String alias = null;
             if (dottedCtx.NAME() != null) {
@@ -261,10 +261,10 @@ public class PythonVisitor extends PythonParserBaseVisitor {
 
         if (importFromCtx.dotted_name() != null) {
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0;i<importFromCtx.dotted_name().NAME().size()- 1;i++){
-                stringBuilder.append(importFromCtx.dotted_name().NAME().get(i).getText()).append('.');
+            for (int i = 0; i < importFromCtx.dotted_name().NAME().size(); i++) {
+                if (i > 0) stringBuilder.append('.');
+                stringBuilder.append(importFromCtx.dotted_name().NAME().get(i).getText());
             }
-            stringBuilder.append(importFromCtx.dotted_name().NAME().get(importFromCtx.dotted_name().NAME().size() - 1).getText());
 
             module = stringBuilder.toString();
         }

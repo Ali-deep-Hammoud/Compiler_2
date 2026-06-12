@@ -11,6 +11,14 @@ public abstract class Node {
         return indent + "line- " + this.line + " | name- " + this.name + " ";
     }
 
+    public int getLine() {
+        return line;
+    }
+
+    public String getName1() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "line- " + this.line + " | name- " + this.name + " ";

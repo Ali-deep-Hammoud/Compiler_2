@@ -3,6 +3,7 @@ import json, os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+x = 10
 
 UPLOAD_FOLDER = "static/uploads"
 PRODUCT_FILE = "products.json"

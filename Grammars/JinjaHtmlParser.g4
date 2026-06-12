@@ -43,7 +43,7 @@ inheritanceStart: JINJA_STMT_START JINJA_EXTENDS JINJA_STRING JINJA_STMT_END;
 
 //CSS
 styleStartElement: OST STYLE_TAG;
-styleEndElement: CSS_END_STYLE CT;
+styleEndElement: CSS_END_STYLE | CT;
 styleBody
     : cssRule*
     ;
